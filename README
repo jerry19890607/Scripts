@@ -1,0 +1,27 @@
+reboot.sh
+ssh to host reboot stress test
+
+kenv.sh
+Add cross compile
+usage: 
+1.cd to workspace
+2.source ./kenv.sh [workspace]
+
+cscopefiles
+Create ctag and cscope
+
+
+remote ssh root without password
+	[Client]
+	$ssh-keygen - if no ssh key
+	$cat /root/.ssh/id_rsa.pub - got public key
+	
+	[host]
+	$sudo apt-get install openssh-server
+	$vi /etc/ssh/sshd_config
+		#PermitRootLogin prohibit-password
+		PubkeyAuthentication yes
+	paste clinet public key to host /root/.ssh/authorized_keys
+	
+	[Client]
+	$ssh root@[IP] '[commands]'

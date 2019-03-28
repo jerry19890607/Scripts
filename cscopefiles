@@ -1,0 +1,3 @@
+find ./ -name "*.c" -o -name "*.py" -o -name "*.h" -o -name "*.java" -o -name "*.cpp" -o -name "Makefile" > cscope.files
+cscope -Rbq 
+ctags -R --exclude='*.js'
