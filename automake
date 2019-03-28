@@ -1,0 +1,10 @@
+#!/bin/sh
+
+make -j8; 
+echo "------Make Finished------"
+make uImage;
+echo "------uImage Finished------"
+cp arch/arm/boot/uImage /tftpboot/;
+cp arch/arm/boot/uImage ../../output/kernel/;
+cp drivers/media/platform/aspeed-video.ko ../../output/ImageTree/lib/modules/generic/misc/
+echo "------Finished------"
