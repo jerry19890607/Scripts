@@ -1,0 +1,75 @@
+RealVNC:
+Size: 800*600 (AMI Bios)
+Pixel: depth6(8bpp) rgb222
+Encoding: ZRLE2
+Protocol: 3.8
+VNC Security: No
+Connection type: TCP
+Scaling: Fit window
+
+Quality Low
+view-only off
+Key in from Host
+Frames: 862 - Time: 60000ms - Avg: 14.367 - Min: 1 - Max: 25
+
+Quality Low
+view-only off
+Key in from Client
+Frames: 899 - Time: 60000ms - Avg: 14.983 - Min: 0 - Max: 23
+
+Quality Low
+view-only on
+Key in from Client
+Frames: 955 - Time: 60000ms - Avg: 15.917 - Min: 4 - Max: 28
+
+Quality Medium
+view-only off
+Key in from Client
+Frames: 449 - Time: 60000ms - Avg: 7.483 - Min: 0 - Max: 14
+
+Quality High
+view-only off
+Key in from Client
+Frames: 507 - Time: 60000ms - Avg: 8.450 - Min: 2 - Max: 15
+
+Quality Medium
+Encoding: Raw
+Frames: 465 - Time: 60000ms - Avg: 7.750 - Min: 1 - Max: 14
+
+Quality Medium
+Encoding: Hextile
+Frames: 490 - Time: 60000ms - Avg: 8.167 - Min: 2 - Max: 14
+
+Quality Medium
+Encoding: ZRLE
+Frames: 469 - Time: 60000ms - Avg: 7.817 - Min: 1 - Max: 15
+
+TightVNC:
+Size: 800*600 (AMI Bios)
+Protocol: 3.8
+Scaling: Fit window
+
+view-only on
+Key in from Host
+
+Encoding: Raw
+Frames: 948 - Time: 60000ms - Avg: 15.800 - Min: 2 - Max: 26
+
+Encoding: Hextile
+Frames: 494 - Time: 60000ms - Avg: 8.233 - Min: 1 - Max: 13
+
+Encoding: Tight level 1 (fast)
+Frames: 413 - Time: 60000ms - Avg: 6.883 - Min: 0 - Max: 11
+
+Encoding: Tight level 9 (best)
+Frames: 424 - Time: 60000ms - Avg: 7.067 - Min: 1 - Max: 12
+
+Encoding: RRE
+Frames: 243 - Time: 60000ms - Avg: 4.050 - Min: 0 - Max: 9
+
+Encoding: ZRLE
+Frames: 411 - Time: 60000ms - Avg: 6.850 - Min: 0 - Max: 11
+
+
+
+

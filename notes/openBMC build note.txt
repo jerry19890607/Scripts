@@ -1,0 +1,35 @@
+sudo apt-get install -y git build-essential libsdl1.2-dev texinfo gawk chrpath diffstat
+git clone https://github.com/openbmc/openbmc.git
+cd openbmc
+export TEMPLATECONF=meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/
+
+------bitbake "Do not use Bitbake as root"-----
+vi /hdd/openbmc/poky/meta/classes/sanity.bbclass
+	#if 0 == os.getuid():
+		#raise_sanity_error("Do not use Bitbake as root.", d)
+------------------------------------------------
+create file build/conf/sanity.conf
+. openbmc-env
+bitbake obmc-phosphor-image
+
+Build Configuration:
+BB_VERSION           = "1.38.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "ubuntu-16.04"
+TARGET_SYS           = "arm-openbmc-linux-gnueabi"
+MACHINE              = "evb-ast2500"
+DISTRO               = "openbmc-phosphor"
+DISTRO_VERSION       = "0.1.0"
+TUNE_FEATURES        = "arm armv6 thumb arm1176jzs"
+TARGET_FPU           = "soft"
+meta
+meta-poky
+meta-oe
+meta-networking
+meta-python
+meta-webserver
+meta-phosphor
+meta-aspeed
+meta-evb
+meta-evb-aspeed
+meta-evb-ast2500     = "master:34f5eff17c2c656cc9fea261b2ce60664d019d2d"

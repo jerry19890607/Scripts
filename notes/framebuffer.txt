@@ -1,0 +1,71 @@
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/
+/home/jerry/codebase/trunk_102594_0922/out/fbtest1/
+
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/bootloader/uboot/arch/arm/cpu/arm1176/ast2500/platform.S
+/home/jerry/codebase/trunk_102594_0922/out/fbtest2/Build/bootloader/uboot/arch/arm/cpu/arm1176/ast2500/platform.S
+
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/bootloader/uboot/arch/arm/cpu/astcommon/ast_fb.c
+/home/jerry/codebase/trunk_102594_0922/out/fbtest2/Build/bootloader/uboot/arch/arm/cpu/astcommon/ast_fb.c
+/home/jerry/codebase/trunk_102594_0922/out/origin/Build/bootloader/uboot/arch/arm/cpu/astcommon/ast_fb.c
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/bootloader/uboot/common/main.c
+/home/jerry/codebase/trunk_102594_0922/out/fbtest2/Build/bootloader/uboot/common/main.c
+/home/jerry/codebase/trunk_102594_0922/out/origin/Build/bootloader/uboot/common/main.c
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/bootloader/uboot/include/font_amibootloader.h
+/home/jerry/codebase/trunk_102594_0922/out/fbtest2/Build/bootloader/uboot/include/font_amibootloader.h
+/home/jerry/codebase/trunk_102594_0922/out/origin/Build/bootloader/uboot/include/font_amibootloader.h
+
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/kernel/linux/drivers/mmc/host/sdhci-ast.h
+/home/jerry/codebase/trunk_102594_0922/out/framebuffer/Build/kernel/linux/drivers/mmc/host/sdhci-ast.h
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/kernel/linux/drivers/video/ast/ast_fb_mode.h
+/home/jerry/codebase/trunk_102594_0922/out/framebuffer/Build/kernel/linux/drivers/video/ast/ast_fb_mode.h
+
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/kernel/linux/drivers/video/ast/fb_ioctl.h
+/home/jerry/codebase/trunk_102594_0922/out/framebuffer/Build/kernel/linux/drivers/video/ast/fb_ioctl.h
+
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/kernel/linux/arch/arm/include/asm/soc-ast/hwreg.h
+/home/jerry/codebase/trunk_102594_0922/out/framebuffer/Build/kernel/linux/arch/arm/include/asm/soc-ast/hwreg.h
+
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/kernel/linux/drivers/video/ast/ast_fb.c
+/home/jerry/codebase/trunk_102594_0922/out/fbtest1/Build/kernel/linux/drivers/video/ast/ast_fb.c
+
+
+/home/jerry/codebase/AMI_AST2500_RR11-5-Plus/out/framebuffer/Build/kernel/linux/drivers/video/ast/ast_fb_mode.c
+/home/jerry/codebase/trunk_102594_0922/out/framebuffer/Build/kernel/linux/drivers/video/ast/ast_fb_mode.c
+
+out/Build/之下
+kernel uboot bootloader
+diff -Naur A B > 
+
+Bootloader_basesoc_ast_ex-2.32.0-src patch 1 ast_fb.c
+Bootloader_amiext_ex-2.47.0-src patch 2 main.c
+Kernel_ex-2.16.0-ARM-AST2500-AST2500EVB-src DEFCONFIG
+
+ DEBUG := n
+   2 TARGET := fb_hw
+   3 OBJS := ast_fb.o ast_fb_mode.o
+   4
+   5 -include ${TOOLDIR}/rules/Rules.make.drivers
+
+Build-Depends : Crosscc, kernel_dev, rules, DevNodes
+
+10/7
+souce
+1.GRAPHIC_CRT_MODE (bit 16)
+2.AST_SCU_MISC_CTRL_DAC_SRC (bit 16 17)
+  ast_fb.c 埋code沒找到
+3.AST_SCU_MISC_CTRL
+	fb_hw-1.3.0-ARM-AST-src/data/ast_fb.c
+	libfbctl-1.0.0-ARM-src/data/fbctl.c
+	Kernel_basesoc_ast_ex-2.45.0-src/data/37-drivers_video_ast_ast_fb.c
+	Kernel_oem_ast2500evb_ex-1.1.1-src/data/02-drivers_video_ast_ast_fb.c
+
+Build

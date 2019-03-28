@@ -1,0 +1,41 @@
+[1737 : 1755 INFO]KVM logout from IP:192.168.0.107 user:admin
+
+[1737 : 1754 INFO]no session available
+
+[1737 : 1754 INFO]AVSE Exit
+
+
+target closed connection  errno:0
+disconnect the thread instance [0]
+
+target connection error: Broken pipe
+Instance = 0
+[625 : 625 INFO](procmonitor.c:825) The Process(/usr/local/sbin/lighttpd) stopped, so respawning
+
+WEB is enabled and port numbers are NON-SSL:0x50 SSL:0x1bb
+2017-08-17 02:27:06: (log.c.164) server started
+Instance = 0
+[1737 : 1737 CRITICAL][sessionmgr.c:3545]SESSION INFO NOT AVAILABLE IN ADVISER!!
+
+[1737 : 1737 WARNING][cmdhndlr.c:2118]Session invalid: sending invalid Video session response in Reconnect
+
+----
+================================================================================
+<< Test KVM  #95 >>
+================================================================================
+-Launch KVM
+-Stop KVM
+================================================================================
+<< Test KVM  #96 >>
+================================================================================
+-Launch KVM
+-Stop KVM
+================================================================================
+<< Test KVM  #97 >>
+================================================================================
+-Launch KVM
+-Stop KVM
+--Could not find the "Stop KVM" button.
+FTest is Not Complete.
+
+======================================================================

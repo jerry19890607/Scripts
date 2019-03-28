@@ -1,0 +1,72 @@
+管理整個電腦硬體的其實是作業系統的核心 (kernel)，這個核心是需要被保護的！ 
+所以我們一般使用者就只能透過 shell 來跟核心溝通，以讓核心達到我們所想要達到的工作。
+
+1.硬體：當然就是需要你的硬體有『音效卡晶片』這個配備，否則怎麼會有聲音；
+2.核心管理：作業系統的核心可以支援這個晶片組，當然還需要提供晶片的驅動程式囉；
+3.應用程式：需要使用者 (就是你) 輸入發生聲音的指令囉！
+
+你必須要『輸入』一個指令之後， 『硬體』才會透過你下達的指令來工作！
+所以我們必須要透過『 Shell 』將我們輸入的指令與 Kernel 溝通，
+好讓 Kernel 可以控制硬體來正確無誤的工作！
+
+shell
+分為兩類
+1.命令列介面（CLI）
+2.圖形使用者介面（GUI）
+
+ Linux 使用的這一種版本就稱為『 Bourne Again SHell (簡稱 bash) 』，
+ 這個 Shell 是 Bourne Shell 的增強版本，也是基準於 GNU 的架構下發展出來的！
+ 
+ GNU
+ 是一個完全由自由軟體組成的類UNIX作業系統，由自由軟體基金會推動。
+ 「GNU」是「GNU's Not Unix!」的遞迴縮寫
+ 因為GNU中不包含具著作權的Unix代碼，與Unix不同，是重新撰寫，沒有版權問題的自由軟體。
+ ex: Linux 
+ 
+ 命令別名設定功能： (alias)
+ ex $alias lm='ls -al'
+ 
+ 程式化腳本： (shell scripts)
+ 
+  \[Enter] 換行
+  
+
+  echo ${PATH}  取用變數
+  myname=jerry  設定變數
+  echo ${myname}
+  
+若該變數需要在其他子程序執行，則需要以 export 來使變數變成環境變數：
+『export PATH』
+通常大寫字元為系統預設變數，自行設定變數可以使用小寫字元，方便判斷
+取消變數的方法為使用 unset ：『unset 變數名稱』例如取消 myname 的設定：
+『unset myname』
+
+什麼是『子程序』呢？就是說，在我目前這個 shell 的情況下，去啟用另一個新的 shell ，
+新的那個 shell 就是子程序啦！在一般的狀態下，父程序的自訂變數是無法在子程序內使用的。
+但是透過 export 將變數變成環境變數後，就能夠在子程序底下應用
+
+
+在變數的設定當中，單引號與雙引號的用途有何不同？
+[dmtsai@study ~]$ name=VBird
+[dmtsai@study ~]$ echo $name
+VBird
+[dmtsai@study ~]$ myname="$name its me"
+[dmtsai@study ~]$ echo $myname
+VBird its me
+[dmtsai@study ~]$ myname='$name its me'
+[dmtsai@study ~]$ echo $myname
+$name its me
+
+子程序僅會繼承父程序的環境變數， 子程序不會繼承父程序的自訂變數
+所以你在原本 bash 的自訂變數在進入了子程序後就會消失不見， 
+一直到你離開子程序並回到原本的父程序後，這個變數才會又出現！
+
+history
+[dmtsai@study ~]$ history
+   66  man rm
+   67  alias
+   68  man history
+   69  history 
+[dmtsai@study ~]$ !66  <==執行第 66 筆指令
+[dmtsai@study ~]$ !!   <==執行上一個指令，本例中亦即 !66 
+[dmtsai@study ~]$ !al  <==執行最近以 al 為開頭的指令(上頭列出的第 67 個)

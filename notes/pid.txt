@@ -1,0 +1,23 @@
+ps 
+列出現有處理程序
+
+exec
+取代並關閉前個處理程序
+
+fork
+複製一個pid
+子pid呼叫fork will return 0
+父pid呼叫fork will return pid  用於辨別子父pid
+error return -1
+
+./upper < file.txt
+
+errno=EINVAL 無效訊號
+errno=EPERM 沒有權限
+errno=ESRCH 處理程序不存在
+
+re-entrant 
+多次進入與執行
+
+recursive
+遞迴 呼叫自己

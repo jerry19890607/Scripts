@@ -1,0 +1,44 @@
+//Pilot-III
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/p3_16m_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS0,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/hornetmain_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS0,38400 bigphysarea=6144
+
+//ast2300
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2300evbmain43926_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS4,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2300evbrr7_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS4,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2300evb_2011Q4_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS4,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast1050_1070evb_52320_workspace//Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS4,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2300evb_CIM_32_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS4,38400 bigphysarea=6144
+
+//ast2150
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2150_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS1,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2150evbmain_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS1,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2050evb_kernel_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS1,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2050evb_test_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS1,38400 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/ast2300evb_2011Q4_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyS1,38400 bigphysarea=6144
+
+// RAINIER SH7757
+set bootargs 'root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/rainiermain_workspace/Build/output/ImageTree,tcp,v3 ip=dhcp console=ttyC0,38400 rootfstype=cramfs imagebooted=1'
+set bootargs 'root=/dev/nfs nfsroot=192.168.0.20:/home/jcchiu/SPX/rainiermain_workspace/Build/target,tcp,v3 ip=dhcp console=ttyC0,38400 rootfstype=cramfs imagebooted=1'
+
+//AST2300 PilotIII
+set nfsmode 'tftp 0x1000 uImage;bootm'
+//RAINIER SH7757
+set nfsmode 'tftp 0x81000000 uImage;bootm'
+
+tftp 0x81000000 uImage;bootm
+set bootcmd 'run nfsmode'
+
+//way 2
+//AST2300
+set loadaddr 42000000
+//PilotIII
+set loadaddr 80800000
+//RAINIER SH7757
+set loadaddr 40000000
+
+set bootfile uImage
+save
+
+tftp;bootm
+tftp
+bootm

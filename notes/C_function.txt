@@ -1,0 +1,324 @@
+
+memset();將某一記憶體區段的前 n 個字元全部設定為某一字元。
+memset(s, 'n', 13)  將s前13個字元設為n
+
+strcmp(); 需要兩個字串當作參數，比較兩個字串是否相等，相等就回傳 0，
+	      第一個字串大於第二個字串回傳正值，反之回傳負值。 
+char s[] = "Hello, world!";
+char t[] = "Hello, my friend!";
+int test = strcmp(s, t);
+
+__attribute__((packed));
+計算struct佔掉實際記憶體大小，非優化過後，與sieof()不同
+
+malloc()、free()、calloc() 與 realloc()
+希望在使用到的時候再配置空間給變數，並在變數不使用的時候，
+將變數所佔有的空間還給記憶體
+使用malloc()函式動態配置的空間，在整個程式結束前並不會自動歸還給記憶體，
+您必須使用free()函式將這個空間還給記憶體
+
+// 把datalen大小的記憶體位置轉換為pthread_mutex_t指標，放到session_guard中
+session_guard = (pthread_mutex_t *)malloc(datalen); 
+
+int *arr = malloc(1000 * sizeof(int));
+int *arr = calloc(1000, sizeof(int));
+free(arr);
+
+Semaphore()
+Semaphore可以用於紀錄某一特定資源剩下多少數目可使用；
+process或thread透過semaphore可以安全的使用共享資源，若特定資源已使用完時，
+會需要等待資源被釋放。
+
+Semaphore包含兩種：binary semaphore(二進位信號)和counting semaphore(計數信號)。
+一、binary semaphore(二進位信號)
+binary semaphore值只能是0或1，在邏輯上相當於一個mutex(互斥鎖)。
+
+mutex使用上與binary semaphore具有相同功能，
+但是，mutex主要設計是防止兩個process同時間執行相同的一段code或存取同一資料，
+而binary semaphore設計上則是限制同時間存取同一資源；很多應用上mutex具有
+owner(擁有者)的概念，只有鎖住mutex的process，才具有解鎖的權限；相對的，
+semaphore並無此限制。
+
+二、counting semaphore(計數信號)
+counting semaphore值依據semaphore.h的SEM_VALUE_MAX (semvmx)定義。
+也有作業系統稱作general semaphore。
+
+語法：
+int sem_init(sem_t *sem, int pshared, unsigned int value);
+
+sem_init() initializes the unnamed semaphore at the address pointed
+       to by sem.  The value argument specifies the initial value for the
+       semaphore.
+
+       The pshared argument indicates whether this semaphore is to be shared
+       between the threads of a process, or between processes.
+
+       If pshared has the value 0, then the semaphore is shared between the
+       threads of a process, and should be located at some address that is
+       visible to all threads (e.g., a global variable, or a variable
+       allocated dynamically on the heap).
+
+       If pshared is nonzero, then the semaphore is shared between
+       processes, and should be located in a region of shared memory
+
+說明：
+(1)第一個參數為semaphore的位址，第二個參數為設定semaphore是否可讓不同process使用，
+	第三個參數為semaphore初始值。
+(2)pshared的值為0，不能在process之間共用semaphore，僅能供process的所有thread使用；
+	如果pshared的值不為0，則可以在process之間共用信號。
+(3)初始的semaphore值為1。
+(4)多個thread決不能初始化同一個semaphore。
+(5)不得對其他thread正在使用的semaphore重新初始化。
+
+語法：
+int sem_post(sem_t *sem);
+
+sem_post()成功完成後會回傳0，若回傳值為 -1則表示執行發生錯誤，如果出現下任一情況，該函數將失敗並回傳對應值：
+-EINVAL：未對應到有效的semaphore。
+-ENOSYS：系統不支援sem_post()函數。
+
+語法：
+int sem_wait(sem_t *sem);
+
+sem_wait()成功完成後會回傳0，若回傳值為 -1則表示執行發生錯誤，如果出現下任一情況，該函數將失敗並回傳對應值：
+-EINVAL：未對應到有效的semaphore。
+-ENOSYS：系統不支援sem_wait()函數。
+
+語法：
+int sem_destroy(sem_t *sem);
+
+sem_destroy()成功完成後會回傳0，若回傳值為 -1則表示執行發生錯誤，如果出現下任一情況，該函數將失敗並回傳對應值：
+-EINVAL：未對應到有效的semaphore。
+-EBUSY：仍有process或thread被阻塞(blocked)在該semaphore。
+
+
+pthread_mutex_t()
+互斥量(Mutex)從本質上說就是一把鎖, 提供對共享資源的保護訪問。
+int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restric attr);
+返回值: 成功則返回0, 出錯則返回錯誤編號。
+
+說明: 如果使用默認的屬性初始化互斥量, 只需把attr設為NULL.
+
+加鎖函數:
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+
+解鎖函數:
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+
+返回值: 成功則返回0, 出錯則返回錯誤編號.
+對於動態分配的互斥量, 在申請內存(malloc)之後, 通過pthread_mutex_init進行初始化, 
+並且在釋放內存(free)前需要呼叫pthread_mutex_destroy.
+
+同步資料 lock 的處理機制
+Mutex是一把鑰匙，一個人拿了就可進入一個房間，出來的時候把鑰匙交給隊列的第一個。
+一般的用法是用於串行化對critical section代碼的訪問，保證這段代碼不會被並行的運行。
+Semaphore是一件可以容納N人的房間，如果人不滿就可以進去，如果人滿了，就要等待有人出來。
+對於N=1的情況，稱為binary semaphore。一般的用法是，用於限制對於某一資源的同時訪問。
+
+總體來講, 有幾個不成文的基本原則:
+
+　　對共享資源操作前一定要獲得鎖。
+
+　　完成操作以後一定要釋放鎖。
+
+　　儘量短時間地佔用鎖。
+
+　　如果有多鎖, 如獲得順序是ABC連環扣, 釋放順序也應該是ABC。
+
+read, write, fcntl, close, link, stat, umask, unlink, fopen
+int open(const char * pathname, int flags);
+int open(const char * pathname, int flags, mode_t mode);
+
+
+mmap()
+void *mmap(void *start,size_t length, int prot, int flags, int fd, off_t offsize);
+
+參數start：指向欲映射的核心起始位址，通常設為NULL，代表讓系統自動選定位址，核心會自己在進程位址空間中選擇合適的位址建立映射。
+映射成功後返回該位址。如果不是NULL，則給核心一個提示，應該從什麼位址開始映射，核心會選擇start之上的某個合適的位址開始映射。
+建立映射後，真正的映射位址通過返回值可以得到。
+
+參數length：代表映射的大小。將文件的多大長度映射到記憶體。 
+
+參數prot：映射區域的保護方式。可以為以下幾種方式的組合：
+PROT_EXEC 映射區域可被執行
+PROT_READ 映射區域可被讀取
+PROT_WRITE 映射區域可被寫入
+PROT_NONE 映射區域不能存取
+
+參數flags：影響映射區域的各種特性。在調用mmap()時必須要指定MAP_SHARED 或MAP_PRIVATE。
+MAP_FIXED 如果參數start所指的位址無法成功建立映射時，則放棄映射，不對位址做修正。通常不鼓勵用此旗標。
+MAP_SHARED 允許其他映射該文件的行程共享，對映射區域的寫入數據會複製回文件。
+MAP_PRIVATE 不允許其他映射該文件的行程共享，對映射區域的寫入操作會產生一個映射的複製(copy-on-write)，對此區域所做的修改不會寫回原文件。
+MAP_ANONYMOUS 建立匿名映射。此時會忽略參數fd，不涉及文件，而且映射區域無法和其他進程共享。
+MAP_DENYWRITE 只允許對映射區域的寫入操作，其他對文件直接寫入的操作將會被拒絕。
+MAP_LOCKED 將映射區域鎖定住，這表示該區域不會被置換(swap)。
+
+參數fd：由open返回的文件描述符，代表要映射到核心中的文件。如果使用匿名核心映射時，即flags中設置了MAP_ANONYMOUS，fd設為-1。
+有些系統不支持匿名核心映射，則可以使用fopen打開/dev/zero文件，然後對該文件進行映射，可以同樣達到匿名核心映射的效果。
+
+參數offset：從文件映射開始處的偏移量，通常為0，代表從文件最前方開始映射。
+offset必須是分頁大小的整數倍(在32位體系統結構上通常是4K)。
+
+返回值：
+若映射成功則返回映射區的核心起始位址，否則返回MAP_FAILED(-1)，錯誤原因存於errno 中。
+
+dlopen(); dlsym();
+
+**dlopen() 載入一個dynamic library，並回傳一個handle做為指向library的指標
+**dlsym() 使用dlopen()回傳的handle,回傳記憶體位址
+
+dlopen(), dlsym(), dlclose(), dlerror() 四個函式是執行動態連結載入器的介面函式
+函數 dlopen() 載入一個動態函式庫檔名，並回傳一個"handle"作為動態函式庫的指標，
+如果檔案名為 NULL，則回傳主程式的指標。
+
+dlopen函式所使用的flag參數，必須包括以下兩個值其中之一：
+
+RTLD_LAZY
+執行懶散繫結。只有參照它們的代碼被執行時才解析符號。如果從未被參照的符號，
+它是永遠不會被解析。（此模式只對函式參照有效；對變數的參照則是立即進行函式庫繫結）。
+
+RTLD_NOW
+若是這個值被指定，或是LD_BIND_NOW這個環境變數被設定成一個非空字串，
+所有在函式庫中未定義的符號將在dlopen()返回前被解析，若無法完成解析將傳回錯誤訊息。
+
+下列零或多個值也可與flag值進行OR的(使用 "|" 符號)組合運用：
+
+RTLD_GLOBAL
+函式庫定義的符號可被隨後載入的其他函式庫重新解析定義。
+
+RTLD_LOCAL
+與RTLD_GLOBAL相反，若沒有特別指定，RTLD_LOCAL將為預設值.函式庫定義的
+符號不能被隨後載入的其他函式庫重新解析定義。
+
+RTLD_NODELETE (since glibc 2.2)
+在 dlclose() 執行期間不卸載函式庫。因此，如果函式庫在以後重新使用dlopen()
+載入， 這個函式庫靜態變數將不會重新初始化。
+這個flag在POSIX.1-2001標準中未被指定。
+
+RTLD_NOLOAD (since glibc 2.2)
+不載入函式庫。這可用於測試函式庫是否已經存在 (dlopen() 回傳 NULL表示不
+存在，否則則是已存在)。
+這個flag在POSIX.1-2001標準中未被指定。
+
+RTLD_DEEPBIND (since glibc 2.3.4 )
+在搜索全域符號前先搜索函式庫內的符號
+這個flag在POSIX.1-2001標準中未被指定。
+
+函式 dlsym() 使用dlopen()函式傳回的動態函式庫指標(handle)及
+符號名稱作為函式參數，成功執行後，回傳符號載入到記憶體中的
+位址，如果該符號找不到，dlsym() 則回傳NULL值。
+
+函式 dlclose() 逐步遞減動態函式庫handle指標的參照計數。如果參照計數降到零，沒有其他已載入的函式庫使用符號，這時動態函式庫將被卸載。
+函式 dlclose()回傳值為0代表成功，非0則代表有錯誤發生。
+
+void * memset ( void * ptr, int value, size_t num );
+Fill block of memory
+Sets the first num bytes of the block of memory pointed by ptr to 
+the specified value (interpreted as an unsigned char).
+
+pipe
+當兩個不同的Process要溝通時，我們可以用pipe來達成。簡單來說，pipe就像是一條水管，
+連接兩個Process，其中一端寫入資料到水管，另一端便可從水管中讀出此資料。
+
+pthread_create
+int pthread_create(pthread_t *restrict tidp,const pthread_attr_t *restrict attr,
+void *(*start_rtn)(void),void *restrict arg);
+Returns: 0 if OK, error number on failure
+
+第一個參數為指向線程標識符的指針。
+
+第二個參數用來設置線程屬性。
+
+第三個參數是線程運行函數的起始地址。
+
+第四個參數是運行函數的參數。
+
+strrchr(string,char)
+搜尋string字串裡的char字符,並回傳該位置到字串結束的所有內容
+
+atoi() 
+接受字串當作參數，將字串中的數字轉換為 int 型態的整數
+
+int getaddrinfo(const char *node, // 例如： "www.example.com" 或 IP
+                const char *service, // 例如： "http" 或 port number
+                const struct addrinfo *hints,
+                struct addrinfo **res);
+你給這個函式三個輸入參數，結果它會回傳給你一個指向鏈結串列的指標 － res。
+
+node 參數是要連線的主機名稱，或者一個 IP address（位址）。
+
+下一個參數是 service，這可以是 port number，像是  "80"，或者特定服務的名稱［可以在你 UNIX 系統上的 IANA Port List [17] 或 /etc/services 檔案中找到］，像是  "http" 或 "ftp" 或 "telnet" 或 "smtp" 諸如此類的。
+
+最後，hints 參數指向一個你已經填好相關資訊的 struct addrinfo。
+
+
+struct addrinfo hints, *res;
+int sockfd;
+
+// 首先，用 getaddrinfo() 載入位址結構：
+
+memset(&hints, 0, sizeof hints);
+hints.ai_family = AF_UNSPEC; // use IPv4 or IPv6, whichever
+hints.ai_socktype = SOCK_STREAM;
+hints.ai_flags = AI_PASSIVE; // fill in my IP for me
+
+getaddrinfo(NULL, "3490", &hints, &res);
+
+// 建立一個 socket：
+
+sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+
+// 將 socket bind 到我們傳遞給 getaddrinfo() 的 port：
+
+bind(sockfd, res->ai_addr, res->ai_addrlen);
+
+The steps involved in establishing a socket on the client side are as follows:
+
+Create a socket with the socket() system call
+Connect the socket to the address of the server using the connect() system call
+Send and receive data. There are a number of ways to do this, but the simplest is to use the read() and write() system calls.
+The steps involved in establishing a socket on the server side are as follows:
+
+Create a socket with the socket() system call
+Bind the socket to an address using the bind() system call. For a server socket on the Internet, an address consists of a port number on the host machine.
+Listen for connections with the listen() system call
+Accept a connection with the accept() system call. This call typically blocks until a client connects with the server.
+Send and receive data
+
+pid_t fork();
+       【說　　明】
+
+        此函式被用以創造新程序。新的程序稱為子程序，呼叫此函數者為父程序。
+
+        子程序被創造後會擁有和父程序完全相同的程式和資料（包括寫入或讀取的
+
+        緩衝空間）以及資源（開啟的檔案或共享記憶體），這時子程序猶如執行到
+
+        fork() 瞬間的父程序；換句話說，子程序會從 fork()  出現的該行程式繼
+
+        續執行。唯一的不同點是子程序當時的 fork() 函數傳回 0，而父程序會傳
+
+        回子程序的代碼（pid）。 使用此函式前須先引入 <unistd.h> 標頭檔。
+
+-------------------------------------------------------------------------------------------
+用於struct的運算符號
+
+在如下的結構定義裡,next前面的*不可省略,否則就遞迴定義了,Compiler將無法決定struct list的大小。
+
+struct list {
+    int data;
+    struct list *next; // a pointer to struct list
+};
+
+struct list listOne, listTwo, listThree;
+
+listOne.next = &listTwo;
+listTwo.next = &listThree;
+// 以下想要由listOne設定到listThree的data
+listOne.next.next.data = 0; // 這不合法, 因為.的左邊必須是struct,不可以是pointer
+(*(*listOne.next).next).data = 0; // 這樣寫才對
+你會發現上面的例子中, 如果struct裡面有pointer to struct, 而我們想要用該pointer來存取結構成員時, 就必須很小心的用*和()來表達。由於結構成員包括指向結構的指標(define a pointer to struct in a struct), 是很常見的事情, 這樣的(*(*listOne.next).next).data語法既難寫又難懂, 因此C語言定義了->運算符號。此符號的左邊是一個pointer to struct, 右邊則是該pointer指到的結構成員。->為第一優先權左結合, 因此
+
+(*(*listOne.next).next).data = 0; //這樣寫才對
+listOne.next->next->data = 0; // 這樣寫更漂亮

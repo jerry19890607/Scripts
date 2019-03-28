@@ -1,0 +1,9 @@
+var t0 = performance.now();
+console.time("decode single time");
+
+var t1 = performance.now();
+          console.timeEnd("decode single time");
+          console.log("dec.decode " + (t1 - t0) + " milliseconds.")
+
+
+Session Expired

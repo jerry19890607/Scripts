@@ -1,0 +1,40 @@
+bash# modprobe g_mass_storage file=/root/data/backing_file
+
+Creating a backing storage file
+bash# dd bs=1M count=64 if=/dev/zero of=/root/data/backing_file
+
+Partitioning the backing storage
+bash# fdisk /root/data/backing_file
+
+Creat a new FAT32 patition
+$fdisk backing_file
+$p
+$defalt
+$defalt
+$w
+$mkfs.fat -F 32 backing_file
+
+To summarize it all, the architecture we want to implement will be as follows:
+1.The Linux Mass Storage Gadget will be used to implement a USB storage device accessible by host software.
+2.To ensure that the USB storage content survives power-cycles and resets, the backing file will be in Flash.
+3.To allow upper-level software accessing the backing file transparently and avoid a Flash wear, the backing file will be a normal file in a JFFS2 file system.
+4.The JFFS2 file system will be mounted on a dedicated partition in the NOR Flash.
+5.The backing file will be mounted as a FAT32 file system on both the Linux and host PC sides. On the Linux side, the backing file will be mounted as a FAT2 file system using the "loop" block device.
+
+
+NOTE: The hardware DOES NOT support isochronous transfers it however supports interrupt, bulk and control transfers.
+
+the Pilot4 Hub framework supports only high speed Hub and devices behind it should be High speed only.
+
+The Mass storage UDC uses interrupt number 67
+
+
+Information to build and use the Pilot4 Mass storage UDC and Pilot4 Mass storage gadget
+ Enable the following to be built as modules
+Device Drivers -> USB support ->USB Gadget Support -> pilot4 standalone mass storage device support
+Device Drivers -> USB support ->USB Gadget Support -> Mass Storage Gadget
+ Once the kernel and modules are built, the UDC driver and the gadget drivers are created with “pilot4_mass_storage_udc.ko” and “g_mass_storage.ko”
+ On the pilot4 orion card the UDC diver should be insmod’d first like this “insmod pilot4_mass_storage_udc.ko”
+ The Mass storage gadget exposes a backing file as a mass storage device, the backing file can be created like this on the Pilot4 orion card “dd bs=1M count=8 if=/dev/zero of=/big_backing_file1”
+ Now insmod the gadget driver like this “insmod g_mass_storage.ko file=/big_backing_file1 removable=1”
+ This should show up a mass storage device on the Host system

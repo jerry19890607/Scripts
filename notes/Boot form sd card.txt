@@ -1,0 +1,28 @@
+從SD/MMC開機
+會有兩個ima file 
+XXX_sd.ima
+xxx_sd_mmc.ima
+
+兩個步驟
+1.燒ima進版子
+2.燒mmc.ima進SD card
+----------------------------------------------------------------------------------------------------
+參考附件
+
+AST2500 EVB上燒錄&啟動方式可參考下列步驟~
+
+Steps:
+1.	燒錄“spx-20280486-20150712-ast2500evb.ima(4mb)”在AST2500 EVB上。
+2.	在Linux下透過gparted 將SD card切出五個ext4 format partition。
+3.	執行附件中的cmd將“spx-20280486-20150712-ast2500evb_mmc.ima(50mb)”內容放到第一個partition中。
+*cmd:
+           dd if=../[ima_path]/spx-20280486-20150712-ast2500evb_mmc.ima of=/dev/sdx seek=2048 skip=2048  
+
+*result example:
+90112+0 records in
+90112+0 records out
+46137344 bytes (46 MB) copied, 33.0107 s, 1.4 MB/s
+
+4.	將SD card置於EVB中，重啟BMC即可。
+
+#MegaRAC SP-X SD_eMMC_Boot_Support Unit Test Document 

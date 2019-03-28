@@ -1,0 +1,4 @@
+OpenVNC issue
+*Can't change resolution
+*UltraVMC will disconnect when start a while
+No hid

@@ -1,0 +1,111 @@
+Tftp to ast2500 and flash
+$cp /out/Build/output/rom.ima /tftpboot
+
+Enter uboot
+$print
+$set ethaddr 00:01:02:05:04:05
+$dhcp
+$set serverip 192.168.0.167         (virtualbox IP)
+$set serverip 192.168.0.189
+
+set ethaddr 00:11:11:11:11:01;set eth1addr 00:11:11:11:11:02;dhcp;set serverip 192.168.0.166;save
+set ethaddr 00:11:11:11:11:01;set eth1addr 00:11:11:11:11:02;set ethact pilot_eth1;dhcp;set serverip 192.168.0.166;save
+
+Wolfpass fan cycle dowm
+for i in 0 1 2 3 4 5;do pwmtachtool 0 --set-pwm-dutycycle $i 20 ;done
+
+Power 9 dhcp
+$setenv ncsiport 1
+$ncsi
+user:ADMIN pass:admin
+
+Pilot change eth
+set ethact pilot_eth1;dhcp;save
+set ethact ast_eth1;dhcp;save
+
+Test
+$tftp 0x42000000 rom.ima (ast2500)
+$tftp 0x82000000 rom.ima (orin)
+無法開機時
+(set bootcmd bootfmh)
+
+Flash
+$protect off all
+$protect off bank 1 (orin)
+
+protect off all;erase all;tftp 0x20000000 S5BN31000.ima_enc;tftp 0x23E00000 S5BN31000.ima_enc;save;re
+tftp 0x82000000 rom.ima; protect off all; erase all; cp.b 82000000 20000000 2000000
+
+tftpboot 0x80000000 rom.ima;protect off all;erase 0x20000000 +0x2000000;cp.b 0x80000000 0x20000000 0x2000000;save;re (AST LTS)
+tftpboot 0x80000000 rom.ima;protect off all;erase 0x0 +0x2000000;cp.b 0x80000000 0x0 0x2000000;re (Orion LTS)
+
+tftpboot 0x80000000 obmc.ima;protect off all;erase 0x20000000 +0x2000000;cp.b 0x80000000 0x20000000 0x2000000;saveenv;reset (open BNC)
+
+tftpboot 0x80000000 rom.ima;protect off all;erase 0x20000000 +0x4000000;cp.b 0x80000000 0x20000000 0x4000000;save;re
+
+protect off all;erase all;tftp 0x20000000 rom.ima;save;re
+protect off all;erase 1:0-512;tftp 0x20000000 rom.ima;save;re     (2500,2400(32M))
+protect off all;erase all;tftp 0x20000000 rom.ima;re     (2300(32M))
+protect off all;erase all;tftp 0x20000000 all.bin;save;re 
+protect off bank 1;erase 1:0-512;tftp 0x20000000 rom.ima;save;re (new)
+protect off bank 1;erase 1:0-512;tftp 0x0 rom.ima;save;re     (orion)
+protect off all;erase all;tftp 0x0 rom.ima;save;re
+protect off bank 1;erase all;tftp 0x0 rom.ima;save;re
+
+protect off all;erase 20000000 +4000000;tftp 0x20000000 rom.ima;tftp 0x21F00000 rom.ima;save;
+tftp 0x20000000 rom.ima;tftp 0x21F00000 rom.ima;
+
+/etc/init.d/ipmistack stop;cd /conf/BMC1/ast2500evb_ami/;mv SDR.dat SDR.dat.bak;/etc/init.d/ipmistack restart;cd
+/etc/init.d/ipmistack stop;cd /conf/BMC1/ast2400evb_ami/;mv SDR.dat SDR.dat.bak;/etc/init.d/ipmistack restart;cd
+/etc/init.d/ipmistack stop;cd /conf/BMC1/orion_ami/;mv SDR.dat SDR.dat.bak;/etc/init.d/ipmistack restart;cd
+
+$erase all;tftp 0x20000000 rom.ima;save;re
+$erase 1:0-512;tftp 0x0 rom.ima;save;re  (orin)
+
+$erase all
+$erase 1:0-512 (orin)
+orin有128m 一個section為64k
+
+$tftp 0x20000000 rom.ima (ast2500)
+$tftp 0x0 rom.ima (orin)
+$save
+$re
+
+查看PRJ內容
+out/BUILD/include/projdef.h
+
+SD_burn FW
+//ast2500 //2530 
+tftpboot 0x80000000 rom.ima;protect off all;erase 0x20000000 +0x400000;cp.b 0x80000000 0x20000000 0x400000
+tftp 0x80000000 mmc.ima
+mmc list
+mmc dev 0
+//mmc erase 0x0 0x217ff 
+mmc write 0x80000000 0x0 0x40000
+
+Setting single port in BMC
+$vi /conf/singleport.conf
+Setting single port in UI
+Home -> Settings -> Media Redirection -> Remote Session
+
+Setting Encrypt/Non-Encrypt Media Redirection Packets in BMC
+Disable single port
+$vi /etc/stunnel/stunnel.conf
+$Mark [cdserver] and [hdserver] structure
+-----------------------------------------------------------
+; Service-level configuration
+ciphers=AES256-SHA256:!RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM
+sslVersion = all
+;HW_ENC
+[adviserd]
+accept = :::7582
+connect = 7578
+#[cdserver]
+#accept = :::5124
+#connect = 5120
+#[hdserver]
+#accept = :::5127
+#connect = 5123
+-----------------------------------------------------------
+Setting Encrypt/Non-Encrypt Media Redirection Packets in UI
+Home -> Settings -> Media Redirection -> VMedia Instance Settings

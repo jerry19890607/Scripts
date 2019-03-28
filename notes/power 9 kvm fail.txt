@@ -1,0 +1,845 @@
+U-Boot 2013.07 (May 26 2018 - 17:12:33)
+
+I2C:   ready
+DRAM:  446 MiB
+Disabling Watchdog 2 Timer
+Flash: Found SPI Chip Macronix MX25L25635E(0x1920) 2x I/O READ, NORMAL WRITE
+32 MiB
+MMC:
+Net:   ast_eth0
+DRAM ECC disabled
+Hit any key to stop autoboot:  0
+Un-Protected 1 sectors
+Erasing Flash...
+Erasing sector  4 ... ok.
+Erased 1 sectors
+Writing to Flash... done
+Protected 1 sectors
+Un-Protected 1 sectors
+Erasing Flash...
+Erasing sector  4 ... ok.
+Erased 1 sectors
+Writing to Flash... done
+Protected 1 sectors
+Image to be booted is 1
+conf @ /dev/mtdblock1 Address 20060000
+conf @ /dev/mtdblock2 Address 20160000
+Found Root File System @ /dev/mtdblock3
+Root File System is CRAMFS
+root @ /dev/mtdblock3 Address 20260000
+www @ /dev/mtdblock4 Address 21240000
+extlog @ /dev/mtdblock5 Address 21490000
+Un-Protect Flash Bank # 1
+Booting from MODULE_PIMAGE ...
+Bootargs = [root=/dev/mtdblock3 ro ip=none mem=446M console=ttyS4,115200 rootfstype=cramfs bigphysarea=26624 imagebooted=1]
+## Booting kernel from Legacy Image at 80100000 ...
+   Image Name:   Linux-3.14.17-ami
+   Image Type:   ARM Linux Kernel Image (uncompressed)
+   Data Size:    2793872 Bytes = 2.7 MiB
+   Load Address: 80008000
+   Entry Point:  80008000
+   Loading Kernel Image ... OK
+
+Starting kernel ...
+
+Uncompressing Linux... done, booting the kernel.
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 3.14.17-ami (AMI@localhost) (gcc version 4.6.1 (Sourcery CodeBench Lite 2011.09-70) ) #1 Sat May 26 17:11:39 CST 2018
+[    0.000000] CPU: ARMv6-compatible processor [410fb767] revision 7 (ARMv7), cr=00c5387d
+[    0.000000] CPU: PIPT / VIPT nonaliasing data cache, VIPT nonaliasing instruction cache
+[    0.000000] Machine: AST2500EVB
+[    0.000000] cma: CMA: reserved 48 MiB at 98c00000
+[    0.000000] Memory policy: Data cache writeback
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 113284
+[    0.000000] Kernel command line: root=/dev/mtdblock3 ro ip=none mem=446M console=ttyS4,115200 rootfstype=cramfs bigphysarea=26624 imagebooted=1
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] Memory: 291556K/456704K available (3695K kernel code, 202K rwdata, 1160K rodata, 146K init, 132K bss, 165148K reserved)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     vmalloc : 0xdc000000 - 0xff000000   ( 560 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xdbe00000   ( 446 MB)
+[    0.000000]     modules : 0xbf000000 - 0xc0000000   (  16 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc04c5e84   (4856 kB)
+[    0.000000]       .init : 0xc04c6000 - 0xc04eaa24   ( 147 kB)
+[    0.000000]       .data : 0xc04ec000 - 0xc051e980   ( 203 kB)
+[    0.000000]        .bss : 0xc051e980 - 0xc053fc90   ( 133 kB)
+[    0.000000] SLUB: HWalign=32, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] NR_IRQS:64
+[    0.000000] AST Interrupt Controller Enabled
+[    0.000000] AST Timer Enabled
+[    0.000000] sched_clock: 32 bits at 100 Hz, resolution 10000000ns, wraps every 21474836480000000ns
+[    0.000000] Console: colour dummy device 80x30
+[    0.130000] console [ttyS4] enabled
+[    0.130000] Calibrating delay loop... 789.70 BogoMIPS (lpj=3948544)
+[    0.180000] pid_max: default: 32768 minimum: 301
+[    0.180000] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.190000] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes)
+[    0.200000] CPU: Testing write buffer coherency: ok
+[    0.200000] Setting up static identity map for 0x803a2298 - 0x803a22d0
+[    0.210000] devtmpfs: initialized
+[    0.230000] NET: Registered protocol family 16
+[    0.230000] DMA: preallocated 256 KiB pool for atomic coherent allocations
+[    0.320000] bio: create slab <bio-0> at 0
+[    0.330000] usbcore: registered new interface driver usbfs
+[    0.330000] usbcore: registered new interface driver hub
+[    0.340000] usbcore: registered new device driver usb
+[    0.420000] NET: Registered protocol family 2
+[    0.430000] TCP established hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.440000] TCP bind hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.450000] TCP: Hash tables configured (established 4096 bind 4096)
+[    0.450000] TCP: reno registered
+[    0.460000] UDP hash table entries: 256 (order: 0, 4096 bytes)
+[    0.460000] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes)
+[    0.470000] NET: Registered protocol family 1
+[    0.470000] RPC: Registered named UNIX socket transport module.
+[    0.480000] RPC: Registered udp transport module.
+[    0.480000] RPC: Registered tcp transport module.
+[    0.490000] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    0.500000] futex hash table entries: 256 (order: -1, 3072 bytes)
+[    0.540000] bigphysarea: Allocated 26624 pages at 0xd2080000.
+[    0.560000] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    0.570000] NFS: Registering the id_resolver key type
+[    0.580000] Key type id_resolver registered
+[    0.580000] Key type id_legacy registered
+[    0.590000] jffs2: version 2.2. © 2001-2006 Red Hat, Inc.
+[    0.600000] msgmni has been set to 665
+[    0.610000] alg: No test for stdrng (krng)
+[    0.620000] io scheduler noop registered (default)
+[    0.630000] Serial: 8250/16550 driver, 5 ports, IRQ sharing disabled
+[    0.650000] serial8250: ttyS2 at MMIO 0x1e78e000 (irq = 33, base_baud = 1500000) is a 16550A
+[    0.670000] serial8250: ttyS3 at MMIO 0x1e78f000 (irq = 34, base_baud = 1500000) is a 16550A
+[    0.690000] serial8250: ttyS4 at MMIO 0x1e784000 (irq = 10, base_baud = 1500000) is a 16550A
+[    0.730000] brd: module loaded
+[    0.750000] loop: module loaded
+[    0.760000] Ractrends Flash mapping: 0x02000000 at 0x20000000
+[    0.760000] Flash total banks (1)
+[    0.770000] Probing for Flash at Bank # 0
+[    0.770000] Found SPI Chip Macronix MX25L25635E(0x1920) FAST READ, NORMAL WRITE
+[    0.780000] *PartCount is 0
+[    0.780000] MTD Partition 0 : fullpart @ 0x0 of Size 0x2000000
+[    0.790000] MTD Partition 1 : conf @ 0x60000 of Size 0xf0000
+[    0.790000] MTD Partition 2 : conf @ 0x160000 of Size 0xf0000
+[    0.800000] MTD Partition 3 : root @ 0x260000 of Size 0xd20000
+[    0.800000] MTD Partition 4 : www @ 0x1240000 of Size 0x240000
+[    0.810000] MTD Partition 5 : extlog @ 0x1490000 of Size 0x1f0000
+[    0.820000] Creating 6 MTD partitions on "Ractrends":
+[    0.830000] 0x000000000000-0x000002000000 : "fullpart"
+[    0.840000] 0x000000060000-0x000000150000 : "conf"
+[    0.840000] 0x000000160000-0x000000250000 : "conf"
+[    0.850000] 0x000000260000-0x000000f80000 : "root"
+[    0.860000] 0x000001240000-0x000001480000 : "www"
+[    0.870000] 0x000001490000-0x000001680000 : "extlog"
+[    0.880000] bonding: Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)
+[    0.920000] i2c /dev entries driver
+[    0.930000] sdhci: Secure Digital Host Controller Interface driver
+[    0.930000] sdhci: Copyright(c) Pierre Ossman
+[    0.980000] AST SoC SD/MMC Driver Init Success
+[    0.980000] Netfilter messages via NETLINK v0.30.
+[    0.990000] nfnl_acct: registering with nfnetlink.
+[    0.990000] xt_time: kernel timezone is -0000
+[    1.000000] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    1.000000] arp_tables: (C) 2002 David S. Miller
+[    1.010000] TCP: cubic registered
+[    1.020000] NET: Registered protocol family 10
+[    1.020000] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    1.030000] sit: IPv6 over IPv4 tunneling driver
+[    1.040000] NET: Registered protocol family 17
+[    1.040000] 8021q: 802.1Q VLAN Support v1.8
+[    1.050000] Key type dns_resolver registered
+[    1.060000] VFS: Mounted root (cramfs filesystem) readonly on device 31:3.
+[    1.070000] devtmpfs: mounted
+[    1.070000] Freeing unused kernel memory: 144K (c04c6000 - c04ea000)
+INIT: version 2.88 booting
+Sat Jan  1 00:00:00 UTC 2000
+Creating new /var/tmp/libfeature ...
+[773 : 773 INFO]JFFS2 Workaround: Mounting default conf partition is successful
+
+[773 : 773 INFO]/conf/localtime: Not a Regular File
+
+[    7.200000] POWER9 Dual-Socket Platform
+[    7.230000] Helper Module Driver Version 1.2
+[    7.230000] Copyright (c) 2009-2015 American Megatrends Inc.
+[    7.260000] this is PLATFORM_POWER9
+[    7.260000] The POW Driver is loaded successfully.
+kernel.panic = 5
+net.ipv4.tcp_syncookies = 1
+net.ipv4.tcp_max_syn_backlog = 2048
+net.ipv4.tcp_synack_retries = 3
+Starting Execution Daemon.
+Starting Process Manager.
+ls: /lib/ld-*.so: No such file or directory
+Unable to read configuration file: No such file or directory
+[823 : 823 CRITICAL][procmonitor.c:1358]
+Unable to parse the log
+
+Starting IPMI Stack: IPMIMain [    9.150000] The GPIO Driver is loaded successfully.
+[    9.160000] APSEED AST SoC GPIO HW Driver, (c) 2009-2015 American Megatrends Inc.
+[    9.170000] AST Video Capture Driver, (c) 2009-2015 American Megatrends Inc.
+**** DUAL SOCKET PLATFORM ****
+[878 : 878 INFO]Redfish support is not enabled
+[   10.530000] Reset Common Driver, (c) 2009-2015 American Megatrends Inc.
+[   11.330000] random: nonblocking pool is initialized
+[   12.200000] Registered bus id: i2c-0
+[   12.200000] Registered bus id: i2c-1
+[   12.220000] Registered bus id: i2c-2
+[   12.220000] Registered bus id: i2c-3
+[   12.240000] Registered bus id: i2c-4
+[   12.240000] Registered bus id: i2c-5
+[   12.260000] Registered bus id: i2c-6
+[   12.260000] Registered bus id: i2c-7
+[   12.280000] Registered bus id: i2c-8
+[   12.280000] Registered bus id: i2c-9
+[   12.300000] Registered bus id: i2c-10
+[   12.300000] Registered bus id: i2c-11
+[   12.320000] Registered bus id: i2c-12
+[   12.320000] Registered bus id: i2c-13
+[   12.340000] ADC Driver Version 1.0
+[   12.340000] Copyright (c) 2009-2015 American Megatrends Inc.
+[   12.500000] ADC HW module loaded
+[   12.510000] The Cipher coprocessor driver loaded successfully
+[   12.520000] Watchdog Common Driver, (c) 2010 American Megatrends Inc.
+[   12.530000] Network Interface Monitor Version 2.7.0
+[   12.540000] Copyright (c) 2009-2015 American Megatrends Inc.
+[   12.550000] vuart: module license 'American Megatrends Inc.' taints kernel.
+[   12.550000] Disabling lock debugging due to kernel taint
+[   12.570000] PWMTACH Common Driver, (c) 2009-2015 American Megatrends Inc.
+[   12.590000] Creating 1 MTD partitions on "MX25L51245G":
+[   12.600000] 0x000000000000-0x000004000000 : "PNOR"
+[   12.610000] Configuring the Host SPI Clock to HCLK/16
+[   12.630000] The MailBox Driver is loaded successfully.
+[   12.650000] The MailBox HW Driver is loaded successfully.
+[   12.660000] LPC2AHB Common Driver, (c) 2009-2017 American Megatrends Inc.
+[   12.670000] phy address: 0x94000000
+[   12.760000] BT Common Driver, (c) 2009-2015 American Megatrends Inc...
+[   12.790000] BT hw module loaded
+[   13.420000] Initializing USB Devices
+[   13.420000] USB Device Endpoint Driver
+[   13.420000] Copyright 2006 American Megatrends Inc.
+[   13.440000] USB Driver is Successfully Initialized
+[   13.460000] Loading iUSB Module...
+[   13.480000] Loading CDROM Device Module...
+[878 : 878 INFO]read realy offset=0 ,0
+
+[878 : 958 INFO]INFO: ethaddr MAC Address is GOOD... Backing it up if not available already..
+
+[878 : 958 INFO]INFO: ethaddr MAC Backup file is already present... verifying the MAC integrity..
+
+[878 : 958 INFO]INFO: Switched the VGA Monitor access to Host
+
+[878 : 958 INFO]INFO: BMC IPMI Interface is UNLOCKED. All IPMI Commands will be Permitted
+
+[878 : 958 INFO]=======Time from RTC Registers ====Thu May 31 10:02:58 2018
+
+[878 : 958 INFO]Actual Register contains==> secs:--58;min:--2;hours:--10;day:--4;date:--31;mon:--4;year:--118
+
+[878 : 878 INFO]INFO: Mapped a total of 28 FRUs
+
+[878 : 878 INFO]OCC Monitor thread started successfully...
+
+[878 : 878 INFO]Mboxbridge thread started
+
+[878 : 878 INFO]Checkstop host reset thread started successfully...
+
+[878 : 878 INFO]Monitor VGA Scratch Register thread started successfully...
+
+[878 : 972 CRITICAL][OEMMBoxHandker.c:72]start mboxbridge thread task
+
+[ 2756704.002950992] Flash size MUST be supplied on the commandline. However, continuing by assuming flash is 67108864 bytes
+[878 : 974 CRITICAL][OEMVGAMonitor.c:77]Start monitor VGA scratch register thread task.
+
+[878 : 878 CRITICAL][IfcSupport.c:177]( f3 )command is already present in the Command Hndlr,hence not adding!!!
+
+[878 : 878 CRITICAL][IfcSupport.c:177]( f4 )command is already present in the Command Hndlr,hence not adding!!!
+
+[823 : 834 INFO]Invalid Monitor type for process monitor.
+
+.
+Starting PAM Helper Daemon: PAMHelperD .
+Starting BMC CollectLogs Daemon[995 : 995 INFO]
+Starting the BMC Log Collection Process...
+
+.
+[   18.580000] NCSI Interface Driver Version 1.1
+[   18.580000] Copyright (c) 2009-2015 American Megatrends Inc.
+[   18.620000] NCSI(eth0): Detect NCSI Packages and Channels
+[   21.270000] Manufacturer ID :: (0x3d110000)
+[   21.270000] Manufacturer ID :: (0x3d110000)
+[   21.290000] Manufacturer ID :: (0x3d110000)
+[   21.290000] Manufacturer ID :: (0x3d110000)
+[   23.850000] NC-SI Set Flow Control Command SUCCESS
+[   24.860000] NC-SI Set Flow Control Command SUCCESS
+[   25.910000] NC-SI Set Flow Control Command SUCCESS
+[   26.920000] NC-SI Set Flow Control Command SUCCESS
+Enabling User Specified NCSI Port ...
+[   31.680000] NC-SI Set Flow Control Command SUCCESS
+[   35.930000] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
+starting iptables...
+Restoring normal configuration..
+/conf/iptables.conf Success
+starting ip6tables...
+Success.
+[   36.760000] bonding: bond0 is being deleted...
+[   36.790000] bonding: bond0: released all slaves
+Interface lo is going to go up
+Interface lo is up
+IPv6 entry is not present in interfaces file
+Interface eth0 is going to go up
+Calling udhcpc....
+DHCP internal = 0
+udhcpc (v1.21.1) started
+Sending discover...
+Sending select for 192.168.0.133...
+Lease of 192.168.0.133 obtained, lease time 604800
+serverid:  192.168.0.1
+Address   :  192.168.0.133
+Netmask   :  255.255.255.0
+deleting routers
+Router    :  192.168.0.1
+Domain    :  tw.megatrends.com
+DnsServer :  192.168.0.1
+No NTP support
+Interface eth0 is up
+Interface eth0 is going to go up
+DNS Registering AMI005863265869.tw.megatrends.com 192.168.0.133 A 0
+ calling dhcp6c....
+Interface eth0 is up
+Running ntpdate to synchronize clock :
+DNS Registering AMI005863265869.tw.megatrends.com 192.168.0.133 A 0
+Trying NTP Server pool.ntp.org :[1331 : 1331 WARNING][nsupdate.c:297]No nameserver found for the requested zone
+
+Success
+Starting UART Mirror Log application[1255 : 1255 WARNING][libnsupdate.c:551]Timeout.....
+
+[1391 : 1391 INFO]UART Logging from device: /dev/vuart into File: /var/sollog/SOLHostCapture.log
+
+[1391 : 1391 INFO]UART Mirroring from device : /dev/vuart To device :/dev/ttyS3
+
+[   55.970000] FB: got physical memory pool for size (8388608 on d8000000 virtual/98000000 bus)
+[   56.020000] Console: switching to colour frame buffer device 100x37
+jerry line(82) function(open_tty_fb_device)
+[1391 : 1391 INFO]INFO: Setting the Attributes for the UART...
+
+jerry line(414) function(create_threads)
+jerry line(417) function(create_threads)
+[1391 : 1408 INFO]Send Thread: Starting the thread to mirror data from /dev/vuart to /dev/ttyS3
+
+jerry line(485) function(vga_mirror_uart_data)
+[1391 : 1412 INFO]VGA Mirror UART Thread: Starting the thread to VGA Mirror the UART Data...
+
+jerry line(497) function(vga_mirror_uart_data)
+[1391 : 1409 INFO]Recv Thread: Starting the thread to mirror data from /dev/ttyS3 to /dev/vuart
+
+[1391 : 1410 INFO]Archive Thread: Starting the thread to archive the Serial data from Rolling Buffers upon request
+
+[1391 : 1411 INFO]Log UART Thread: Starting the thread to Log the UART Data...
+
+rsync for UART Logging is not running. So, starting new.
+Starting OpenSLP server: Setting up watches.  Beware: since -r was given, this may take a while!
+Watches established.
+slpd.
+Starting Syslog Monitor Daemon: SyslogMonitorD.
+INIT: Entering runlevel: 3
+Starting NTP server: ntpd.
+Starting enhanced syslogd: rsyslogd.
+Starting DHCP monitor.
+Starting OpenBSD Secure Shell server: sshd.
+Starting SSL tunnels: stunnelClients allowed=500
+stunnel 4.53 on arm-unknown-linux-gnueabi platform
+Compiled/running with OpenSSL 1.0.1e 11 Feb 2013
+Threading:PTHREAD SSL:+ENGINE+OCSP Auth:LIBWRAP Sockets:POLL+IPv6
+Reading configuration from file /etc/stunnel/stunnel.conf
+Failed to get compression methods
+PRNG seeded successfully
+Initializing inetd mode configuration
+Insecure file permissions on /conf/certs/privkey.pem
+Certificate: /conf/certs/server.pem
+Certificate loaded
+Key file: /conf/certs/privkey.pem
+Private key loaded
+Could not load DH parameters from /conf/certs/server.pem
+Using hardcoded DH parameters
+DH initialized with 2048-bit key
+ECDH initialized with curve prime256v1
+SSL options set: 0x00000004
+Inetd mode must have 'connect' or 'exec' options
+str_stats: 11 block(s), 222 data byte(s), 462 control byte(s)
+[Failed: /etc/stunnel/stunnel.conf]. Check if pid= is specified in the file
+Starting VM Application: vmapp
+[   67.410000] Loading Floppy Device Module...
+[   68.450000] [sched_delayed] sched: RT throttling activated
+[   68.600000] Loading Hdisk Device Module...
+Stopping CD Redirection Server: cdserver.
+Stopping FD Redirection Server: fdserver.
+Stopping HD Redirection Server: hdserver.
+[   70.260000] dev 0 does not connect to host
+[   71.270000] dev 1 does not connect to host
+[   72.270000] dev 2 does not connect to host
+Starting CD Redirection Server: cdserver
+Number of Virtual CD Devices = 4
+Starting FD Redirection Server: fdserver
+Number of Virtual FD Devices = 1
+Starting HD Redirection Server: hdserverStarting CD Redirection Server: cdserver
+Number of Virtual HD Devices = 4
+Starting FD Redirection Server: fdserverStarting HD Redirection Server: hdserverStarting Video Redirection Server :adviserd.
+Starting Firmware Upgrade Utility: flasher.
+[   77.550000] Loading HID Device Module...
+[   77.550000] UsbConfigureLS(): USB Device 3 is running in Low Speed
+MegaRAC Firmware Upgrade Utility
+Copyright (c) 2009-2015 American Megatrends Inc.
+FlashStart      = 0x20000000
+FlashSize       = 0x2000000
+UsedFlashStart  = 0x20000000
+UsedFlashSize   = 0x2000000
+EnvStart        = 0x20040000
+EnvSize         = 0x10000
+Starting Component Manager.
+Starting periodic command scheduler: cron.
+Lighttpd configurations exists
+[1726 : 1726 CRITICAL][compmngrhostboot.c:573]OEM extension loaded successfully
+
+WEB is enabled and port numbers are NON-SSL:0x50 SSL:0x1bb
+2018-05-31 06:04:06: (log.c.164) server started
+Starting lighttpd
+Starting Fail Safe Services for /bkupconf
+Starting the Extlog Log Rotating Service...
+Setting up watches.  Beware: since -r was given, this may take a while!
+Watches established.
+Starting Boot Complete.
+
+AMI005863265869 login: [1683 : 1720 INFO]kvm Login from IP:192.168.0.120 user:ADMIN
+
+could not unlink the pipecould not unlink the pipecould not unlink the pipe[1683 : 1720 INFO]Adviserd:Initializing Encryption Handle
+
+[878 : 977 INFO]INFO: Clearing the OEM SEL Event Buffer...
+[878 : 977 INFO]INFO: Event Message Buffer is already Empty...
+[878 : 977 INFO]POWER ON CHASSIS
+
+[878 : 977 INFO]Booting from Primary side of PNOR...
+
+[878 : 977 INFO]Starting the Workaround sequence for Power9 Power ON
+
+[878 : 977 INFO]AVS Workaround
+
+[878 : 977 INFO]AVS Bus Disable
+
+[878 : 977 INFO]VRM Control
+
+[878 : 977 INFO]AVS Enable
+
+[878 : 977 INFO]Sleeping for 1 second for the Targets to get ready...
+
+[878 : 977 INFO]P9 Master CPU ID=0x220D1049
+[878 : 977 INFO]P9 CPU Count:2
+
+[878 : 977 INFO]Boot from SBE side 0
+
+
+jerry [185] switch_vga_to_bmc retval = 0x0
+jerry [199] switch_vga_to_bmc data = 0x250080
+
+
+jerry [210] libuartlogging
+[878 : 977 INFO]INFO: Switched the VGA Monitor access to BMC
+
+[878 : 965 INFO]dev_psu_1_stat_read: PSU1 PSStatusWordPGFlag set
+
+[878 : 965 INFO]dev_psu_1_stat_read: PSU1 PSStatusWordPGFlag set
+
+[  113.290000] BMC has taken Ownership of the VGA Device
+[  113.300000] Mode Detected: 800 x 600
+[  113.310000] Band Width is enough
+[  114.310000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  114.340000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  114.340000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  114.520000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  114.670000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  114.840000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  114.960000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  115.100000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  115.270000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  115.460000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  115.620000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  115.770000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  115.920000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  116.100000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  116.250000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  116.400000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  116.540000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  116.710000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  116.850000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  116.990000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  117.140000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  117.280000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  117.450000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  117.610000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  117.760000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  117.920000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  118.100000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  118.270000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  118.480000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  118.640000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  118.780000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  118.920000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  119.080000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  119.220000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  119.360000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  119.560000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  119.710000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  119.860000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  120.000000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  120.140000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  120.280000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  120.420000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  120.570000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  120.710000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  120.900000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  121.040000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  121.170000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  121.310000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  121.460000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  121.610000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  121.760000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  121.900000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  122.040000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  122.230000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  122.410000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  122.560000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  122.710000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  122.850000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  123.000000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  123.140000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  123.260000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  123.400000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  123.580000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  123.780000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  123.900000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  124.030000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  124.250000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  124.460000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  124.650000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  124.800000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  125.040000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  125.210000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  125.480000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  125.930000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  126.190000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  126.410000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  126.610000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  126.840000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  127.310000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  127.650000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  127.790000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  127.990000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  128.160000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  128.340000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  128.500000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  128.790000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  128.960000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  129.120000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  129.300000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  129.460000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  129.710000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  129.880000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  130.260000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  130.540000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  130.790000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  130.940000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  131.120000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  131.270000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  131.480000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  131.740000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  131.950000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  132.200000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  132.360000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  132.560000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  132.770000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  132.990000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  133.110000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  133.250000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  133.440000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  133.560000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  133.710000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  133.930000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  134.180000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  134.430000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  134.650000] return ASTCAP_IOCTL_BLANK_SCREEN
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+[  135.210000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  135.400000] return ASTCAP_IOCTL_BLANK_SCREEN
+[878 : 959 INFO]>>FAN-OVERRIDES: Decrease interval = 30sec (cycle = 6)
+
+[878 : 959 INFO]FAN-OVERRIDES: No overrides, file not present
+
+[878 : 959 INFO]FAN-OVERRIDES: Using zone 0 values(Low:70, High:73, Drop:40, Inc:400)
+
+[878 : 959 INFO]FAN-OVERRIDES: Using zone 1 values(Low:71, High:74, Drop:40, Inc:200)
+
+[878 : 959 INFO]FAN-OVERRIDES: Using zone 2 values(Low:75, High:78, Drop:40, Inc:600)
+
+[878 : 959 INFO]FAN-OVERRIDES: Using zone 3 values(Low:0, High:0, Drop:0, Inc:0)
+
+[878 : 959 INFO]<<FAN-OVERRIDES: Decrease interval = 30sec (cycle = 6)
+
+[  135.530000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  135.660000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  135.860000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  136.180000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  136.330000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  136.520000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  136.680000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  137.020000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  137.190000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  137.400000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  137.650000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  137.880000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  138.080000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  138.280000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  138.460000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  138.990000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  139.110000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  139.310000] return ASTCAP_IOCTL_BLANK_SCREEN
+[  139.550000] return ASTCAP_IOCTL_BLANK_SCREEN
+[1683 : 1720 INFO]KVM logout from IP:192.168.0.120 user:ADMIN
+
+[1683 : 1719 INFO]no session available
+
+[1683 : 1719 INFO]AVSE Exit
+
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+
+jerry [255] libuartloggingi uartlog.c
+jerry line(261) function(mirror_uart_to_vga_monitor)
+jerry [126] is_vga_owned_by_bmc
+jerry [130] is_vga_owned_by_bmc > success
+jerry line(82) function(open_tty_fb_device)
+jerry line(271) function(mirror_uart_to_vga_monitor)
+jerry line(274) function(mirror_uart_to_vga_monitor)
+jerry line(279) function(mirror_uart_to_vga_monitor)
+jerry line(289) function(mirror_uart_to_vga_monitor)
+jerry line(293) function(mirror_uart_to_vga_monitor)
+jerry line(497) function(vga_mirror_uart_data)
+[878 : 977 INFO]POWER OFF CHASSIS
+
+[878 : 977 INFO]Performing the P[  150.430000] LPC RESET
+ower9 Power OFF Sequence
+
+PDK LPC Reset is invoked
+[878 : 977 INFO]INFO: Clearing the OEM SEL Event Buffer...
+[878 : 977 INFO]INFO: Event Message Buffer is already Empty...
+[878 : 977 CRITICAL][OEMMBoxHandker.c:173]restart_lpc_mapping_ahb
+
+[878 : 939 CRITICAL][BTIfc.c:69] LPC Reset Occurred
+
+bt:972: /usr/local/bin/IPMIMain() [0x2095c]
+bt:972: /lib/arm-linux-gnueabi/libc.so.6(__default_sa_restorer_v2+0) [0xb5d75d90]
+bt:972: /usr/local/lib/libmailbox_ibm.so.1(write_from_window+0xe4) [0xb5a95bb4]
+bt:972: /usr/local/lib/libmailbox_ibm.so.1(+0x2a54) [0xb5a94a54]
+bt:972: /usr/local/lib/libmailbox_ibm.so.1(dispatch_mbox+0x2e4) [0xb5a95274]
+bt:972: /usr/local/lib/libipmioemhelper.so(+0x1fd08) [0xb5b0dd08]
+[878 : 972 CRITICAL][SignalHndlr.c:118]  Thread 972 (IPMIMain) received SIGSEGV
+
+[878 : 972 CRITICAL][SignalHndlr.c:119]  IPMIMain is terminating because of SIGSEGV !!!!!
+
+[  154.510000] NCSI(eth0): Link is Up
+[  154.510000] NCSI(eth0): 1000Base-T Full Duplex
+DHCP monitor: Renewing eth0 interface for IPv4
+DHCP monitor: Renewing eth0 interface for IPv6
+RTNETLINK answers: File exists
+Renewing DNS for eth0 interface.
+[823 : 823 INFO](procmonitor.c:806) The Process(/usr/local/bin/IPMIMain) stopped, so respawning
+
+**** DUAL SOCKET PLATFORM ****
+[2668 : 2668 INFO]Redfish support is not enabled
+[2668 : 2668 INFO]read realy offset=0 ,0
+
+[2668 : 2751 INFO]INFO: ethaddr MAC Address is GOOD... Backing it up if not available already..
+
+[2668 : 2751 INFO]INFO: ethaddr MAC Backup file is already present... verifying the MAC integrity..
+
+[2668 : 2751 INFO]INFO: Switched the VGA Monitor access to Host
+
+[2668 : 2751 INFO]INFO: BMC IPMI Interface is UNLOCKED. All IPMI Commands will be Permitted
+
+[2668 : 2751 INFO]=======Time from RTC Registers ====Thu May 31 10:05:30 2018
+
+[2668 : 2751 INFO]Actual Register contains==> secs:--30;min:--5;hours:--10;day:--4;date:--31;mon:--4;year:--118
+
+[2668 : 2668 INFO]INFO: Mapped a total of 28 FRUs
+
+[2668 : 2668 INFO]OCC Monitor thread started successfully...
+
+[2668 : 2668 INFO]Mboxbridge thread started
+
+[2668 : 2668 INFO]Checkstop host reset thread started successfully...
+
+[2668 : 2668 INFO]Monitor VGA Scratch Register thread started successfully...
+
+[2668 : 2809 CRITICAL][OEMVGAMonitor.c:77]Start monitor VGA scratch register thread task.
+
+[2668 : 2807 CRITICAL][OEMMBoxHandker.c:72]start mboxbridge thread task
+
+[ 3005680.003004248] Flash size MUST be supplied on the commandline. However, continuing by assuming flash is 67108864 bytes
+[2668 : 2668 CRITICAL][IfcSupport.c:177]( f3 )command is already present in the Command Hndlr,hence not adding!!!
+
+[2668 : 2668 CRITICAL][IfcSupport.c:177]( f4 )command is already present in the Command Hndlr,hence not adding!!!
+
+file has vanished: "/conf/BMC1/amicfg.ini.tmp"
+rsync warning: some files vanished before they could be transferred (code 24) at main.c(1070) [sender=3.0.9]
+

@@ -1,0 +1,10 @@
+製作usb開機碟
+內必須有
+*socflash.exe
+*rom.ima
+
+插入usb  開機進入dos模式
+$cd doskey\
+$socflash.exe if=rom.ima
+($socflash.exe -s rom.ima)
+跑完即可

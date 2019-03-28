@@ -1,0 +1,251 @@
+trace code 
+1.Add code in main.c
+  $printf("jerry[%s][%s][%d]\n",__FILE__,__func__,__LINE__);
+  $printf("jerry [%d] [%s]\n",__LINE__,__func__);	
+2.Build
+  $../BuildPRJ/BuildPRJ.py configs/ast2500evb.PRJ packages/ out/ BUILD
+3.Mount 
+  $mount -o nolock -t nfs 172.16.56.234:/home/jerry/codebase/AST2500-RR11-Plus/out/0518_html5/Build/output/ImageTree/usr/local/bin /usr/local/bin
+  $mount -o nolock -t nfs 172.16.56.234:/home/jerry/codebase/AST2500-RR11-Plus/out/0518_html5/Build/output/ImageTree/usr/local/www /usr/local/www
+
+mount -o nolock -t nfs 192.168.0.167:/home/jerry/codebase/trunk_97328_0530/out/decode2.46/Build/output/ImageTree/usr/local/bin /usr/local/bin
+mount -o nolock -t nfs 192.168.0.167:/home/jerry/codebase/trunk_97328_0530/out/decode2.46/Build/output/ImageTree/usr/local/www /usr/local/www
+mount -o nolock -t nfs 192.168.0.167:/home/jerry/codebase/trunk_97328_0530/out/decode2.46/Build/output/ImageTree/usr/local/lib /usr/local/lib
+
+mount -o nolock -t nfs 192.168.0.167:/home/jerry/codebase/trunk_97328_0530/out/h5/Build/output/ImageTree/lib/modules/generic/misc /lib/modules/generic/misc
+
+driver mount
+mount -o nolock -t nfs 192.168.0.167:/home/jerry/codebase/trunk_97328_0530/out/JViewer0531/Build/output/ImageTree/lib/modules/generic/misc /lib/modules/generic/misc
+out/Build/output/ImageTree/etc/rc3.d  S3* S45 移除
+
+4.Restart
+  $/etc/init.d/adviserd.sh restart
+  $/etc/init.d/lighttpd.sh restart
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+NFS Booting AST2500
+$set bootargs root=/dev/nfs nfsroot=192.168.0.167:/home/jerry/codebase/trunk_97328_0530/out/JViewer0531/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+/home/jerry-quad/hdd/trunk_0907_176380
+out/verify_session_issue/
+
+----NFS----
+uImage to tftp
+$set bootargs root=/dev/nfs nfsroot=192.168.0.166:/hdd/codebase/trunk_0907_176380/out/verify_session_issue/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.166:"workspace"/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.166:/home/jerry-quad/hdd/core_1101_184666/out/videorecord/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.166:/hdd/codebase/wolfpass_1105/out/videorecording/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+
+$set bootcmd run nfsmode;save
+(set bootcmd bootfmh)
+$set nfsmode 'set ethact pilot_eth1;tftp 0x81000000 uImage;bootm'
+$set nfsmode 'set ethact pilot_eth1;tftp 0x81000000 uImage;bootm'
+
+
+$tftp 0x8000000 uImage;bootm(2500)
+tftp 0x43000000 uImage;bootm(2300)
+
+cat /proc/cmdline
+bond0 -> eth0
+/conf/ncml
+/conf/interfaces
+-----NFS----
+set bootargs root=/dev/nfs nfsroot=192.168.0.166:Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.166:/home/jerry-quad/codebase/trunk_130766_1011/out/sharefolder_issue/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.166:/home/jerry-quad/codebase/trunk_131271_1016/out/sharefolder/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.166:/home/jerry-quad/codebase/trunk_128455_0908_cdInstance/out/cdInstance/Build/output/ImageTree ip=dhcp console=ttyS4,115200 bigphysarea=6144
+$set loadaddr 42000000
+$set loadaddr 81000000
+$set bootfile uImage
+$set nfsmode 'ncsi;dhcp;tftp 0x82000000 uImage;save;bootm'
+set nfsmode 'tftp 0x81000000 uImage;bootm'
+set nfsmode 'tftp 0x42000000 uImage;bootm'
+(set bootcmd bootfmh)
+-------------------------------------
+解決rs232一直跳出warning
+1.關掉ipmi
+$/etc/init.d/ipmistack stop
+2.把SDR.dat.bak改名
+$cd /conf/BMC1/orion_ami/
+$cd /conf/BMC1/ast2500evb_ami/
+$mv SDR.dat SDR.dat.bak
+$/etc/init.d/ipmistack restart
+
+/etc/init.d/ipmistack stop;cd /conf/BMC1/ast2500evb_ami/;mv SDR.dat SDR.dat.bak;/etc/init.d/ipmistack restart
+------------------------------------
+解決網路變換無法用NFS MODE DEBUG
+解法: 在bmc create tmpfs (/mnt)，把code mount 到/mnt，在hard link 到 /user/local/sbin
+1.mount -t tmpfs -o size=1m none /mnt/
+2.mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/sbin1 /mnt
+3.mount -o bind /mnt/ /usr/local/sbin
+------------------------------------
+Extracts SPX File into Output Direcory
+回到純淨的Build
+$PackSPX.py -x packages/JViewer_common-2.112.0-src.spx new/source/JViewer_common-2.112.0-src/
+
+PackSPX.py 解開或是打包
+
+out內會有.pristine/
+當第一次build code時，會copy一份與source相同的src檔
+當之後source有些改會與.pristine/做比較
+有變更的地方才需要重build
+------------------------------------
+
+-------------------------------------------------------
+ABOUT DEBUG MSG (Jacascript console)
+source/lighttpd/data/.workspace/lighttpd/src/server.c
+mark 2 lines:
+openDevNull(STDIN_FILENO);
+openDevNull(STDOUT_FILENO);
+-------------------------------------------------------
+lghtted無法開啟
+WEB is enabled and port numbers are NON-SSL:0x50 SSL:0x1bb
+2012-01-01 00:00:21: (network.c.297) socketsockopt failed: No such device
+$vi /conf/ncml.conf
+$interface_name=bond0 -> interface_name=eth0
+-------------------------------------------------------
+mount 可在conf下create shell 直接執行
+
+#!/bin/sh
+
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/bin3 /usr/local/bin
+/etc/init.d/lighttpd.sh restart
+/etc/init.d/adviserd.sh restart
+df -h
+mount -t nfs -o nolock,soft,timeo=5,retry=5 "192.168.0.189:/home/smbuser" "/usr/local/rmedia/hd/"
+-------------------------------------------------------------------------------------
+#!/bin/sh
+/etc/init.d/adviserd.sh  stop
+/etc/init.d/adviserd.sh  stop
+rmmod videocap
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/bin2 /usr/local/bin
+#mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/www5 /usr/local/www
+#mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/misc5 /lib/modules/generic/misc
+insmod /lib/modules/generic/misc/videocap.ko
+/etc/init.d/lighttpd.sh restart
+/etc/init.d/adviserd.sh restart
+#/etc/init.d/cdserver restart
+df -h
+-------------------------------------------------------------------------------------
+#!/bin/sh
+/etc/init.d/adviserd.sh stop
+/etc/init.d/adviserd.sh stop
+rmmod videocap
+insmod /lib/modules/generic/misc/videocap.ko
+/etc/init.d/adviserd.sh start
+-------------------------------------------------------------------------------------
+mkdir tmp;chmod 777 tmp;mount -o nolock -t nfs 192.168.0.189:/home/jerry/VboxShare/sf_virtualbox_share/ tmp/;cp frame* tmp/
+
+H5Viewer_common-2.173.0-src/data/libs/DataStream.js
+H5Viewer_common-2.173.0-src/data/libs/DataStream.js
+85480
+
+mount -o nolock -t nfs 192.168.0.189:/home/jerry/codebase/trunk_109974_0113/out/sync//Build/output/ImageTree/usr/local/www /usr/local/www
+
+/etc/init.d/adviserd.sh restart;/etc/init.d/lighttpd.sh restart
+
+
+; Service-level configuration
+ciphers=AES256-SHA256:!RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM
+sslVersion = all
+;HW_ENC
+[adviserd]
+accept = :::7582
+connect = 7578
+[cdserver]
+accept = :::5124
+connect = 5120
+[hdserver]
+accept = :::5127
+connect = 5123
+
+
+Service-level configuration
+ciphers=AES256-SHA256:!RC4:HIGH:!MD5:!aNULL:!EDH:!AESGCM
+sslVersion = all
+;HW_ENC
+[adviserd]
+accept = :::7582
+connect = 7578
+-------------------------------------------------------------------------------------
+#!/bin/sh
+
+/etc/init.d/adviserd.sh  stop
+/etc/init.d/adviserd.sh  stop
+#rmmod videocap
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/www2 /usr/local/www
+#mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/bin2 /usr/local/bin
+#mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/misc3 /lib/modules/generic/misc
+#insmod /lib/modules/generic/misc/videocap.ko
+/etc/init.d/lighttpd.sh restart
+/etc/init.d/adviserd.sh restart
+#/etc/init.d/cdserver restart
+df -h
+-------------------------------------------------------------------------------------
+#!/bin/sh
+
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/bin4 /usr/local/bin
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/www9 /usr/local/www
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/lib4 /usr/local/lib
+
+#/etc/init.d/webgo.sh restart
+#/etc/init.d/vmscript restart
+/etc/init.d/lighttpd.sh restart
+/etc/init.d/adviserd.sh restart
+#/etc/init.d/cdserver restart
+-------------------------------------------------------------------------------------
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/tmp/register /conf/register
+
+for i in $(seq 100); do dd if=/dev/zero of=${i}.txt bs=1M count=1; done
+
+mount -o nolock -t nfs 192.168.0.189:/home/jerry/codebase/RR11-8_121090/out/h5viewer/Build/output/ImageTree/lib/modules/generic/misc /lib/modules/generic/
+
+mount -o nolock -t nfs 192.168.0.189:/home/jerry/codebase/trunk_121906_0728_EIP351100/out/eip/Build/output/ImageTree/usr/local/lib /usr/local/lib
+
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/codebase/trunk_128455_0908_cdInstance/out/cdInstance/
+
+mount -o nolock -t nfs 192.168.0.166:/home/jerry/abc /conf/abc
+
+/conf/strace -f -p `ps auxw -T | grep light | grep -v grep | awk '{ print $3 }' | head -n2 | tail -n1` -p `ps auxw -T | grep light | grep -v grep | awk '{ print $3 }' | head -n1`
+
+arm-linux-gnueabi-gcc
+
+
+tar zxvf tar.gz
+./configure --host=arm-linux CC=arm-linux-gnueabi-gcc LD=arm-linux-gnueabihf-ld.bfd
+make CFLAGS="-static"
+arm-linux-strip strace  ,  縮減strace的size
+
+./configure --build x86_64-pc-linux-gnu --host CC=arm-linux-gnueabi-gcc LD=arm-linux-gnueabihf-ld.bfd LDFLAGS="-static"
+
+./configure --build x86_64-pc-linux-gnu --host=arm-linux CC=arm-linux-gnueabi-gcc LD=arm-linux-gnueabihf-ld LDFLAGS="-static"
+
+arm-none-eabi-gcc
+arm-none-eabi-ld
+
+tar Jxvf
+./configure --build x86_64-pc-linux-gnu --host=arm-linux -prefix=/home/jerry/test/gdb/ CC=arm-none-eabi-gcc LD=arm-none-eabi-ld
+
+udhcpc
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/tmp /conf/mount
+mount /dev/mmcblk0p1 /conf/SDCARD/
+
+udhcpc;mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/tmp /conf/mount;mount /dev/mmcblk0p1 /conf/SDCARD/
+
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/scu /conf/aa
+
+
+------
+#!/bin/sh
+
+rmmod eth
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/sbin1 /usr/local/sbin
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/symbolic/misc1 /lib/modules/generic/misc
+insmod /lib/modules/generic/misc/eth.ko
+
+/etc/init.d/lighttpd.sh restart
+-----
+
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/hdd/wolfpass_0830_173494/out/verify/Build/output/ImageTree/usr/local/bin /usr/local/bin
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/hdd/trunk_0907_176380/out/verify_eth_issue/Build/output/ImageTree/usr/local/lib/ /usr/local/lib
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/hdd/trunk_0907_176380/out/removeHIDPIPE/Build/output/ImageTree/usr/local/www/ /usr/local/www
+mount -o nolock -t nfs 192.168.0.166:/home/jerry-quad/hdd/AMI_AST2500_RR11-8-Plus/out/ldap/Build/output/ImageTree/usr/local/lib/ /usr/local/lib

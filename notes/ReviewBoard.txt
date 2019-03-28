@@ -1,0 +1,43 @@
+commit to review board
+1.用svn check out bleeding edge package
+2.用PackSPX -x 解開spx
+3.修改內容
+4.用PackSPX -c a.spx a.src 打包成spx
+(+key)
+5.利用svnspx與server上的packages做diff  (.spxconfig須在同目錄下) 
+svnspxex.py --diff  --w videocap-2.11.0-ARM-AST-src.spx
+6.利用rbspx/rbspx -n --rb=http://daytona.us.megatrends.com/reviews/ pkg_name commit to review board
+$rbspx/rbspx -n --rb=http://daytona.us.megatrends.com/reviews/ JavaSOL-2.8.0-src.spx
+$rbspx/rbspx -r 16220 --rb=http://daytona.us.megatrends.com/reviews/ libmodhapi-2.75.0-src.spx (update review board)
+reviewboard pass: j78677867
+7.到review board就會有了
+
+commit to svn
+svnspx --ci videocap-2.11.0-ARM-AST-src.spx
+因為我們要update到美國svn，所以要用以下spxconfig
+---------------------------------------------------------
+# Common for all tools
+SVN_REPO_ACCESS= "svn+ssh://"
+SVN_MASTER = "svnsm.ami.com"
+SVN_MIRROR = "svnsm.ami.com"
+SVN_REPOSITORY = "svnrepos/granada"
+SVN_USERNAME = "jerryshih"
+
+# Used only by svnsmi
+EMAIL_ID = "jerryshih@ami.com.tw"
+
+# Main repository or Customer Repository
+SVN_PKGS_PATH = "projects-x/packages"
+RB_SERVER= "http://daytona.us.megatrends.com/reviews/"
+---------------------------------------------------------
+username: JerryShih
+(Minor\Aux\OEM\OEMAux): Minor
+OEM:Aux
+---------------------------------------------------------
+external link
+$export EDITOR=vim
+$svn propedit svn:externals svn+ssh://jerryshih@svnsm.ami.com/svnrepos/granada/projects-x/customers/AMI_AST2500_RR11-5-Plus/packages
+svn propedit svn:externals https://megaracsvn.ami.com.tw/SPX/projects-x/legacy/customers/AMI_AST2500_RR11-5-Plus/packages --username jerryshih
+ps. .spxconfig svnsm.ami.com
+---------------------------------------------------------
+--force-commit

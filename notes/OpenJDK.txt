@@ -1,0 +1,83 @@
+There is IcedTea for Windows usage:
+1.	Download the IcedTea binary for Windows. (Link from OpenJDK doc - http://icedtea.wildebeest.org/download/icedtea-web-binaries/1.7.1/windows/)
+2.	Install ¡§itw-installer.msi¡¨ or unzip ¡§icedtea-web-1.7.1.win.bin.zip¡¨
+3.	Download jviewer.jnlp from WebUI
+4.	Go to bin folder ¡§\IcedTeaWeb\WebStart\bin¡¨ or ¡§\icedtea-web-1.7.1-image\bin¡¨
+5.	jvaws.bat ¡Vjnlp <jnlp file path>
+
+
+Steps of adopting OpenJDK in RR11-8:
+1. Prepare a pure Linux OS(ex. Ubuntu 16.04)
+
+2. Follow "MegaRAC SP-X - OpenJDK Guide" section 3 step 1&2 
+Download Zulu OpenJDK binary(8u172 32-bit) and replace JDK binary with Zulu OpenJDK binary
+
+3. Follow MegaRAC SP-X-Developer¡¦s Guide > Chapter JDK Upgrade Guide to setting dev-install
+
+4. Follow "MegaRAC SP-X - OpenJDK Guide" section 3 step 3 Update proper license and properties of JDK-ANY package
+Refer "MDS_UserGuide.pdf" Add/Edit License section to add the new license manually
+
+5. Build the workspace with OpenJDK binary
+
+6. Check JViewer standalone compile by Zulu OpenJDK
+$cd <workspace>/software/JViewer_StandAloneApplication-x.x.x.x.x-ARM-AST-src/
+$unzip -p JViewer.jar META-INF/MANIFEST.MF
+
+[LTS]
+Manifest-Version: 1.0
+Class-Path: JViewer-SOC.jar JViewer-AVIStream.jar
+Permissions: all-permissions
+Created-By: 1.7.0 (Oracle Corporation) 
+Main-Class: com.ami.kvm.jviewer.JViewer
+...
+
+[openJDK with RR11-8]
+Manifest-Version: 1.0
+Permissions: all-permissions
+Class-Path: JViewer-SOC.jar JViewer-AVIStream.jar
+Created-By: 1.8.0_172 (Azul Systems, Inc.) 
+Main-Class: com.ami.kvm.jviewer.JViewer
+...
+
+7. Follow "MegaRAC SP-X - OpenJDK Guide" section 3 step 4
+Compile VMedia binaries using Zulu JDK (Ubuntu 64bit)
+Refer "MegaRAC SP-X - Build Instructions-VMedia Libray" section 3 "Building the Libraries inLinux"
+¡Elibcdrom-x.x.x-ANY
+¡Elibharddisk-x.x.x-ANY
+¡Ejavacdromwrapper-x.x.x-ANY 
+¡Ejavaharddiskwrapper-x.x.x-ANY.
+
+Note:
+Add java inculd path to makefile to resolved "jni,h: No such file or directory" (-I"${JAVA_HOME}/include" -I"${JAVA_HOME}/include/linux")
+Install libx11-dev to resolved "x11/xlib.h: No such file or directory"
+
+Output:
+<workspace>/software/lib/
+¢u¢w¢w javacdromwrapper
+¢x   ¢|¢w¢w linux_x86_64
+¢x       ¢|¢w¢w libjavacdromwrapper.so
+¢u¢w¢w javaharddiskwrapper
+¢x   ¢|¢w¢w linux_x86_64
+¢x       ¢|¢w¢w libjavaharddiskwrapper.so
+¢u¢w¢w libcdrom
+¢x   ¢|¢w¢w Linux_x86_64
+¢x       ¢|¢w¢w libcdromLinux.a
+¢|¢w¢w libharddisk
+    ¢|¢w¢w Linux_x86_64
+        ¢|¢w¢w libharddiskLinux.a
+
+
+8. Replace 2 .so files to Vmedia_Linux_64-x.x.x.x.x-src/data and WIPE build
+
+9. Check Vmedia library compile by zulu openJDK
+$cd <workspace>/Build/.build/Vmedia_Linux_64-3.0.0.0.0-src/data
+$unzip -p Linux_x86_64.jar META-INF/MANIFEST.MF
+
+[LTS]
+Manifest-Version: 1.0
+Created-By: 1.7.0 (Oracle Corporation) 
+...
+
+[openJDK with RR11-8]
+Manifest-Version: 1.0
+Created-By: 1.8.0_172 (Azul Systems, Inc.) 

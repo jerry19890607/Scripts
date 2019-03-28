@@ -1,0 +1,114 @@
+Adviser
+
+1.	Overview
+Adviser負責提供影像螢幕給client.
+主要對應於遠端client與影像擷取driver介面
+它是抽象的附加層分隔出影像擷取driver的內部細節避免底層的programming複雜度
+Adviser不只處理影像要求，他也提供多個client端連接(從一個到多個)，限制user的訪問權限，螢幕壓縮率等等
+
+2.	Architecture
+Adviser與遠端client為雙向溝通
+提供clinet影像，從client接收鍵鼠封包
+鍵鼠封包將交由usb driver處理並傳送給host
+
+Adviser has following major components:
+a)	Connection Manager Thread.
+b)	Session Manager Thread.
+c)	Command Handler Thread.
+d)	Video Engine Thread.
+e)	Worker Thread.
+
+2.1.	Connection Manager Thread
+handling new connections from remote client. 
+須接收所有incoming data packets and 傳給cmdhndlr
+
+new connections等待socket在特定的prot(可設定)，
+first  checks if this new connection is within the maximum allowed limit
+yes 保留此client為可連線對象
+no 回傳Ack給client，已到達連線最大數量
+這會透過Session Manager Thread
+
+把新連接的socket加入socket descriptor array
+Connection Manager check descriptor array是否所有data都available 
+yes call “handle command” of Command Handler Thread
+Command Handler Thread, running under Connection manager thread context, will process the command.
+
+任何原因發生錯誤，connection manager cleans up the session using Session Manager Module calls.
+
+2.2.	Session Manager Thread
+Session Manager  responsible 留下possible sessions, 創建新sessions,清理sessions,持續追蹤存在的sessions
+簡單來說 Session Manager 是所有sessions的database，其他modules必須call Session Manager獲得相關information
+
+
+There is a difference between reserve sessions and create sessions.
+Reserve session just marks the session as a possible connection.
+經過認證後的connection 才會call create session
+authentication is done by Command Handler module, 成功後才會call create session
+If the session is not authenticated
+return Ack sent to session, session will be clean after
+
+Remote client is always launched from the web browser.
+launch web browser時會先獲得session token,會有個validity time out (configurable),
+from the web server using RPC calls
+Web server creates the session token using session login library calls.
+This session token is then passed to the remote client by the browser. 
+Remote client sends this back to Adviser to get authenticated. 
+Adviser in turn uses the session login library calls to authenticate the client.
+
+2.3.	Command Handler Thread
+This is the module處理所有遠端client的commands
+跑在Connection Manager Thread之後
+遠端client傳送驗證封包給adviser當作first packets.
+Command Handler接收驗證封包與驗證遠端client使用sessionlogin library calls
+valid      the video is serviced to the client
+invalid    then error is notified to the connection manager, which eventually closes the session
+
+2.4.	Video Engine Thread
+Video Engine Thread是adviser的核心從Video Capture driver獲得video data
+Video Engine Thread與driver interface module and worker threads 提供影像給client端
+
+two rules
+Rule no 1:
+Video service engine will put to work only if there is at least one client session established. 
+If there is no client session available then it is put to sleep. 
+It will be woken up again when a new session comes in again.
+Rule no 2:
+有任何command packet 要傳給client，必先傳送command再傳影像之前
+
+1. stop-Auto bandwidth detect
+2. Ecrypt status - 傳送加密狀態。只有在多client時啟用，通知其他client加密啟用，以免造成衝突
+3. Auto bandwidth detect - Send requested Bandwidth data to help remote client to auto detect bandwidth.
+
+當創新session後(通過認證後)，將會開始work,following things to service the video to the clients.
+1.	Get the list of connected sessions.
+2.	Check for any control packet to send.
+3.  假如任何control packet發送透過worker threads已存在。 重新開始
+4.	Issue capture video call to driver interface to get video data. 
+	Driver interface in turn issues IOCTL call to the Video Capture driver and gets the video data. 
+	Handle error condition if any.
+5.	Send the video data to all the clients through worker threads. 
+	Handle error condition if any. 
+	After sending video to all the clients start over again.
+
+2.5.	Worker Thread
+adviser的勞工
+They do the hard work to send the video to the client.
+Worker threads are created at start. 
+The number of worker threads corresponds to the maximum client sessions supported.
+Adviser has self-imposed limit of “2” for this. But this is configurable.
+
+Worker Thread皆處於睡眠狀態，直到單個Video Engine Thread呼叫他們傳送video data or control packet to the corresponding client using socket calls 
+After completing their job, the worker threads are put to sleep again.
+
+Worker thread劃分整個video為多個fragments傳送給client,client在透過fragments組成整段video packets again
+
+3.	Interface Library
+Interface library負責與Video Capture driver溝通並從他那邊完成任務。
+Interface library使用video engine獲得 video data和藉由command handler發出命令控制Video Capture Driver. 
+Interface library will also compress the video data (if required) before passing the video to the video engine, if compression is enabled. 
+Driver interface module uses compression library calls to compress the video.
+
+
+
+
+

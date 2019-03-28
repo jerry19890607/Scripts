@@ -1,0 +1,24 @@
+vim + ctags + cscope
+
+ctags
+首先先在source code的最外層目錄輸入指令s
+$ctags -R *
+$:set tags=/prject path/tags
+set tags=/home/jerry/AST2500-RR11-Plus/out/source/tags
+
+
+cscope
+$cscope -bR
+$:cs add /prject path/cscope.out
+
+
+使用方法 ctags
+自動加入ctags path
+$cd
+$cd ..
+$vim etc/vim/vimrc
+加入set tags=./tags,tags;
+
+使用方法 cscope
+cscope -R
+

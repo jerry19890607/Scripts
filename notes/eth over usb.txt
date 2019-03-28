@@ -1,0 +1,133 @@
+USB2.0
+Remote Network Driver Interface Specification (RNDIS) Protocol Specification.
+
+CDC	
+USB Communications Device Class
+ECM	
+Ethernet Control Model
+RNDIS	
+Remote Network Driver Interface Specification
+MTU	
+Maximum Transmission Unit
+
+
+USB Core Module
+1.USB 2.0 High Speed Controller Module
+2.USB Virtual Ethernet Device Module (CDC/ECM and RNDIS configurations)
+
+--
+
+CDC/ECM is a simple and open specification that is promoted by usb.org, which is 
+supported on almost all open systems and windows Vista. 
+
+RNDIS, on the other hand is a much more complex and proprietary protocol used 
+primarily on Microsoft Windows Operating Systems. Even though RNDIS is an 
+extension of the Microsoft NDIS protocol, it is well supported in Linux 
+platforms too.
+
+AMI’s USB Virtual Ethernet Device supports both RNDIS and CDC/ECM configurations.
+This enables Windows host to choose RNDIS configuration and Linux host to choose 
+CDC/ECM configuration automatically.
+
+Bulk傳輸：它一次最大能傳的資料大小為512 bytes（HS）。它並沒有保證頻寬這件事情，
+通常都是HOST覺得BUS有頻寬了才會選擇傳輸Bulk資料。相對的，如果頻寬很空閒，每秒
+可傳輸的資料量就很大。
+
+Interrupt傳輸：它一次最大能傳的資料大小為1024 bytes（HS），而且是定期傳輸，裝置
+端需要聲明這個期間是多久，以HS而言，是以micro-second為單位。它需要HOST保證頻寬，
+如果HOST無法滿足這個裝置的頻寬需求，HOST可以拒絕啟動這個裝置。
+
+
+Implementation of CDC/ECM
+
+CDC/ECM requires us to have two interfaces 
+1.Notification interface - a single Interrupt-IN endpoint
+2.Data Interface - two bulk endpoints(one bulk IN and one bulk OUT)
+Total endpoint requirement is as follows:
+(a)Number of Interrupt Endpoints – 1
+(b)Number of Bulk Endpoints – 2
+
+All the relevant details about the device parameters are passed to the host 
+as class-specific descriptors during enumeration which are:
+•	CDC Header Descriptor which contains :
+	CDC Major Version
+	CDC Minor version
+
+•	CDC Union Descriptor which contains :
+	Master Interface number – notification interface
+	Slave Interface number – data interface
+
+•	ECM Descriptor which contains :
+	Host Interface MAC Address (Unicode format)
+	Device MTU
+	Device Statistics that it is capable of collecting
+	Number of filters for MAC and Power
+
+
+
+The Master interface number would be always '0'
+the Slave Interface number will be '1'.
+
+The CDC version number to be used is 1.20
+
+Host interface MAC address should be generated randomly by USB Virtual Ethernet module.
+
+We should use the standard Device MTU of 1500 bytes. 
+
+All the rest of the fields can be ignored by setting to zero value.
+
+
+---
+
+On the side of the BMC SPX firmware, 
+Register a new network device of  Ethernet type whose MAC address has to be 
+Randomly generated or as well be manually specified during USB Virtual Ethernet module is loaded. 
+The MTU used can be 1500 and the device need not have any support for multicast or broadcast packets. 
+We also need to register a transmit handler that will be called whenever a new packet needs 
+to be transmitted to the host from BMC.
+
+--
+
+Reception of Data
+Data is received through the Data Interface Bulk-OUT endpoint as RAW Ethernet packets
+A static receive buffer of size at least 1514 (1500 MTU + 14 byte Ethernet header) bytes 
+need to be filled in by the interface Receive Handler until we find an EOP upon which we 
+need to push the received Ethernet packet into the Linux kernel network stack. 
+
+Transmission of Data
+Call the registered data transmit handler 
+The data is split into USB packets are multiple of configured data endpoint size and sent to the host.
+
+
+--
+
+--
+
+
+Implementation of RNDIS
+
+RNDIS has the same endpoint requirements as CDC/ECM.
+
+Initialization through a two-way handshake
+
+RNDIS specification recommends at least the following messages to be handled by the device during initialization:
+REMOTE_NDIS_INITIALIZE_MSG 
+REMOTE_NDIS_QUERY_MSG
+REMOTE_NDIS_SET_MSG
+REMOTE_NDIS_HALT_MSG
+REMOTE_NDIS_RESET_MSG
+REMOTE_NDIS_KEEPALIVE_MSG
+Once the filter has been set using OID_GEN_CURRENT_PACKET_FILTER of REMOTE_NDIS_SET_MSG, 
+the device should be ready to accept data coming from its incoming data channel and should 
+start transmitting data in its outgoing data channel.
+
+Data transfer format
+Message structure is defined by the REMOTE_NDIS_PACKET_MSG 
+1.	DataOffset – Offset of the actual (raw) Ethernet frame present in the packet from the start of this field.
+2.	Data Length – The length of the Ethernet Frame.
+
+Reception of Data
+Get first USB Packet and we can get the exact size of the incoming Ethernet frame from the Data Length field of the header.
+Allocate receive buffer 
+
+Transmission of Data

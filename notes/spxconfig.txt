@@ -1,0 +1,12 @@
+# Common for all tools
+SVN_REPO_ACCESS= "svn+ssh://"
+SVN_MASTER = "172.16.2.70"
+SVN_MIRROR = "172.16.2.70"
+SVN_REPOSITORY = "svnrepos/granada"
+SVN_USERNAME = "jerryshih"
+
+# Used only by svnsmi
+EMAIL_ID = "jerryshih@ami.com.tw"
+
+# Main repository or Customer Repository
+SVN_PKGS_PATH = "projects-x/customers/AMI_AST2500_RR11-Plus/packages"

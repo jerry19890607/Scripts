@@ -1,0 +1,11 @@
+orin 韌體燒壞 recovery
+1.版子上sw1第三個切到上方
+2.開啟port ex.com4
+3.會有%%%%.....
+4.file -> send file
+5.choose 20150728.bootloader_ddr_1600
+6.下方binary勾起來
+7.選1
+8.選0
+9.傳送u-boon.bin    會在/out/Build/tftpboot/u-boon.bin之下
+10.re sw1往下回來 完成

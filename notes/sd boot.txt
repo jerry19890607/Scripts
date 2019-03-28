@@ -1,0 +1,9 @@
+從SD/MMC開機
+會有兩個ima file 
+XXX_sd.ima
+xxx_sd_mmc.ima
+
+兩個步驟
+1.燒ima進版子
+2.燒mmc.ima進SD card
+

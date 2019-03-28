@@ -1,0 +1,78 @@
+before | sync to host
+
+case 2:
+1.launch h5viewer
+2.keep h5viewer in focus
+3.Enable/Disable caps,num,scroll lock(client)
+4.check led status in h5.
+
+Result: The system is functional.
+
+case 3:
+1.lanuch H5viewer
+2.Enable all LED to ON(client)
+3.minimize
+4.Disable client caps lock OFF
+5.maximize
+Result:
+	Host - all ON
+	H5Viewer - all ON
+	Client - Only caps lock OFF
+6.Press any key(client)
+Result:
+	Host - Only caps lock OFF
+	H5Viewer - Only caps lock OFF
+	Client - Only caps lock OFF
+
+case 4:
+1.set CAPS lock status in HOST - OFF,| Client - ON
+2.Launch H5viewer.
+Result:
+	Host - CAPS lock OFF
+	H5Viewer - CAPS lock OFF
+	Client - CAPS lock ON
+3.Press a key(client) from keyboard (Other than num lock, caps lock, scroll lock).
+Result:
+	Host - CAPS lock ON
+	H5Viewer - CAPS lock ON
+	Client - CAPS lock ON
+
+
+before | sync to client
+
+case 2:
+1.launch h5viewer
+2.keep h5viewer in focus
+3.Enable/Disable caps,num,scroll lock(client)
+4.check led status in h5.
+
+Result: The system is functional.
+
+case 3:
+1.lanuch H5viewer
+2.Enable all LED to ON(client)
+3.minimize
+4.Disable client caps lock OFF
+5.maximize
+Result:
+	Host - all ON
+	H5Viewer - all ON
+	Client - Only caps lock OFF
+6.Press any key(client)
+Result:
+	Host - Only caps lock OFF
+	H5Viewer - Only caps lock OFF
+	Client - Only caps lock OFF
+
+case 4:
+1.set CAPS lock status in HOST - OFF,| Client - ON
+2.Launch H5viewer.
+Result:
+	Host - CAPS lock OFF
+	H5Viewer - CAPS lock OFF
+	Client - CAPS lock ON
+3.Press a key(client) from keyboard (Other than num lock, caps lock, scroll lock).
+Result:
+	Host - CAPS lock ON
+	H5Viewer - CAPS lock ON
+	Client - CAPS lock ON

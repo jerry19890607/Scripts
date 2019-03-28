@@ -1,0 +1,106 @@
+Testing 1: Aspeed SDK ast_sdk.v00.04.03 | EVB @663
+enter uboot
+ast# md 1e6e2000
+1e6e2000: 00000001 f78ee6d8 03f29000 f1c47e89    .............~..
+ast# md 1e6e2070
+1e6e2070: f100c2e6 0000000e 381bc3f1 04030303    ...........8....
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100d2e6
+ast# md 1e6e2070
+1e6e2070: f100d2e6 0000000e 79a80d83 04030303    ...........y....
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100e2e6
+ast# md 1e6e2070
+1e6e2070: f100e2e6 0000000e eed7f3db 04030303    ................
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100f2e6
+ast# md 1e6e2070
+1e6e2070: f100f2e6 0000000e fd4bd470 04030303    ........p.K.....
+Restart Host >>  No Signal
+
+
+Testing 2: Aspeed SDK ast_sdk.v00.04.03 | EVB @511
+enter uboot
+ast# md 1e6e2000
+1e6e2000: 00000001 f60e2080 03f29000 f0c47c00    ..... .......|..
+ast# md 1e6e2070
+1e6e2070: f140c2e6 0000000f 5176667b 04030303    ..@.....{fvQ....
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100d2e6
+ast# md 1e6e2070
+1e6e2070: f140d2e6 0000000f b483d3f3 04030303    ..@.............
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100e2e6
+ast# md 1e6e2070
+1e6e2070: f140e2e6 0000000f 1e85e66f 04030303    ..@.....o.......
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100f2e6
+ast# md 1e6e2070
+1e6e2070: f140f2e6 0000000f 8c31ccb3 04030303    ..@.......1.....
+Restart Host >>  No Signal
+
+
+Testing 3: AMI FW | EVB @663
+enter uboot
+ast# md 1e6e2000
+1e6e2000: 00000001 f78ee6d8 03f29000 f1c47e89    .............~..
+ast# md 1e6e2070
+1e6e2070: f100c2e6 0000000e 33cea030 04030303    ........0..3....
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100d2e6
+ast# md 1e6e2070
+1e6e2070: f100d2e6 0000000e b5172fe0 04030303    ........./......
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100e2e6
+ast# md 1e6e2070
+1e6e2070: f100e2e6 0000000e 36679026 04030303    ........&.g6....
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100f2e6
+ast# md 1e6e2070
+1e6e2070: f100f2e6 0000000e 29155064 04030303    ........dP.)....
+Restart Host >>  No Signal
+
+
+Testing 4: AMI FW | EVB @511
+enter uboot
+ast# md 1e6e2000
+1e6e2000: 00000001 f60e2080 03f29000 f0c45c00    ..... .......\..
+ast# md 1e6e2070
+1e6e2070: f100c2e6 0000000f d7166595 04030303    .........e......
+#Restart Host >>  PASS
+ast# mw 1e6e2070 f100d2e6
+ast# md 1e6e2070
+1e6e2070: f100d2e6 0000000f 6d8167df 04030303    .........g.m....
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100e2e6
+ast# md 1e6e2070
+1e6e2070: f100e2e6 0000000f 05720dd6 04030303    ..........r.....
+Restart Host >>  No Signal
+ast# mw 1e6e207c 3000
+ast# mw 1e6e2070 f100c2e6
+Restart Host >>  PASS
+ast# mw 1e6e2070 f100f2e6
+ast# md 1e6e2070
+1e6e2070: f100f2e6 0000000f 80cc555b 04030303    ........[U......
+Restart Host >>  No Signal

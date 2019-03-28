@@ -1,0 +1,60 @@
+ 1. Execute below IPMI command to Enable the HD media service
+
+ ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x6a 0x10 0 0 0 1 0x62 0x6f 0x6e 0x64 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xff 0xff 0xff 0xff 0 0
+
+ >>00,
+
+ 2. Execute below IPMI command to get the HD media Service configuration details.
+
+ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x69 10 0 0 0 (HD)
+ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x69 8 0 0 0 (FD)
+ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x69 4 0 0 0 (CD)
+
+ >>00, 10 00 00 00 01 62 6f 6e 64 30 00 00 00 00 00 00 00 00 00 00 00 00 03 14 00 80 07 14 00 80 ff ff ff ff 84 80 1e 00 00 00 b4 00 00 00
+
+ 3. Execute below IPMI command to disable the HD media service 
+
+ ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x6a 0x10 0 0 0 0 0x62 0x6f 0x6e 0x64 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xff 0xff 0xff 0xff 0 0
+
+ 4. Execute below IPMI command to get the HD media Service configuration details.
+
+ ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x69 0x10 0 0 0
+
+ >>00, 10 00 00 00 00 62 6f 6e 64 30 00 00 00 00 00 00 00 00 00 00 00 00 03 14 00 80 07 14 00 80 ff ff ff ff 84 80 1e 00 00 00 b4 00 00 00
+
+ 
+Expected Results:
+
+ Step 2: HD media services should be accessible.
+
+ Step 4: HD media services should be blocked.
+----------------------------------------------------------------------
+1. Execute below IPMI command to Enable the FD media service
+
+ ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x6a 8 0 0 0 1 0x62 0x6f 0x6e 0x64 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xff 0xff 0xff 0xff 0 0
+
+ >>00,
+
+ 2. Execute below IPMI command to get the FD media Service configuration details.
+
+ ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x69 8 0 0 0
+
+ >>00, 08 00 00 00 01 62 6f 6e 64 30 00 00 00 00 00 00 00 00 00 00 00 00 02 14 00 80 06 14 00 80 ff ff ff ff 84 80 1e 00 00 00 b4 00 00 00
+
+ 3. Execute below IPMI command to disable the FD media service 
+
+ ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x6a 8 0 0 0 0 0x62 0x6f 0x6e 0x64 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xff 0xff 0xff 0xff 0 0
+
+ 4. Execute below IPMI command to get the FD media Service configuration details.
+
+ ipmitool -H 192.168.0.186 -U admin -P admin -I lanplus raw 0x32 0x69 8 0 0 0
+
+ >>00, 08 00 00 00 00 62 6f 6e 64 30 00 00 00 00 00 00 00 00 00 00 00 00 02 14 00 80 06 14 00 80 ff ff ff ff 84 80 1e 00 00 00 b4 00 00 00
+
+
+Expected Results:
+
+ Step 2: FD media service should be accessible.
+
+ Step 4: FD media service should be blocked.
+----------------------------------------------------------------------

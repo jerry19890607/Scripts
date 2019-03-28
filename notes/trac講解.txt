@@ -1,0 +1,20 @@
+custmer
+RR系列每半年release一次
+
+抓取Maintrunk當時的版號給RR系列
+
+平時MAINTRUNK會每天更新FIX OR FEATURE
+
+RR系列只會更新FIX稱為PATCH 不會有更新feature
+
+$BuildPRJ.py config package/ WorkDIR PATCHGEN package/webui <Build order>
+
+trac release log
+svn版號 spx版號
+$svnspx --co -r 91xxxxx
+
+svn無法下載package
+spx才可以
+
+spx用來打包版號 並壓縮或是解開packet
+ctags -R -h ".h .c .hpp .cpp .java .js"

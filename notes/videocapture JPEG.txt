@@ -1,0 +1,75 @@
+訂單編號：201611007674
+A666021679
+
+訂位代號:1601
+
+VR054 frame data
+VR078 data size
+
+got physical memory pool for size (25165824 on ca000000 virtual/8a000000 bus)
+
+/* Set to JPEG compress/decompress mode */
+ast_videocap_set_reg_bits(AST_VIDEOCAP_SEQ_CTRL, AST_VIDEOCAP_SEQ_CTRL_JPEG);
+//tmp = ast_videocap_read_reg(AST_VIDEOCAP_SEQ_CTRL);
+//printk("jerry Set to JPEG compress/decompress mode %x\n",tmp);
+
+0 0011 0000 1110 0100 0000
+
+
+int send_count=0;
+
+
+FILE *fd;
+
+if( send_count == 1)
+ 192     {
+ 193      printf("send_count !=0 \n");
+ 194      goto    sfd_exit;
+ 195     }
+
+
+printf("jerry write frame to file\n");
+      fd = fopen("/conf/frame.jpg","wb");
+      if( NULL == fd)
+      {
+          printf("Error Opening Image File");
+      }
+
+fwrite(p_si->p_frame_data, 1, frag_size , fd );
+fwrite(p_si->p_frame_data + frame_ix, 1, frag_size , fd );
+
+   send_count = 1;
+ 307     fclose(fd);
+
+
+---------------------------------------------------------------
+Start
+ FF D8 FF EO 00 01 4a 46 49 46 00 01 01 01 
+		    J  F  I  F \0
+End
+ FF D9
+
+white
+28 00 a2 8a
+28 00 a0 02 80 0a 00
+
+black
+28 a2 8a 00
+28 00 a0 02 80 0a 00
+
+red
+28 a2 8a 00 
+28 00 a0 02 80 0a 00
+
+  1 1.  sudo tar xvzf  svnspx-1.0.0.linux-x86_64.tar.gz  -C /
+   2 2.  sudo chmod +x  /usr/local/lib/python2.7/dist-packages/svnspx.py
+   3 3.  Add  /usr/local/lib/python2.7/dist-packages to PATH
+
+
+66307034902277
+
+3f32ea2
+
+
+
+

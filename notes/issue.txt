@@ -1,0 +1,326 @@
+printf("file(%s) line(%d) function(%s)\n",__FILE__,__LINE__,__func__);
+
+IVTP_KVM_DISCONNECT->Adviser
+-----------------------------------------------------------------------wrong
+Adviser端
+sm_clean_sessions              ->racsessinfo_unregister_session
+Ondisconnect_session           ->sm_clean_sessions();
+on_disconnect_session          ->Ondisconnect_session
+IVTP_KVM_DISCONNECT            ->on_disconnect_session
+
+
+JViewer端
+killSession                    ->IVTP_KVM_DISCONNECT     (KVMClient.java)   發中止命令給server
+SendKillSession                ->killSession      (JViewerApp.java)
+OnTerminateActiveuser          ->getKVMClient().SendKillSession   (JViewerApp.java)
+createCustomActiveuserMenuItem ->mousePressed->JViewerApp.getInstance().OnTerminateActiveuser
+updateUserMenu                 ->menu.add(createCustomActiveuserMenuItem(Integer.parseInt(index),display,menuIcon));  (JVMenu.java)
+
+
+
+
+
+
+
+----------------------------------------------------------------------
+
+Adviser端
+sm_clean_sessions (sessionmgr.c 714)   ->   racsessinfo_unregister_session  (racsessioninfo.c)
+(x)on_stop_command  (cmdhndlr.c 324)  ->   sm_clean_sessions
+IVTP_STOP_SESSION_IMMEDIATE  (cmdhndlr.c) ->  on_stop_command
+
+JViewer端
+Stop_Cmd_Redirection (KVMClient.java, 709)     ->IVTP_STOP_SESSION_IMMEDIATE
+OnVideoStopRedirection (JViewerApp.java, 1843) ->Stop_Cmd_Redirection
+checkReconnect (KVMClient.java, 1071)          ->OnVideoStopRedirection
+onReconnect(JViewerApp.java, 3597)             ->checkReconnect
+onReadEvent (KVMClient.java, 168)           ->onReconnect
+
+
+----------------------------------------------------------------------
+1.為什麼jviewer好端端的要送重新驗證token
+2.誰刪掉了token
+
+驗證
+file(sessionmgr.c) line(643) function(clean_sessions) -> DeleteToken
+file(cmworker.c) line(293) function(cmw_send_frame_data)-> sm_clean_sessions 是否
+
+
+mark DeleteToken -> token不會被刪除 JViewer不會產生issue 會一直reconnet amd stop repeat
+把on_stop_command的sm_clean_sessions mark-> 會產生issue 會一直reconnet amd stop repeat
+把Ondisconnect_session的sm_clean_sessions mark-> 產生issue 相同情況
+
+
+Video Redirection Stopped
+Reconnect failed. Connection with the server is terminated.
+
+
+------------------------------------
+c+a+f2 前
+file(cmworker.c) line(294) function(cmw_send_frame_data)
+file(cmworker.c) line(286) function(cmw_send_frame_data)
+file(cmworker.c) line(154) function(cmw_send_ctrl_pkt)
+file(conmgr.c) line(202) function(connection_acceptor)
+
+token還在
+------------------------------------
+c+a+f2 後
+token還在
+
+file(conmgr.c) line(202) function(connection_acceptor)
+file(cmworker.c) line(286) function(cmw_send_frame_data)
+file(cmworker.c) line(294) function(cmw_send_frame_data)
+
+file(sessionmgr.c) line(641) function(sm_clean_sessions)<-DeleteToken
+file(sessionmgr.c) line(715) function(sm_clean_sessions)<-racsessinfo_unregister_session
+
+[2301 : 2304 INFO]KVM logout from IP:192.168.0.156 user:admin
+
+[2301 : 2329 INFO]no session available
+
+[2301 : 2329 INFO]AVSE Exit
+
+file(conmgr.c) line(202) function(connection_acceptor)
+[2301 : 2301 WARNING][cmdhndlr.c:1995]Session invalid: sending invalid Video session response in Reconnect
+
+file(cmdhndlr.c) line(2021) function(on_reconnect_pkt)
+
+token被清掉
+------------------------------------
+三個call sm_clean_sessions，但是都沒有DeleteToken，無解
+
+在沒有登出JViewer情況下，JViewer為何還要請求驗證session token
+
+
+IVTP_VALIDATE_VIDEO_SESSION                   =       0x0012;
+IVTP_VALIDATE_VIDEO_SESSION_RESPONSE          =       0x0013;
+
+OnsendWebsessionToken  JViewerApp.java
+
+
+PktLen = IVTPPktHdr.HDR_SIZE + IVTPPktHdr.VIDEO_PACKET_SIZE;
+Websessiontoken=IVTPPktHdr.HDR_SIZE+TokenLen+IVTPPktHdr.CLINET_OWN_IP_LENGTH+IVTPPktHdr.CLIENT_USERNAME_LENGTH
+IVTPPktHdr.HDR_SIZE=34;  ->KVM_CLIENT_OWN_IP
+IVTPPktHdr.CLINET_OWN_IP_LENGTH=64+1;   ->KVM_CLIENT_OWN_USERNAME
+IVTPPktHdr.CLIENT_USERNAME_LENGTH=128+1;   ->KVM_CLIENT_OWN_MAC
+
+KVMClient.java, JViewerApp.getInstance().OnsendWebsessionToken();-> JViewerApp.java, OnsendWebsessionToken
+
+SinglePortKVM.java,113
+ SinglePortKVM.java,170
+ JViewerApp.java,4243
+JViewer.java,967
+SinglePortKVM.java,208
+ SinglePortKVM.java,319
+ JViewerApp.java,4243
+JViewer.java,967
+ SinglePortKVM.java,282
+ JViewerApp.java,4243
+JViewer.java,967
+KVMClient.java,471,OnsendWebsessionToken
+JViewerApp.java,3500,onStopVMediaRedirection
+
+------------------------------------------------------------------------
+why JViewer.isKVMReconnectEnabled
+
+JViewerApp.java,163,onReadEvent
+JViewerApp.java,1759,OnVideoStartRedirection
+JViewerApp.java,757,startRedirection
+JViewerApp.java,760,startRedirection
+JViewerApp.java,763,startRedirection
+SinglePortKVM.java,113
+ SinglePortKVM.java,170
+ JViewerApp.java,4243
+JViewer.java,967
+SinglePortKVM.java,208
+ SinglePortKVM.java,319
+ JViewerApp.java,4243
+JViewer.java,967
+ SinglePortKVM.java,282
+ JViewerApp.java,4243
+JViewer.java,967
+JViewerApp.java,149,onReadEvent
+ Client.java,154
+JViewerApp.java,292
+KVMClient.java,471,OnsendWebsessionToken
+JViewerApp.java,3500,onStopVMediaRedirection
+JViewerApp.java,3510,getRetryConnection
+JViewerApp.java,198,onReadEvent
+JViewerApp.java,149,onReadEvent
+JViewerApp.java,198,onReadEvent
+JViewerApp.java,149,onReadEvent
+JViewerApp.java,292
+
+
+內顯
+JViewerApp.java,292
+KVMClient.java,198,onReadEvent
+KVMClient,149,onReadEvent
+ Client.java,154
+
+ Client.java,154  讀取鍵盤事件
+ ------------------------------------------------------------------------------------
+ JViewer_common-2.112.0-src/data/src/com/ami/kvm/jviewer/kvmpkts/HeaderReader.java
+ HeaderReader
+ JViewer_common-2.112.0-src/data/src/com/ami/kvm/jviewer/Debug.java
+ Debug mode
+ m_pktHdr.read
+ 
+ ------------------------------------------------------------------------------------
+sendKMMessage,KVMClient.java, 961
+sendKMMessage,KVMClient.java, 990
+sendKMMessage,KVMClient.java, 944
+sendKMMessage,KVMClient.java, 954
+sendKMMessage,KVMClient.java, 961
+sendKMMessage,KVMClient.java, 990
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+Socket failure, 160
+onReconnect, 169
+------------------------------------------------------------------------------------
+Read data: file(cmdhndlr.c) line(1512) function(handle_video_cmd)
+update recv_time:file(cmdhndlr.c) line(1544) function(handle_video_cmd)
+update recv_time: file(cmdhndlr.c) line(1551) function(handle_video_cmd)
+on_hid_packet: file(cmdhndlr.c) line(170) function(on_hid_packet)
+file(cmdhndlr.c) line(205) function(on_hid_packet)
+file(cmdhndlr.c) line(209) function(on_hid_packet)
+
+Read data: file(cmdhndlr.c) line(1512) function(handle_video_cmd)
+update recv_time:file(cmdhndlr.c) line(1544) function(handle_video_cmd)
+update recv_time: file(cmdhndlr.c) line(1551) function(handle_video_cmd)
+on_hid_packet: file(cmdhndlr.c) line(170) function(on_hid_packet)
+file(cmdhndlr.c) line(205) function(on_hid_packet)
+file(cmdhndlr.c) line(209) function(on_hid_packet)
+
+Read data: file([  173.260000] Mouse event timed out..
+cmdhndlr.c) line[  173.270000] UsbWriteData():Previous Write Pending for Dev 3 Ep 3
+(1512) function([  173.270000] UsbWriteData():TxData=0x0 DataLen=0x6 DataPos=0x6 Zero=0 Ready=0
+handle_video_cmd)
+update recv_time:file(cmdhndlr.c) line(1544) function(handle_video_cmd)
+update recv_time: file(cmdhndlr.c) line(1551) function(handle_video_cmd)
+on_hid_packet: file(cmdhndlr.c) line(170) function(on_hid_packet)
+file(cmdhndlr.c) line(205) function(on_hid_packet)
+g_kvm_retry_count=3, g_kvm_retry_interval=10
+difftime(curr_time, m_session[i].failed_time )=1.4582e+09, difftime(curr_time, m_session[i].lastrecvtime)=45
+file(sessionmgr.c) line(643) function(sm_clean_sessions)
+file(sessionmgr.c) line(717) function(sm_clean_sessions)
+[2272 : 2275 INFO]KVM logout from IP:192.168.0.134 user:admin
+
+file(avse.c) line(1146) function(avse_main)
+[2272 : 2299 INFO]no session available
+
+[2272 : 2299 INFO]AVSE Exit
+
+file(avse.c) line(1357) function(avse_main)
+[2272 : 2272 WARNING][cmdhndlr.c:2005]Session invalid: sending invalid Video session response in Reconnect
+
+
+-----------------------------------------------------------------------------
+GUI 
+Read data: file(cmdhndlr.c) line(1512) function(handle_video_cmd)
+last recv_time:file(cmdhndlr.c) line(1544) function(handle_video_cmd)
+updtate KEEP_ALIVE recv_time: file(cmdhndlr.c) line(1551) function(handle_video_cmd)
+on_hid_packet: file(cmdhndlr.c) line(170) function(on_hid_packet)
+hid_process_packet:file(cmdhndlr.c) line(205) function(on_hid_packet)
+file(hid_cmdhandlr.c) line(57) function(hid_process_packet)
+PKTTYPE_IUSB:file(hid_cmdhandlr.c) line(74) function(hid_process_packet)
+IUSB_DEVICE_MOUSE:file(hid_usb.c) line(291) function(HandleUsbPacket)
+file(hid_usb.c) line(76) function(HandleUsbMOUSECmd)
+HostMousePkt:file(hid_usb.c) line(98) function(HandleUsbMOUSECmd)
+file(hid_usb.c) line(527) function(do_usb_ioctl)
+file(hid_usb.c) line(533) function(do_usb_ioctl)
+file(hid_usb.c) line(536) function(do_usb_ioctl)
+file(hid_usb.c) line(560) function(do_usb_ioctl)
+va=(0) file(hid_usb.c) line(571) function(do_usb_ioctl)
+ecode=(0) file(hid_cmdhandlr.c) line(76) function(hid_process_packet)
+file(cmdhndlr.c) line(209) function(on_hid_packet)
+
+
+
+Command mode
+Read data: file(cmdhndlr.c) line(1512) function(handle_video_cmd)
+last recv_time:file(cmdhndlr.c) line(1544) function(handle_video_cmd)
+updtate KEEP_ALIVE recv_time: file(cmdhndlr.c) line(1551) function(handle_video_cmd)
+on_hid_packet: file(cmdhndlr.c) line(170) function(on_hid_packet)
+hid_process_packet:file(cmdhndlr.c) line(205) function(on_hid_packet)
+file(hid_cmdhandlr.c) line(57) function(hid_process_packet)
+PKTTYPE_IUSB:file(hid_cmdhandlr.c) line(74) function(hid_process_packet)
+IUSB_DEVICE_MOUSE:file(hid_usb.c) line(291) function(HandleUsbPacket)
+file(hid_usb.c) line(76) function(HandleUsbMOUSECmd)
+HostMousePkt:file(hid_usb.c) line(98) function(HandleUsbMOUSECmd)
+file(hid_usb.c) line(527) function(do_usb_ioctl)
+file(hid_usb.c) line(533) function(do_usb_ioctl)
+file(hid_usb.c) line(536) function(do_usb_ioctl)
+file(hid_usb.c) line(560) function(do_usb_ioctl)
+va=(0) file(hid_usb.c) line(571) function(do_usb_ioctl)
+ecode=(0) file(hid_cmdhandlr.c) line(76) function(hid_process_packet)
+file(cmdhndlr.c) line(209) function(on_hid_packet)
+
+
+JViewer
+sendKMMessage,KVMClient.java, 944
+sendKMMessage,KVMClient.java, 954
+sendKMMessage,KVMClient.java, 961
+sendKMMessage,KVMClient.java, 990
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+sendKeepAliveRequest, KVMClient.java, 1060
+Socket failure, 160
+onReconnect, 169
+
+0414--------------------------------------------------------------------------
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[1534] [cmdhndlr.c] [handle_video_cmd]
+[202] [cmdhndlr.c] [on_hid_packet]
+[  140.050000] Mouse event timed out..
+[  140.070000] UsbWriteData():Previous Write Pending for Dev 3 Ep 3
+[  140.070000] UsbWriteData():TxData=0x0 DataLen=0x6 DataPos=0x6 Zero=0 Ready=0
+
+--
+
+[1465] [cmdhndlr.c] [cmdhndlr_main] normal
+[3504] [sessionmgr.c] [sm_set_last_recv_time]
+[1550] [cmdhndlr.c] [handle_video_cmd]
+[1485] [cmdhndlr.c] [cmdhndlr_main] normal
+retval=1[1462] [cmdhndlr.c] [cmdhndlr_main] normal
+[1465] [cmdhndlr.c] [cmdhndlr_main] normal
+[3504] [sessionmgr.c] [sm_set_last_recv_time]
+[1550] [cmdhndlr.c] [handle_video_cmd]
+[1485] [cmdhndlr.c] [cmdhndlr_main] normal
+retval=1[1462] [[  555.210000] Mouse event timed out..
+cmdhndlr.c] [cmd[  555.220000] UsbWriteData():Previous Write Pending for Dev 3 Ep 3
+hndlr_main] norm[  555.230000] UsbWriteData():TxData=0x0 DataLen=0x6 DataPos=0x6 Zero=0 Ready=0
+al
+[1465] [cmdhndlr.c] [cmdhndlr_main] normal
+[3504] [sessionmgr.c] [sm_set_last_recv_time]
+[1550] [cmdhndlr.c] [handle_video_cmd]
+
+
+cmdhndlr.c  on_hid_packet  hid_process_packet(p_si->socket, hid_pkt);
+hid_cmdhandlr.c  id_process_packet  case PKTTYPE_IUSB:  ecode = HandleUsbPacket (sock, pPkt);
+hid_usb.c HandleUsbPacket case IUSB_DEVICE_MOUSE:  HandleUsbMOUSECmd (pIusbPkt);
+
+

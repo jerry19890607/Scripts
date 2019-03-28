@@ -1,0 +1,37 @@
+HTML JS css 
+
+Framework
+	Require.js 
+	Backbone.js - Model View Controller
+	
+Library
+	Underscore.js
+	jQuery
+	
+RESTful JSON interface
+Collection 
+
+HTML
+	Canvas：提供畫板繪圖功能，很多2D遊戲都用這種方式實作喔！
+	WebSocket：即時與server端雙向通訊，常用來做聊天、即時互動等等應用。
+	Audio/Video：提供標準的聲音＆影片元件，可以使用JS控制播放。
+	Local Storage：讓網站可以存資料在瀏覽器裡。
+CSS(scss)
+	負責頁面元件的樣式，如顏色、字型大小、背景圖等等。上圖右下角的Styles的內容就是CSS的語法。
+JavaScript (ES6)
+	JavaScript負責網頁的行為，如點擊之後秀出某些隱藏的元件，或是從server端取得資料（如：Gmail會去後端取得你的email列表等等）。從後端取得的資料，通常以JSON格式回傳。JSON格式的範例如下：
+  {
+    "id": "061519", 
+    "name": "John Doe", 
+    "job": "Engineer" 
+  }
+  
+JS library
+	jQuery
+JS framework
+	Angular.JS
+	React JS
+	Vue.js
+DOM
+Ajax
+Json

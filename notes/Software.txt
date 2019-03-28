@@ -1,0 +1,19 @@
+VituralBox
+Ubuntu 14.04
+Putty
+DediProg
+WinSCP //LINUX<>Win
+
+svn
+spx
+svnconfig
+BuildPRJ
+
+ctags
+cescope
+
+BMC
+IPMI
+REDFISH
+I2C
+KVM

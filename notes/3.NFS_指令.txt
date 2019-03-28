@@ -1,0 +1,30 @@
+
+Ubuntu Consol:
+
+sudo vim /etc/exports
+
+/*Write below information*/
+/ *(rw,sync,no_subtree_check)
+#/home/alston/SPX/ *(rw,fsid=0,insecure,no_subtree_check,async,no_root_squash)
+/home/alston/SPX/ast2400_32MB_104927/ *(rw,nohide,insecure,no_subtree_check,async,no_root_squash)
+/home/alston/spx/ast2400_32MB_104927/ast2500evb_workspace/Build/output/ImageTree/ *(rw,nohide,insecure,no_subtree_check,async,no_root_squash)
+
+sudo /etc/init.d/nfs-kernel-server  start
+sudo service tftpd-hpa restart
+
+$cp /workspace/Build/output/kernel/uImage /tftpboot
+
+Uboot:
+
+set ethaddr 00:11:55:66:55:66;set ethadd 0;set serverip 192.168.0.106;dhcp;save;
+$set bootargs root=/dev/nfs nfsroot=192.168.0.106:/home/alston/spx/ast2400_32MB_104927/ast2400evb_workspace/Build/output/ImageTree/ console=ttyS4,115200 ip=dhcp bigphysarea=6144;
+$tftp 0x83000000 uImage	//AST2500 or Pilot4
+		or
+tftp 0x43000000 uImage //AST2400
+
+$bootm 0x83000000	//AST2500 or Pilot4
+		or
+bootm 0x43000000	//AST2400
+
+set bootargs root=/dev/nfs nfsroot=192.168.0.189:/home/jerry/codebase/trunk_106251_1207/out/h5viewer/Build/output/ImageTree console=ttyS4,115200 ip=dhcp bigphysarea=6144
+set bootargs root=/dev/nfs nfsroot=192.168.0.189:/home/jerry/codebase/trunk_104557_1031/out/h/Build/output/ImageTree console=ttyS4,115200 ip=dhcp bigphysarea=6144

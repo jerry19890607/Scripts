@@ -1,0 +1,79 @@
+Screen
+# Keyboard binding
+
+  49 # bind F6 to kill current screen window
+  50 bindkey -k k6 kill
+  
+  51 # bind ^y to create a new screen
+  52 bindkey "^y" screen
+  
+  53 # bind ^u to rename current screen window
+  54 bindkey "^u" title
+  
+  55 # bind ^p to move to previous window
+  56 bindkey "^b" prev
+  
+  57 # bind ^n to move to next window
+  58 bindkey "^n" next
+  
+  59 # 分割視窗: Ctrl+s
+  60 bindkey "^s" split
+  
+  61 # 切換視窗: Ctrl+f
+  62 bindkey "^e" focus
+  
+  63 # 離開分割視窗: Ctrl+q
+  64 bindkey "^q" only
+  65
+  66 # alt+`~= swich to page
+  67 bindkey "^[`" select 0
+  68 bindkey "^[1" select 1
+  69 bindkey "^[2" select 2
+  70 bindkey "^[3" select 3
+  71 bindkey "^[4" select 4
+  72 bindkey "^[5" select 5
+  73 bindkey "^[6" select 6
+  74 bindkey "^[7" select 7
+  75 bindkey "^[8" select 8
+  76 bindkey "^[9" select 9
+  77 bindkey "^[0" select 10
+  78 bindkey "^[-" select 11
+  79 bindkey "^[=" select 12
+  
+---------------------------------------------------------------------
+$screen //第一次執行screen
+$Ctrl a+d //關閉screen(至背景)，也就是detached
+$screen -rd //重新回到(resume)剛剛的screen 裡
+$exit //關閉視窗(若只剩一個視窗則為關閉screen)
+
+
+C-a c 或 C-a C-c #開啟新的視窗，並同時切換到這個新的視窗
+C-a n 或 C-a C-n 或 C-a (space) #切換到下一個視窗(0->1 1->2 ...)
+C-a p 或 C-a C-p #切換到上一個視窗(1->0 2->1 ...)
+C-a C #清除目前的視窗內容
+C-a d 或 C-a C-d #脫離（detach）目前的 screen ，並放到背景執行
+screen -X -S SessionNum quit  //kill detach
+C-a ? 或 C-a C-? #熱鍵查詢
+
+Ctrl + a  S   分割視窗
+Ctrl + a  tab 切換視窗
+Ctrl + a  c   建立新視窗
+
+水平分割視窗 (可以持續分割) :
+Ctrl-A -> Shift-S
+
+垂直分割視窗 (可以持續分割，只有特定版本才支援，請參考後方的說明) :
+Ctrl-A -> Shift-|
+
+在分割的視窗做切換:
+Ctrl-A -> Tab
+
+關閉分割的視窗:
+Ctrl-A -> Shift-Q
+
+
+ctrl+y 新增
+ctrl+n 下一個視窗
+ctrl+b 上一個視窗
+ctrl+d 刪除視窗
+ctrl+u 重新命名

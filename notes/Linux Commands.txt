@@ -1,0 +1,78 @@
+搜尋程式 ex JAVA
+$type java
+到所搜尋結果目錄
+$./ControlPanel
+即可開啟java控制台
+
+edit Permission
+r:4 w:2 x:1  owner group others
+$chmod 777 filename
+
+find *.spx file，and delete it
+$find . -name "*.spx" | xargs rm
+
+
+.         代表此層目錄
+..        代表上一層目錄
+-         代表前一個工作目錄
+~         代表『目前使用者身份』所在的家目錄
+~account  代表 account 這個使用者的家目錄(account是個帳號名稱)
+
+cd：變換目錄
+pwd：顯示目前的目錄  [-P]顯示確實路徑，非連結路徑
+mkdir：建立一個新的目錄
+rmdir：刪除一個空的目錄
+
+
+cp
+-a  ：相當於 -dr --preserve=all 的意思，至於 dr 請參考下列說明；
+-i  ：若目標檔(destination)已經存在時，在覆蓋時會先詢問動作的進行
+-p  ：連同檔案的屬性(權限、用戶、時間)一起複製過去，而非使用預設屬性(備份常用)；
+-r  ：遞迴持續複製，用於目錄的複製行為；(常用)
+
+mv
+-f  ：force 強制的意思，如果目標檔案已經存在，不會詢問而直接覆蓋；
+-i  ：若目標檔案 (destination) 已經存在時，就會詢問是否覆蓋！
+-u  ：若目標檔案已經存在，且 source 比較新，才會更新 (update)
+
+touch filename
+建立新的空檔案
+
+chattr (設定檔案隱藏屬性)
+i  ：讓一個檔案『不能被刪除、改名、設定連結也無法寫入或新增資料！』
+     對於系統安全性有相當大的助益！只有 root 能設定此屬性
+file 
+file filename 查看檔案基本資料
+
+尋找檔案
+$locate filename
+列出檔案路徑
+
+尋找檔案
+$find
+可用萬用字元*
+ex:find / -name '*abc*' 檔名包含abc的檔案
+-name filename：搜尋檔案名稱為 filename 的檔案；
+-size [+-]SIZE：搜尋比 SIZE 還要大(+)或小(-)的檔案。這個 SIZE 的規格有：
+                c: 代表 byte， k: 代表 1024bytes。所以，要找比 50KB還要大的檔案，就是『 -size +50k 』
+
+找出 /etc 底下，容量大於 1500K 以及容量等於 0 的檔案：
+find /etc -size +1500k -o -size 0
+相對於 -a ，那個 -o 就是或 (or) 的意思囉！
+
+找出 /etc 底下，檔案大小介於 50K 到 60K 之間的檔案，並且將權限完整的列出 (ls -l)：
+find /etc -size +50k -a -size -60k -exec ls -l {} \;
+注意到 -a ，那個 -a 是 and 的意思，為符合兩者才算成功
+
+tar 壓縮 解壓縮 
+壓　縮：tar -jcv -f filename.tar.bz2 要被壓縮的檔案或目錄名稱
+查　詢：tar -jtv -f filename.tar.bz2
+解壓縮：tar -jxv -f filename.tar.bz2 -C 欲解壓縮的目錄
+
+ssh
+$ssh jerry@172.16.56.153
+ssh 帳號@主機IP 
+
+more filename
+cat -n filename
+檢視檔案詳細內容

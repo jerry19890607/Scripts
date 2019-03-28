@@ -1,0 +1,53 @@
+Build 2300
+different from 2500
+1.手動使用MDS sync $../MDS/install_tool_software/x86_64/MDS/updateprj.sh packages/ configs/ast2300evb.PRJ
+2.必須使用舊的BuildPRJ檔案
+
+// 先備份 //
+tzeng015@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages$ mv configs configs-bak2
+
+tzeng015@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages$ sudo mv configs configs-bak2
+ 
+// 更改權限 
+tzeng015@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages$ sudo -i
+
+// configes 再抓一份前,先要認證過關
+root@tzeng015:/code_base# ls
+hungtseng-UhjSRvig.tgz  Package_Code  projects-x  projects-x.tar.gz
+root@tzeng015:/code_base# eval `ssh-agent`
+Agent pid 9949
+
+
+
+root@tzeng015:/code_base# ssh-add .ssh/hungtseng_dsa
+Enter passphrase for .ssh/hungtseng_dsa:           ==>   UhjSRvig
+Identity added: .ssh/hungtseng_dsa (.ssh/hungtseng_dsa)
+
+root@tzeng015:/code_base# ls
+hungtseng-UhjSRvig.tgz  Package_Code  projects-x  projects-x.tar.gz
+
+
+root@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages# svn ls svn+ssh://hungtseng@172.16.2.70/svnrepos/granada/projects-x
+
+root@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages# svn ls svn+ssh://hungtseng@172.16.2.70/svnrepos/granada/projects-x/customers/AMI_AST2300_RR8/configs
+
+root@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages# svn co svn+ssh://hungtseng@172.16.2.70/svnrepos/granada/projects-x/customers/AMI_AST2300_RR8/configs
+
+
+
+
+
+/// 手動更新 MDS/Project /////
+root@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages# ../MDS/install_tool_software/x86_64/MDS/updateprj.sh packages/ configs/ast2300evb.PRJ       ===> This is OK One
+Generating SPX Configuration files... 
+Updating Project Configurations...
+Done
+The 'ast2300evb.PRJ' is updated successfully.
+
+
+
+/// Build Code /////
+root@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages# ls
+configs  configs-bak  configs-bak2  mds.log  out  out1  packages  workspace
+
+root@tzeng015:/code_base/Package_Code/AMI_AST2300_RR8_packages# ../tool/BuildPRJ/BuildPRJ.py configs/ast2300evb.PRJ packages/ out2/ BUILD

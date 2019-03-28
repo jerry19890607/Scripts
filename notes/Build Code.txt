@@ -1,0 +1,196 @@
+Add ssh key
+$eval `ssh-agent -s`
+$ssh-add ~jerry/.ssh/jerryshih_dsa
+eval `ssh-agent -s`;ssh-add ../../.ssh/jerryshih_dsa
+
+Use ssh-keygen change password
+$ssh-keygen -f jerryshih_dsa -p
+
+root doesnt need svn passwd
+1.cp .ssh folder to /root
+2.change jerryshih_dsa to id_dsa
+3.edit /etc/ssh/sshd_config
+ PermitRootLogin without-password to PermitRootLogin yes
+4.service ssh restart
+
+svn co https://megaracsvn.ami.com.tw/svn/SPX/projects-x/core/configs/generic/ast2500evb/
+svnspxex.py --co --workspace=packages/
+svnspxex.py --co --workspace=onePackage/ -r 122740 H5Viewer_common-src
+svnspxex.py --co --workspace=onePackage/ -p 2.85.0 H5Viewer-ARM-AST-src
+svnspxex.py --ci --urgency medium --workspace=review_2/ review_2/JViewer_common-3.4.0.0.0-src.spx
+svnspxex.py --ci --urgency medium --inc-minor --workspace led/ led/H5Viewer_common-3.9.0.1.0-src.spx
+export EDITOR=vim
+
+Branch patch command
+svnspxex.py --workspace a/ \
+--sp projects-x/legacy/customers/IBM-Power9-RR11-6/packages \
+--add-branch videocap_2_15_0_3_EIP406216_Fix_Display_Mode_of_VGA_Driver_for_Different_Resolution-AST-ARM \
+--branch-from  projects-x/legacy/updates/RR11-6/packages \
+-r 179068 \
+-m "Branch Update Bug fix EIP406216 fix display mode of VGA driver for different resolution" 
+
+Jenkins cmd
+spx_build.sh --job 144819pkgWith136446PRJ --prj-path "/projects-x/trendy/customers/AMI_AST2500_RR11-8-Plus/configs/ast2500evb.PRJ" --prj-rev 136446 --pkgs-path "/projects-x/trendy/customers/AMI_AST2500_RR11-8-Plus/packages" --pkgs-rev 144819
+
+Update svnspxex.py
+sudo -H pip install -U  --extra-index-url https://megaracsvn.ami.com/pip svnspxex
+
+uboot recovery
+env default -a
+
+MMC 
+Gerneral configuration
+boot from MMC = YES -> NO
+PRJ AST2500EVB 
+$FEATURE_GLOBAL_^AST2500EVB^_FLASH_BANKS=1
+FEATURE_GLOBAL_^AST2500EVB^_FLASH_SIZE=0x400000->0x2000000
+$FEATURE_GLOBAL_^AST2500EVB^_FLASH_SIZE=0x2000000c
+FEATURE_GLOBAL_^AST2500EVB^_USED_FLASH_SIZE=0x400000->0x2000000
+$FEATURE_GLOBAL_^AST2500EVB^_USED_FLASH_SIZE=0x2000000
+
+JavaSigning
+projects-x/JavaSigning
+一個認證軟體
+開啟jviewer之前的風險警告
+放在與out相同層的目錄下
+當開啟client時out會自己抓取
+
+StandAlone
+PRJ內KVM -> StandAlone 打勾
+不會透過jnlp下載token等資料
+會打包成一個JViewer.jar檔案，直接開啟JAVA
+給不會經過WEB的客戶直接開啟KVM用
+JViewer.jar存在out/software/JViewer_StandAloneApplication-2.7.0-src之下
+windows可直接執行 
+linux command
+$java -jar JViewer.jar
+
+Host IP Addr :
+Secure Web Port : 443
+Username : admin	
+pwd : admin
+
+rule.py
+遇到 switch 沒有defalt
+使用PackSPX解壓縮rules-2.7.0-ANY到SOURCE底下，內有rule.global 
+把#CFLAGS +=  -Wmain -Wswitch-default#掉
+遇到unused parameter
+Build/.workspace/tmp/rules-2.7.0-ANY/data/Rules.global
+tools/rules/Rules.global
+CFLAGS +=  -Wall -Werror -Wextra  ->  CFLAGS +=  -Wall #-Werror -Wextra
+
+ERROR: Section  ROOT  does not have a FileSystem Type entry 解決辦法
+在PRJ檔裡(有merge過)or MAP檔裡加入
+$CONFIG_SPX_MAP_ROOT_ATTR_FileType="CRAMFS"
+$CONFIG_SPX_MAP_WWW_ATTR_FileType="CRAMFS"
+因為改變過後checksum不同需要以下
+$signprj.sh config/ast2500evb.PRJ    
+再到MDS sync
+
+JViewer and H5Viewer PRJ設定
+在Features Configuration下
+JViewer  ->  lighttpd
+H5Viewer  -> SPX RESR Web service
+websocket
+
+無法啟動build_install
+硬碟已滿
+
+如何做bootloader or kernel patch
+patch 階層
+1.Prist
+	2.AMI
+		3.OEM
+			4.custmos
+diff -Naur A B > out
+在out/Build/bootloader(Kernel)之下做diff動作
+--- uboot/common/main.c 2016-09-30 12:19:05.639586840 +0800
++++ uboot.new/common/main.c 2016-09-30 12:17:05.547570840 +0800
+#路徑一定要正確，再放到對應的package內，打包重新build
+Bootloader_amiext_ex-src
+Bootloader_basesoc_ast-src
+
+非package diff
+svn -diff a > out
+svn -diff BuildSrc.py > BuildSrc.py.diff
+dir:projects-x/utils/spx/BuildPRJ
+
+
+重新Build Bootloader
+to out/Build/bootloader/uboot use
+$make
+即可
+用到linux-gcc問題
+設定環境變數 在out/tools內
+
+使用regmemapp (指定讀寫reg tool)
+PRJ內設定TEST TOOL-> Regist Memory Access App
+build後在/Build/output/ImageTree/lib/modules/generic/misc內會有regmemapp
+燒進soc再登入kernel後到/usr/local/bin/之下
+$./regmemapp
+寫檔./regmemapp -w -a 0x1e6e202c -l 0x04 -d 0x00000080
+./regmemapp -w -a 0x1e6e2000 -l 0x04 -d 0x1688a8a8
+
+重新build kernel/bootloader
+$source kenv.sh weokspace
+(bootloader)$cd /Build/bootloader/uboot 之下1.make 2.cp uboot.bin to output 3.rebuild
+(kernel)$cd /Build/kernel/linux 之下1.make 2.make uImage 3.cp uImage to output 4.build workspace
+
+/home/jerry/spxTools/BuildPRJ/public.pem
+Public key not found so skipping Signed Image creation
+could not copy the public.pem to /conf
+Disable "flasher configuration -> secured BMC Firmware support"
+
+AST2400 RAM128
+PRJ AST2400EVB Configuration -> Total Memory Size 0xF000000 -> 0x7000000
+240MB->128MB
+
+IOError: [Errno 2] No such file or directory: '/home/elijah/workspace/eip337289_workspace/Build/output/nettest.bin'
+touch /home/elijah/workspace/eip337289_workspace/Build/output/nettest.bin
+
+make[2]: Leaving directory `/home/elijah/workspace_3.7.9/eip338905_workspace/Build/.build/sblim_sfcb-1.3.0-src/data/.workspace/sblim-sfcb'
+make[1]: Leaving directory `/home/elijah/workspace_3.7.9/eip338905_workspace/Build/.build/sblim_sfcb-1.3.0-src/data/.workspace/sblim-sfcb'
+[PRJ Setting]
+(Unchecked) "WSMAN Configuration" -> "WSMAN Support"
+
+[743 : 842 INFO]Request: Channel:1; Netfn:0; Cmd:1;
+[743 : 842 INFO]Response: Channel:1; Netfn:0; Cmd:1; Data:0 41 1 40 f0
+$libipmipdkcmds-2.10.0-ARM-AST2500-AST2500EVB-src/data/PDKCmds.c
+LogIPMICmd(LOG_WARNING, "Request:",(NetFnLUN >> 2), Cmd, pChannelInfo->ChannelNum, RequestLen, pRequest);
+LogIPMICmd(LOG_INFO, "Response:",(NetFnLUN >> 2), Cmd, pChannelInfo->ChannelNum, ResponseLen, pResponse);
+// disable log IPMI command data
+Extended Log Configuration -> Log IPMI command data
+
+keep.folder build error
+busybox_oem-1.8.0-src/spx/RULES.D/ApplyPatch
+!=0 -> =0
+
+RR6 BUILD ERROR
+VI sblim_sfcb-1.7.0-src/data/.workspace/sblim-sfcb/providerMgr.c 
+ADD #include <sys/resource.h> 
+
+kernel/timeconst.pl line 373 |  recipe for target 'kernel/timeconst.h' failed
+vi kernel/timeconst.pl   line 373
+删除
+@val = @{$canned_values{$hz}};
+if (!defined(@val)) {
+@val = compute_values($hz);
+}
+output前面加入
+$cv = $canned_values{$hz};
+@val = defined($cv) ? @$cv : compute_values($hz);
+
+The BMC is proteced, skip to update firmware image!!!
+socflash has been blocked
+SCU180 bit1 to up
+
+remote ssh root without password
+[Client]
+(ssh-keygen)
+cat /root/.ssh/id_rsa.pub got public key
+[host]
+sudo apt-get install openssh-server
+vi /etc/ssh/sshd_config
+#PermitRootLogin prohibit-password
+PubkeyAuthentication yes
+paste clinet public key to host /root/.ssh/authorized_keys

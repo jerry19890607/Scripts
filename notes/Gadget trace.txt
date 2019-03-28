@@ -1,0 +1,46 @@
+EX Mass storage call "usb_composite_probe"
+
+composite.c - infrastructure for Composite USB Gadgets
+/*
+ * The code in this file is utility code, used to build a gadget driver
+ * from one or more "function" drivers, one or more "configuration"
+ * objects, and a "usb_composite_driver" by gluing them together along
+ * with the relevant device-wide data.
+ */
+
+usb_composite_probe
+/*This function is used to register drivers using the composite driver framework.*/
+/*On successful return, the gadget is ready to respond to requests from
+ * the host, unless one of its components invokes usb_gadget_disconnect()
+ * while it was binding.  That would usually be done in order to wait for
+ * some userspace participation.*/
+driver->gadget_driver = composite_driver_template;
+static const struct usb_gadget_driver composite_driver_template = {
+    .bind       = composite_bind,
+    .unbind     = composite_unbind,
+
+    .setup      = composite_setup,
+    .disconnect = composite_disconnect,
+
+    .suspend    = composite_suspend,
+    .resume     = composite_resume,
+
+    .driver = {
+        .owner      = THIS_MODULE,
+    },
+};
+
+	usb_gadget_probe_driver
+	/*If no "udc->driver", bind UDC*/
+		udc_bind_to_driver
+		/*registering UDC driver*/
+			ret = driver->bind(udc->gadget, driver);
+			/* bind udc */
+			ret = usb_gadget_udc_start(udc->gadget, driver); 
+			/* start UDC */
+				udc_start
+				/* Write register */
+			usb_gadget_connect(udc->gadget);
+			/* Enables the D+ (or potentially D-) pullup. */
+			kobject_uevent(&udc->dev.kobj, KOBJ_CHANGE);
+

@@ -1,0 +1,135 @@
+-------------
+review board
+12707
+12622
+12481
+12467
+-------------
+ipmitool
+
+PRJ configuration
+•	MDS -> Projection Configuration -> IPMI Configuration -> SOL Configuration -> Number of SOL Serial Ports
+single=1, multi=3
+•	MDS -> Development Kits Configuration -> SOL and Serial Port Sharing Configuration -> SOL with External Super IO
+•	MDS -> IPMI configuration -> Enable IPMI SOL Support
+•	Feature->JAVASOL
+
+mw 1e6e2000 1688a8a8; mw 1e6e2080 ffff0000; mw 1e6e2084 ffff0000; mw 1e6e2090 00020087; mw 1e6e20DC 000007e7; mw 1e789098 a00;re
+
+echo "testing S0" >/dev/ttyS0
+echo "testing S3" >/dev/ttyS3
+
+$ps -ef | grep -i ipmi   //ipmi是否有起來
+
+$ps -ef |grep light   //web server是否有起來
+
+$/etc/init.d/lighttpd.sh restart   重啟web
+
+ipmitool -H [Host ip] -U admin -P admin -I lanplus(加密) lan(無加密) raw 6 1
+$ipmitool -H 192.168.0.185 -U admin -P admin -I lanplus raw 6 1
+$ipmitool -H 192.168.0.129 -U admin -P admin -I lanplus raw 6 1 -vvv  可看handshake過程
+
+The SOL can be activated
+root@jerry-VirtualBox:/home/jerry# ipmitool -H 172.16.56.190 -U admin -P admin -I lanplus sol set volatile-bit-rate 115.2
+root@jerry-VirtualBox:/home/jerry# ipmitool -H 172.16.56.190 -U admin -P admin -I lanplus sol activate
+$ipmitool -H 192.168.0.129 -U admin -P admin -I lanplus sol set volatile-bit-rate 115.2
+$ipmitool -H 192.168.0.129 -U admin -P admin -I lanplus sol activate
+
+JAVASOL 無法自動開啟
+到PATH out/single/Build/output/ImageTree/usr/local/www/Java/SOL 找到JSOL.jar 手動開啟
+$java -jar JSOL.jar
+BMC IP
+admin
+admin
+
+Volatile-Bit-Rate
+Non-Volatile-Bit-Rate
+
+Both side can show the data correctly
+$IPMI SOL
+$AMI 876 – C Host screen
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Muti SOL
+須下載MultiSolConfig.cdf 直接放在MDS內的cdf資料夾
+http://172.16.2.70/servmgt-trac/browser/projects/Utils-Dev/MDS/addons/SP/SPX/common/cdf/MultiSolConfig.cdf
+/jerry/svnspx/MDS/cdf
+
+開啟out的spx projext
+底下的customizable->4.2	Libipmipar-src->ast2500evb.pmc->Multi SOL conf 設定value->gen output->加到MAKEFILE
+
+Showing Error message
+$ipmitool -I lanplus -H 172.16.56.190 -U admin -P admin sol activate instance=2
+
+SOL payload activation limit reached
+ipmitool -I lanplus -H 172.16.56.190 -U admin -P admin raw 0x06 0x4b 0x01 0x01
+
+A number representing the system serial port that is being redirected.
+$ipmitool -I lanplus -H 172.16.56.190 -U admin -P admin raw 0x06 0x4b 0x01 0x01
+
+Number of instances of given payload type that can be simultaneously activated on BMC.
+$ipmitool -I lanplus -H 172.16.56.190 -U admin -P admin raw 0x06 0x4a 0x01
+
+-------------------------------------------------------------------------------------------------------------
+1.
+在backend加入chassisslotcfg.ini 檔案 
+裡面的內容需有
+1.[SlotConfig/addr/14]
+2.SlotNum=3
+3.SolPayLoadInstance=1
+看是有幾個sol
+寫入JNLP檔
+
+2.
+讀取JNLP檔 判斷是否是multi
+假如是加入下拉式選單
+
+3.選擇連線後 加入 if define
+導向IPMI RAW Command in JavaSOL
+
+---------------------------------------------------------------------------------------------------------------
+Multiple SOL setting (LPC)
+[AST2500EVB]
+•	UART2 : (J36 PIN 15 - J36 PIN 16) and (J36 PIN 13 - J36 PIN 14)
+•	UART4 : (J39 PIN 8 - J38 PIN 16) and (J39 PIN 7 - J38 PIN 14)
+
+[Preparing]
+In PRJ, the Number of SOL Serial Ports = 2
+
+[AMI 876]
+BIOS -> Advanced -> Remote Access Configuration
+-	Remote Access “Enabled”
+-	Serial port Number COM1
+-	Base Address IRQ (3F8,4)
+-	Serial Port Mode 38400 8,n,1
+
+[B75M-D3H]
+BIOS -> Peripherals -> Super IO Configuartion
+-	Serial Port A “Enabled”
+
+[minicom]
+Serial port setup -> A(change to /dev/ttyS0) -> E(change to D:38400) -> HW and SW control :No
+
+Test procedure
+Step 1: In BMC, boot in to UBOOT mode and run below memory write function to enable the uarts (UART1, UART4 and UART6).
+mw 1e6e2000 1688a8a8;mw 1e6e2080 ffff0000;mw 1e6e2084 ffff0000;mw 1e6e2090 00020087;mw 1e6e20DC 000007e7;mw 1e789098 a00;re
+Step 2: After resetting BMC booting in to Kernel. Then execute “echo” command to ensure the uarts are enabled(minicom).
+echo "testing S0" >/dev/ttyS0
+echo "testing S3" >/dev/ttyS3
+echo "testing S5" >/dev/ttyS5 (only 2530 image support)
+Step 3: In both the hosts,open terminal and execute the below command
+strace /sbin/agetty ttyS0 38400 vt100
+Step 4: Activated IPMI SOL C by executing “ ipmitool -I lanplus -H $BMC_IP -U admin -P admin sol activate instance=1”(UART1)
+Expectation: The SOL can be activated.
+Step 5: Activated IPMI SOL A by executing “ ipmitool -I lanplus -H $BMC_IP -U admin -P admin sol activate instance=2”(UART4)
+Expectation: The SOL can be activated.
+Step 6: Activated IPMI SOL A by executing “ ipmitool -I lanplus -H $BMC_IP -U admin -P admin sol activate instance=3”(UART6) (only 2530 image support)
+Expectation: The SOL can be activated.
+
+OS: 2 ubuntu 14.04
+Test FW: spx-204103227-20160210-ast2500evb_featurespack.ima and cmx-20499579-20160720-ast2530evb.ima
+Test board: 2500 and 2530
+---------------------------------------------------------------------------------------------
+
+MultipleSOL_support

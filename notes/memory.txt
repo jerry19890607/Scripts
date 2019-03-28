@@ -1,0 +1,24 @@
+ast2500 spec 
+uboot memory modify
+
+enter uboot
+$mm 1e6e2000   
+//memory display
+
+$mw 1e6e2000 1688a8a8   
+//write value(1688a8a8)to locate(1e6e2000)
+$mw 1e6e2080 ffff0000
+
+
+參照spec 
+1e6e:2000
+
+當在00h
+寫入key
+當mw 1e6e2000 1688a8a8 解鎖
+回傳0x00000001
+失敗0x00000000
+
+mw 1e6e2080 ffff0000
+offset:80h
+enable uart4 pin

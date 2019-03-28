@@ -1,0 +1,15 @@
+/conf
+chassisslotcfg.ini
+[SlotConfig/addr/14]
+SlotNum=3
+SolPayLoadInstance=1
+
+[SlotConfig/addr/23]
+SlotNum=4
+SolPayLoadInstance=2
+
+0210c3a3d81cd7f26f9cf0804c372fc1  chassisslotcfg.h
+root@jerry-VirtualBox:/home/jerry/codebase/sol/out/multi/source/libmodhapi-2.58.0-src/data# md5sum chassisslotcfg.c
+4bf7d82265617421d06185cdcb342dce  chassisslotcfg.c
+root@jerry-VirtualBox:/home/jerry/codebase/sol/out/multi/source/libmodhapi-2.58.0-src/data# md5sum chassisslotcfg.ini
+6694b6ef74b98213291297ae7a0cf5f7  chassisslotcfg.ini

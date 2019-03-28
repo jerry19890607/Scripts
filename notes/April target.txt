@@ -1,0 +1,17 @@
+EIP 399350[Defect]: [AST2500evb] [Automation] Failed to get correct response after SD Create SD card Partition
+EIP 400179[Defect]: [AST2500evb] [Automation] Set LDAP/AD server role group - Group Extended KVM and V-Media to reserved data fail
+EIP 400253[Defect]: [AST2500][KVM_Core_HTML5][KVM_RedirectionSupport] After zoom out in KVM then mouse will not sync w/ cursor in BIOS screen
+EIP 400517[Defect]: [AST2500][vMedia_Configurable_Common][VMCLISupport] Use VMCLI service (service vmcli start) is no any responds on UBUNTU client
+EIP 400573[Defect]: [AST2500evb] [Automation] Failed to Set Test Mount Path to 00~03
+EIP 400609[Defect]: [AST2500evb] [Automation] Get RIS state for unavailable media type fail
+EIP 400637[Defect]: [AST2500evb] [Automation] Get Total Available Images Info with Local Media Type, Short Image Name Format and Index 0 and 1 fail"
+"EIP 400797[Defect]: AMD Diesel - Got ""error: did not get TX buffer and so dropping"" when executing Host Interface function between BIOS and BMC"
+EIP 400920[Defect]: [AST2500evb] [Automation] Set media image info param3 - clear media image info fail
+EIP 400933[Defect]: [AST2500evb] [Automation] Delete Media Image by Image Name with one less byte fail
+
+400179 <> 373586
+400609 <> 372013
+400637 <> 370784
+400920 <> 372409
+400933 <> 373668
+
