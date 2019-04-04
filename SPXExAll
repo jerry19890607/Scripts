@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for filename in $1/*.spx
+do
+    newname=${filename#packages/} 
+    newname=${newname#/} 
+    newname=${newname%.spx} 
+    echo $newname
+    PackSPX.py -x $filename AllPkgSur/${newname}
+done
