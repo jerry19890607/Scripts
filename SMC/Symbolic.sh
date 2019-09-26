@@ -9,7 +9,7 @@
 #       . Down
 
 
-if [ $(pwd | grep codebase) ]; then
+if [ $(pwd | grep codebase) ] && [ $(pwd | grep x11) ] || [ $(pwd | grep x10) || [ $(pwd | grep x12)]; then
     CODEBASES_PATH=$(pwd)
     echo "[ Codebase path: $CODEBASES_PATH ]"
     echo ""
