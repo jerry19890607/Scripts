@@ -20,30 +20,26 @@ COMMAND="sshpass -p smcipmi0716 git pull"
 
 echo ""
 echo " [GOTO X11]"
-echo ""
 echo " [PULL X11]"
-echo ""
 $COMMAND &&
+echo " [PULL X11 Finished]"
 cd noVNC/
 echo ""
 echo " [GOTO noVNC]"
-echo ""
 echo " [PULL noVNC]"
-echo ""
 $COMMAND &&
+echo " [PULL noVNC Finished]"
 cd ../redfish/
 echo ""
 echo " [GOTO redfish]"
-echo ""
 echo " [PULL redfish]"
-echo ""
 $COMMAND &&
+echo " [PULL redfish Finished]"
 cd ../hii/
 echo ""
 echo " [GOTO hii]"
-echo ""
 echo " [PULL hii]"
-echo ""
 $COMMAND
+echo " [PULL hii Finished]"
 echo ""
 echo " [All Finished!!]"
