@@ -17,29 +17,34 @@ else
 fi
 
 COMMAND="sshpass -p smcipmi0716 git pull"
+REBASE="git rebase"
 
 echo ""
 echo " [GOTO X11]"
 echo " [PULL X11]"
 $COMMAND &&
+$REBASE
 echo " [PULL X11 Finished]"
 cd noVNC/
 echo ""
 echo " [GOTO noVNC]"
 echo " [PULL noVNC]"
 $COMMAND &&
+$REBASE
 echo " [PULL noVNC Finished]"
 cd ../redfish/
 echo ""
 echo " [GOTO redfish]"
 echo " [PULL redfish]"
 $COMMAND &&
+$REBASE
 echo " [PULL redfish Finished]"
 cd ../hii/
 echo ""
 echo " [GOTO hii]"
 echo " [PULL hii]"
 $COMMAND
+$REBASE
 echo " [PULL hii Finished]"
 echo ""
 echo " [All Finished!!]"
