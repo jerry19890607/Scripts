@@ -17,17 +17,23 @@ function switchBrnch()
 	git co $BRANCH && echo " [Jerry] Change branch to \"$BRANCH\"" || echo " [Jerry] change branch to $BRANCH FAIL!!!"
 }
 
-echo " [Jerry] Clone x11 start"
-$COMMAND $GIT_REPOSITORY/$CODEBASE.git 
-if [ "$?" -ne "0" ];
+if [ $CODEBASE == "x12" ];
 then
-	echo " [Jerry] Clone \"$X\" FAIL!!!"
-	exit 1
+    echo "x12 skip clone codebase"
+    cd $CODEBASE
 else
-	echo " [Jerry] Clone \"$X\" OK"
-    echo ""
-	echo " [Jerry] GOTO $CODEBASE"
-	cd $CODEBASE
+    echo " [Jerry] Clone x11 start"
+    $COMMAND $GIT_REPOSITORY/$CODEBASE.git 
+    if [ "$?" -ne "0" ];
+    then
+        echo " [Jerry] Clone \"$X\" FAIL!!!"
+        exit 1
+    else
+        echo " [Jerry] Clone \"$X\" OK"
+        echo ""
+        echo " [Jerry] GOTO $CODEBASE"
+        cd $CODEBASE
+    fi
 fi
 
 if [ -n "$BRANCH" ]; then switchBrnch; fi
