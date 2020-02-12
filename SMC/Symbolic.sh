@@ -27,7 +27,7 @@ LIB_PATH=/home/jerry/link/lib
 WEB_PATH=/home/jerry/link/web
 LN="ln -s"
 
-IP="$(ifconfig eth2 | grep 10.138 | awk '{print $2}' | cut -d':' -f2)"
+IP="$(ifconfig | grep 10.138 | awk '{print $2}' | cut -d':' -f2)"
 
 if [ -L $BIN_PATH ]; then
     rm $BIN_PATH
