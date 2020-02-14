@@ -8,10 +8,16 @@
 #       . Will refresh the symbolic of /home/jerry/link
 #       . Down
 
+LINK_PATH=/home/jerry/link
+CODEBASES_PATH=$(pwd)
+BIN_PATH=$LINK_PATH/bin
+LIB_PATH=$LINK_PATH/lib
+WEB_PATH=$LINK_PATH/web
+LN="ln -s"
+IP="$(ifconfig | grep 10.138 | awk '{print $2}' | cut -d':' -f2)"
 
 #if [ $(pwd | grep codebase) ] && [ -e .config] && ([ $(pwd | grep x11) ] || [ $(pwd | grep x10) || [ $(pwd | grep x12)]); then
 if [ -d $(pwd)/FileSystem ] && [ -f $(pwd)/.config ]; then
-    CODEBASES_PATH=$(pwd)
     echo ""
     echo "[ Codebase path: $CODEBASES_PATH ]"
     echo ""
@@ -21,13 +27,6 @@ else
     echo "exit..."
     exit
 fi
-
-BIN_PATH=/home/jerry/link/bin
-LIB_PATH=/home/jerry/link/lib
-WEB_PATH=/home/jerry/link/web
-LN="ln -s"
-
-IP="$(ifconfig | grep 10.138 | awk '{print $2}' | cut -d':' -f2)"
 
 if [ -L $BIN_PATH ]; then
     rm $BIN_PATH
