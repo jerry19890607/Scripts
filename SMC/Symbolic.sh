@@ -13,6 +13,7 @@ CODEBASES_PATH=$(pwd)
 BIN_PATH=$LINK_PATH/bin
 LIB_PATH=$LINK_PATH/lib
 WEB_PATH=$LINK_PATH/web
+RED_PATH=$LINK_PATH/red
 LN="ln -s"
 IP="$(ifconfig | grep 10.138 | awk '{print $2}' | cut -d':' -f2)"
 
@@ -36,6 +37,9 @@ if [ -L $LIB_PATH ]; then
 fi
 if [ -L $WEB_PATH ]; then
     rm $WEB_PATH
+fi
+if [ -L $RED_PATH ]; then
+    rm $RED_PATH
 fi
 
 if [ -d $CODEBASES_PATH/FileSystem/Host/AST2500/rootfs ]; then
@@ -65,7 +69,15 @@ $LN $CODEBASES_PATH/$WEBFS $WEB_PATH
 if [ $? -ne 0 ]; then
         echo "Create $WEB_PATH FAIL!!"
 fi
-ls -al $BIN_PATH $LIB_PATH $WEB_PATH
+$LN $CODEBASES_PATH/$WEBFS $WEB_PATH
+if [ $? -ne 0 ]; then
+        echo "Create $WEB_PATH FAIL!!"
+fi
+$LN $CODEBASES_PATH/redfish/bin $RED_PATH
+if [ $? -ne 0 ]; then
+        echo "Create $RED_PATH FAIL!!"
+fi
+ls -al $BIN_PATH $LIB_PATH $WEB_PATH $RED_PATH
 echo "[ Done!! ]"
 echo ""
 
@@ -77,6 +89,9 @@ if [ -L $LIB_PATH ]; then
 fi
 if [ -L $WEB_PATH ]; then
     echo "mount -o nolock -t nfs $IP:$WEB_PATH /web"
+fi
+if [ -L $RED_PATH ]; then
+    echo "mount -o nolock -t nfs $IP:$RED_PATH /tmp/web/bin"
 fi
 
 if [ -L $BIN_PATH ] && [ -L $LIB_PATH ] && [ -L $WEB_PATH ]; then

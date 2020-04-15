@@ -23,7 +23,7 @@ then
     cd $CODEBASE
 else
     echo " [Jerry] Clone x11 start"
-    $COMMAND $GIT_REPOSITORY/$CODEBASE.git 
+    $COMMAND $GIT_REPOSITORY/$CODEBASE.git
     if [ "$?" -ne "0" ];
     then
         echo " [Jerry] Clone \"$X\" FAIL!!!"
@@ -42,7 +42,7 @@ echo ""
 echo " [Jerry] Clone noVNC start"
 $COMMAND $GIT_REPOSITORY/noVNC.git && echo " [Jerry] Clone \"noVNC\" OK"  || echo " [Jerry] Clone \"noVNC\" FAIL!!!"
 
-if [ -n "$BRANCH" ]; then 
+if [ -n "$BRANCH" ]; then
 	echo " [Jerry] GOTO noVNC"
 	cd noVNC
 	switchBrnch
@@ -52,7 +52,7 @@ fi
 echo ""
 echo " [Jerry] Clone redfish start"
 $COMMAND $GIT_REPOSITORY/redfish.git && echo " [Jerry] Clone \"redfish\" OK"  || echo " [Jerry] Clone \"redfish\" FAIL!!!"
-if [ -n "$BRANCH" ]; then 
+if [ -n "$BRANCH" ]; then
 	echo " [Jerry] GOTO redfish"
 	cd redfish
 	switchBrnch
@@ -64,7 +64,7 @@ then
     echo ""
     echo " [Jerry] Clone hii start"
 	$COMMAND $GIT_REPOSITORY/hii.git && echo " [Jerry] Clone \"hii\" OK"  || echo " [Jerry] Clone \"hii\" FAIL!!!"
-	if [ -n "$BRANCH" ]; then 
+	if [ -n "$BRANCH" ]; then
 		echo " [Jerry] GOTO hii"
 		cd hii
 		switchBrnch
