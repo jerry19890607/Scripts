@@ -69,10 +69,6 @@ $LN $CODEBASES_PATH/$WEBFS $WEB_PATH
 if [ $? -ne 0 ]; then
         echo "Create $WEB_PATH FAIL!!"
 fi
-$LN $CODEBASES_PATH/$WEBFS $WEB_PATH
-if [ $? -ne 0 ]; then
-        echo "Create $WEB_PATH FAIL!!"
-fi
 $LN $CODEBASES_PATH/redfish/bin $RED_PATH
 if [ $? -ne 0 ]; then
         echo "Create $RED_PATH FAIL!!"
