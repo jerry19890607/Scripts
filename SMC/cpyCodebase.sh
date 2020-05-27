@@ -17,8 +17,7 @@ if [ -d $PURE_PATH ]; then
     fi
     if [ -d $CODEBASE ]; then
         tar -zcf $CODEBASE.tar.gz $CODEBASE
-        tar -xzf $CODEBASE.tar.gz -C $DES/
-        rm $CODEBASE.tar.gz &&
+        tar -xzf $CODEBASE.tar.gz -C $DES
         cd $DES/$CODEBASE/
     else
         echo "Copy fail !!"
