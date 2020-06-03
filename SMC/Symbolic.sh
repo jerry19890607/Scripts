@@ -90,6 +90,9 @@ if [ -L $RED_PATH ]; then
     echo "mount -o nolock -t nfs $IP:$RED_PATH /tmp/web/bin"
 fi
 
+echo ""
+echo "mount -o nolock -t nfs $IP:$CODEBASES_PATH/$ROOTFS/ /"
+
 if [ -L $BIN_PATH ] && [ -L $LIB_PATH ] && [ -L $WEB_PATH ]; then
     echo ""
     echo "mount -o nolock -t nfs $IP:$BIN_PATH /bin;mount -o nolock -t nfs $IP:$LIB_PATH /lib;mount -o nolock -t nfs $IP:$WEB_PATH /web"
