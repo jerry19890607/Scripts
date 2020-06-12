@@ -23,7 +23,7 @@ if [ -d $(pwd)/FileSystem ] && [ -f $(pwd)/.config ]; then
     echo "[ Codebase path: $CODEBASES_PATH ]"
     echo ""
 else
-    echo "You're in the worng path or need to build codebase before this script." 
+    echo "You're in the worng path or need to build codebase before this script."
     echo "Please Navigate to codebase path (ex: /home/jerry/ssd/codebase/\${CODENASE NAME}/x11)"
     echo "exit..."
     exit

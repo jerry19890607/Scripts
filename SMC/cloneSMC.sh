@@ -3,9 +3,9 @@
 #   Author: JerryShih
 #   Mail: JerryShih@supermicro.com
 #   Usage:
-#		. cloneSMC.sh $CODEBASE [$BRANCH]
-#		. cloneSMC.sh x10
-#		. cloneSMC.sh x11 REL_X11AST2500_171_2_20190715
+#       . cloneSMC.sh $CODEBASE [$BRANCH]
+#       . cloneSMC.sh x10
+#       . cloneSMC.sh x11 REL_X11AST2500_171_2_20190715
 
 CODEBASE=$1
 BRANCH=$2
@@ -14,7 +14,7 @@ COMMAND="sshpass -p smcipmi0716 git clone"
 
 function switchBrnch()
 {
-	git co $BRANCH && echo " [Jerry] Change branch to \"$BRANCH\"" || echo " [Jerry] change branch to $BRANCH FAIL!!!"
+    git co $BRANCH && echo " [Jerry] Change branch to \"$BRANCH\"" || echo " [Jerry] change branch to $BRANCH FAIL!!!"
 }
 
 if [ $CODEBASE == "x12" ];
@@ -43,35 +43,35 @@ echo " [Jerry] Clone noVNC start"
 $COMMAND $GIT_REPOSITORY/noVNC.git && echo " [Jerry] Clone \"noVNC\" OK"  || echo " [Jerry] Clone \"noVNC\" FAIL!!!"
 
 if [ -n "$BRANCH" ]; then
-	echo " [Jerry] GOTO noVNC"
-	cd noVNC
-	switchBrnch
-	cd ../
+    echo " [Jerry] GOTO noVNC"
+    cd noVNC
+    switchBrnch
+    cd ../
 fi
 
 echo ""
 echo " [Jerry] Clone redfish start"
 $COMMAND $GIT_REPOSITORY/redfish.git && echo " [Jerry] Clone \"redfish\" OK"  || echo " [Jerry] Clone \"redfish\" FAIL!!!"
 if [ -n "$BRANCH" ]; then
-	echo " [Jerry] GOTO redfish"
-	cd redfish
-	switchBrnch
-	cd ../
+    echo " [Jerry] GOTO redfish"
+    cd redfish
+    switchBrnch
+    cd ../
 fi
 
 if [ "$CODEBASE" != "x10" ]
 then
     echo ""
     echo " [Jerry] Clone hii start"
-	$COMMAND $GIT_REPOSITORY/hii.git && echo " [Jerry] Clone \"hii\" OK"  || echo " [Jerry] Clone \"hii\" FAIL!!!"
-	if [ -n "$BRANCH" ]; then
-		echo " [Jerry] GOTO hii"
-		cd hii
-		switchBrnch
-		cd ../
-	fi
+    $COMMAND $GIT_REPOSITORY/hii.git && echo " [Jerry] Clone \"hii\" OK"  || echo " [Jerry] Clone \"hii\" FAIL!!!"
+    if [ -n "$BRANCH" ]; then
+        echo " [Jerry] GOTO hii"
+        cd hii
+        switchBrnch
+        cd ../
+    fi
 else
-	echo " [Jerry] Ignore \"hii\""
+    echo " [Jerry] Ignore \"hii\""
 fi
 
 cd $CODEBASE

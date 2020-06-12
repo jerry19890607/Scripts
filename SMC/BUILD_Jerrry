@@ -1,5 +1,0 @@
-#!/bin/sh
-
-#if [ -d ./FileSystem/Host/AST2500/webfs_final]
-
-make rf ver=1.0.0 $1 $2
