@@ -59,6 +59,13 @@ if [ -n "$BRANCH" ]; then
     cd ../
 fi
 
+if [ $CODEBASE == "x11" ];
+then
+    cd $CODEBASE/redfish
+    git co redfish_X11_2500
+    cd $CODEBASE
+else
+
 if [ "$CODEBASE" != "x10" ]
 then
     echo ""
