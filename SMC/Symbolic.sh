@@ -15,7 +15,7 @@ LIB_PATH=$LINK_PATH/lib
 WEB_PATH=$LINK_PATH/web
 RED_PATH=$LINK_PATH/red
 LN="ln -s"
-IP="$(ifconfig | grep 10.138 | awk '{print $2}' | cut -d':' -f2)"
+IP="$(ifconfig | grep 10.148 | awk '{print $2}' | cut -d':' -f2)"
 
 #if [ $(pwd | grep codebase) ] && [ -e .config] && ([ $(pwd | grep x11) ] || [ $(pwd | grep x10) || [ $(pwd | grep x12)]); then
 if [ -d $(pwd)/FileSystem ] && [ -f $(pwd)/.config ]; then
