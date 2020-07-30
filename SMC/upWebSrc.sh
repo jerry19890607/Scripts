@@ -33,7 +33,18 @@ fi
 if [ -d $WEBPATCH ]; then
     cd $WEBPATCH
     echo "Remove and copy..."
-    rm -r css/ js/ page/ images/
+    if [ -d css/ ]; then
+        rm -r css/
+    fi
+    if [ -d css/ ]; then
+        rm -r css/
+    fi
+    if [ -d js/ ]; then
+        rm -r js/
+    fi
+    if [ -d images/ ]; then
+        rm -r images/
+    fi
     cp -r $WEBSRC/css/ $WEBSRC/js/ $WEBSRC/page/ $WEBSRC/images/ $WEBPATCH/
     echo "Already copy to HEAD!!"
     echo ""
