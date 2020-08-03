@@ -7,9 +7,9 @@ ALL_ARGU=$@
 
 usage () {
     echo -e ""
-    echo -e "myipmi usage: ./myipmi.sh {ip | help} {raw command | help}"
+    echo -e "myipmi usage: ./myipmi.sh [ip] [Raw Commands]"
     echo -e ""
-    echo -e "Commands:"
+    echo -e "Raw Commands:"
     echo -e "              \e[33mKey words\e[0m            \e[33mPurpose\e[0m                        \e[33mResponse\e[0m                                           \e[33mParameters\e[0m"
     echo -e "       \e[36mSensor\e[0m"
     echo -e "              [SENSOR_ENABLE]      - Enable sensor reading        -                                                  - 0x30 0x70 0xdf"
@@ -57,7 +57,7 @@ usage () {
     #echo -e "              []        -        -  - "
 }
 
-if [ $IP == 'help' ]; then
+if [ "$IP" == "help" ] || [ -z $IP ]; then
     usage
     exit
 fi
