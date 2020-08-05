@@ -12,8 +12,8 @@ usage () {
     echo -e "Raw Commands:"
     echo -e "              \e[33mKey words\e[0m            \e[33mPurpose\e[0m                        \e[33mResponse\e[0m                                           \e[33mParameters\e[0m"
     echo -e "       \e[36mSensor\e[0m"
-    echo -e "              [SENSOR_ENABLE]      - Enable sensor reading        -                                                  - 0x30 0x70 0xdf"
-    echo -e "              [SENSOR_DISABLE]     - Disable sensor reading       -                                                  - 0x30 0x70 0x3a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"
+    echo -e "              [SENSOR_DISABLE]     - Enable sensor reading        -                                                  - 0x30 0x70 0xdf"
+    echo -e "              [SENSOR_ENABLE]      - Disable sensor reading       -                                                  - 0x30 0x70 0x3a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"
     echo -e "              [SENSOR_FLAG]        - Check BMC Sensor Flags       - (at_b_smbus_access_granted)(at_b_BMCSensorStart) - 0x30 0x70 0x3f"
     echo -e "       \e[36mFan\e[0m"
     echo -e "              [FAN_DEBUG]          - Enable Fan Control Debug     -                                                  - 0x30 0x70 0xfa 0x1"
@@ -75,7 +75,7 @@ SENSOR_ENABLE)
     ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0x3a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ;;
 SENSOR_DISABLE)
-    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0x3a 0x30 0x70 0xdf
+    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0xdf
 ;;
 SENSOR_FLAG)
     ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0x3f
