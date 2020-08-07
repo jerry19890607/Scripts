@@ -23,7 +23,7 @@ usage () {
     echo -e "       \e[36mCPLD\e[0m"
     echo -e "              [CPLD_VERSION]       - Check MB CPLD version        -                                                  - 0x30 0x68 0x28 0x03"
     echo -e "              [CPLD_KEY]           - Check MB CPLD key            - 2 (debug_key) 1 (productoin_key)                 - 0x30 0x68 0x28 0x0a"
-    echo -e "              [PROVISION]          - Check MB provisioned status  - (00) Not (01) Already                            - 0x30 0x68 0x28 0x0a"
+    echo -e "              [PROVISION]          - Check MB provisioned status  - (00) Not (01) Already                            - 0x30 0x68 0x28 0x00"
     echo -e "              [CPLD_PCH_BOOT_OK]   - Get CPLD 0x18 bit 5          - 1 (CPH BOOT OK) 0 (Not finished)                 - 0x30 0x70 0xdb 0x01 0x3 0x18"
     echo -e "              [CPLD_REG]           - Get CPLD reg                 -                                                  - 0x30 0x70 0xdb 0x01 Data0 Data1 Data2"
     echo -e "                                                                                                                                           0x03  reg           Read CPLD reg"
