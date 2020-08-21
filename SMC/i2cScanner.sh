@@ -6,7 +6,7 @@ PWD="ADMIN"
 
 NUM=$#
 
-if [ $NUM -eq 1 ] || [ $NUM -gt 2 ] || [ $IP == "help"  ]; then
+if [ $NUM -eq 1 ] || [ $NUM -gt 2 ] || [[ $IP == "help" ]]; then
     echo 'Usage:'
     echo '      ./i2cScanner.sh $IP $I2C_BUS'
     exit
