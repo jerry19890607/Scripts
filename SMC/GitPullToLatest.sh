@@ -6,51 +6,49 @@
 #       . Navigate to codebase (ex: /home/jerry/ssd/codebase/verify_uac_compress/x11)
 #       . gitPullToLatest.sh
 
-if [ $(pwd | grep codebase) ] && [ $(pwd | grep -i x11) ] || [ $(pwd | grep -i x10) ] || [ $(pwd | grep -i x12) ]; then
-    CODEBASES_PATH=$(pwd)
-    echo "[ Codebase path: $CODEBASES_PATH ]"
-    echo ""
+NOW=$(pwd)
+if [ ! -z "$(cat .git/config| grep x12)" ]; then
+    CODEBASE=x12
+elif [ ! -z "$(cat .git/config| grep x11)" ]; then
+    CODEBASE=x11
+elif [ ! -z "$(cat .git/config| grep x10)" ]; then
+    CODEBASE=x10
 else
-    echo "You're in the worng path, please Navigate to codebase path (ex: /home/jerry/ssd/codebase/verify_uac_compress/x11)"
-    echo "exit..."
+    echo "Unrecognizable codebase! Exit..."
     exit
 fi
 
 COMMAND="sshpass -p smcipmi0716 git pull"
 REBASE="git rebase"
 
-echo ""
-echo " [GOTO BASE]"
-echo " [PULL BASE]"
+echo -e " \e[33m[PULL $CODEBASE...]\e[0m"
 $COMMAND &&
 $REBASE
-echo " [PULL BASE Finished]"
-cd $CODEBASES_PATH/redfish/
-echo ""
-echo " [GOTO redfish]"
-echo " [PULL redfish]"
-$COMMAND &&
-$REBASE
-echo " [PULL redfish Finished]"
+echo -e " \e[33m[PULL $CODEBASE Finished]\e[0m"
 
-if [[ $(pwd | grep -i x11) || $(pwd | grep -i x10) ]];
+echo ""
+cd $NOW/redfish
+echo -e " \e[33m[PULL redfish...]\e[0m"
+$COMMAND && $REBASE
+echo -e " \e[33m[PULL redfish Finished]\e[0m"
+
+if [ $CODEBASE == "x11" ] || [ $CODEBASE == "x10" ];
 then
-    cd $CODEBASES_PATH/hii/
     echo ""
-    echo " [GOTO hii]"
-    echo " [PULL hii]"
+    cd $NOW/hii
+    echo -e " \e[33m[PULL hii...]\e[0m"
     $COMMAND
     $REBASE
-    echo " [PULL hii Finished]"
-    cd $CODEBASES_PATH/noVNC/
+    echo -e " \e[33m[PULL hii Finished]\e[0m"
+
     echo ""
-    echo " [GOTO noVNC]"
-    echo " [PULL noVNC]"
+    cd $NOW/noVNC
+    echo -e " \e[33m[PULL noVNC...]\e[0m"
     $COMMAND &&
     $REBASE
-    echo " [PULL noVNC Finished]"
+    echo -e " \e[33m[PULL noVNC Finished]\e[0m"
 fi
 
 echo ""
-echo " [Git update to lstest finished!!]"
+echo -e " \e[31m[Git update to lstest finished!!!]\e[0m"
 echo ""
