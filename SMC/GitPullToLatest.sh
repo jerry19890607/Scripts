@@ -50,5 +50,5 @@ then
 fi
 
 echo ""
-echo -e " \e[31m[Git update to lstest finished!!!]\e[0m"
+echo -e " \e[38;5;47m[Git update to lstest finished!!!]\e[0m"
 echo ""

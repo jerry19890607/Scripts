@@ -74,20 +74,21 @@ if [ $? -ne 0 ]; then
         echo "Create $RED_PATH FAIL!!"
 fi
 ls -al $BIN_PATH $LIB_PATH $WEB_PATH $RED_PATH
-echo "[ Done!! ]"
+echo -e "\e[38;5;197m[ Done!! ]\e[0m"
 echo ""
 
+echo -e "\e[38;5;84m[ Link List ]   \e[0m"
 if [ -L $BIN_PATH ]; then
-    echo "mount -o nolock -t nfs $IP:$BIN_PATH /bin"
+    echo -e "mount -o nolock -t nfs $IP:$BIN_PATH \e[38;5;43m/bin\e[0m"
 fi
 if [ -L $LIB_PATH ]; then
-    echo "mount -o nolock -t nfs $IP:$LIB_PATH /lib"
+    echo -e "mount -o nolock -t nfs $IP:$LIB_PATH \e[38;5;43m/lib\e[0m"
 fi
 if [ -L $WEB_PATH ]; then
-    echo "mount -o nolock -t nfs $IP:$WEB_PATH /web"
+    echo -e "mount -o nolock -t nfs $IP:$WEB_PATH \e[38;5;43m/web\e[0m"
 fi
 if [ -L $RED_PATH ]; then
-    echo "mount -o nolock -t nfs $IP:$RED_PATH /tmp/web/bin"
+    echo -e "mount -o nolock -t nfs $IP:$RED_PATH \e[38;5;43m/tmp/web/bin\e[0m"
 fi
 
 echo ""
