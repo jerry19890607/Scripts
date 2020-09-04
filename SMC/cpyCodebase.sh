@@ -26,12 +26,11 @@ if [ -d $PURE_PATH ]; then
     if [ -f $CODEBASE.tar ]; then
         echo "$CODEBASE.tar exist!  Update..."
         echo ""
-        tar -uf $CODEBASE.tar $CODEBASE
-    else
-        echo "$CODEBASE.tar not exist!  New tar..."
-        echo ""
-        tar -cf $CODEBASE.tar $CODEBASE
+        rm -r $CODEBASE.tar
     fi
+    echo "Make a new tar..."
+    echo ""
+    tar -cf $CODEBASE.tar $CODEBASE
     echo "$CODEBASE.tar is ready!"
 
     if [ -d $CODEBASE ]; then

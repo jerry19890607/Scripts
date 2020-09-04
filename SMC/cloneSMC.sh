@@ -80,5 +80,3 @@ then
 else
     echo " [Jerry] Ignore \"hii\""
 fi
-
-cd $CODEBASE
