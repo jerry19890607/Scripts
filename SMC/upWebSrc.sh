@@ -67,7 +67,8 @@ if [ -d $WEBPATCH ]; then
     if [ -d images/ ]; then
         rm -r images/
     fi
-    cp -r $SRCPATCH/webgui_gen2_$HEADVER/css/ $SRCPATCH/webgui_gen2_$HEADVER/js/ $SRCPATCH/webgui_gen2_$HEADVER/page/ $SRCPATCH/webgui_gen2_$HEADVER/images/ $WEBPATCH/
+    #cp -r $SRCPATCH/webgui_gen2_$HEADVER/css/ $SRCPATCH/webgui_gen2_$HEADVER/js/ $SRCPATCH/webgui_gen2_$HEADVER/page/ $SRCPATCH/webgui_gen2_$HEADVER/images/ $WEBPATCH/
+    cp -r $SRCPATCH/webgui_gen2_$HEADVER/* $WEBPATCH/
     echo ""
     printf "\e[38;5;156m"
     echo " [ Web Source already update to HEAD!!! ]"
