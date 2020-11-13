@@ -24,7 +24,10 @@ usage () {
     echo -e "              [CPLD_VERSION]       - Check MB CPLD version        -                                                  - 0x30 0x68 0x28 0x03"
     echo -e "              [CPLD_KEY]           - Check MB CPLD key            - 2 (debug_key) 1 (productoin_key)                 - 0x30 0x68 0x28 0x0a"
     echo -e "              [PROVISION]          - Check MB provisioned status  - (00) Not (01) Already                            - 0x30 0x68 0x28 0x00"
-    echo -e "              [CPLD_PCH_BOOT_OK]   - Get CPLD 0x18 bit 5          - 1 (CPH BOOT OK) 0 (Not finished)                 - 0x30 0x70 0xdb 0x01 0x3 0x18"
+    echo -e "              [CPLD_18h]           - Get CPLD 0x18                - bit 1 (PCH released) bit 5 (PCH BOOT OK)         - 0x30 0x68 0x28 0x09"
+    echo -e "              [SENSOR_POLLING_VAR] - Sensor polling variables     - (at_b_OemEnableSensor)(at_b_HWM_FAN_init_done)   - 0x30 0x68 0x28 0x0b"
+    echo -e "                                                                    (at_b_SensorScanningEnable)(at_FW_UpdateMode)"
+    echo -e "                                                                    (at_b_smbus_access_granted)(I2CAccessCheck())"
     echo -e "              [CPLD_REG]           - Get CPLD reg                 -                                                  - 0x30 0x70 0xdb 0x01 Data0 Data1 Data2"
     echo -e "                                                                                                                                           0x03  reg           Read CPLD reg"
     echo -e "                                                                                                                                           0x04  reg   data    Write CPLD reg"
@@ -111,8 +114,13 @@ CPLD_VERSION)
 CPLD_KEY)
     ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x68 0x28 0x0a
 ;;
-CPLD_PCH_BOOT_OK)
-    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0xdb 0x01 0x3 0x18
+CPLD_18h)
+    echo -e "bit 1 (PCH released) bit 5 (PCH BOOT OK)"
+    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x68 0x28 0x09
+;;
+SENSOR_POLLING_VAR)
+    echo -e "(at_b_OemEnableSensor)(at_b_HWM_FAN_init_done)(at_b_SensorScanningEnable)(at_FW_UpdateMode)(at_b_smbus_access_granted)(I2CAccessCheck())"
+    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x68 0x28 0x0b
 ;;
 CPLD_REG)
     shift
