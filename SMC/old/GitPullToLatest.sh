@@ -26,14 +26,14 @@ $COMMAND &&
 $REBASE
 echo -e " \e[33m[PULL $CODEBASE Finished]\e[0m"
 
+echo ""
+cd $NOW/redfish
+echo -e " \e[33m[PULL redfish...]\e[0m"
+$COMMAND && $REBASE
+echo -e " \e[33m[PULL redfish Finished]\e[0m"
+
 if [ $CODEBASE == "x11" ] || [ $CODEBASE == "x10" ];
 then
-    echo ""
-    cd $NOW/redfish
-    echo -e " \e[33m[PULL redfish...]\e[0m"
-    $COMMAND && $REBASE
-    echo -e " \e[33m[PULL redfish Finished]\e[0m"
-
     echo ""
     cd $NOW/hii
     echo -e " \e[33m[PULL hii...]\e[0m"
