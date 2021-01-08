@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_smtp&auth_en=on&smtpSSL_en=off&smtpaddr=10.138.160.49&smtpport=587&user=test123&pwd=test456&sender=test@supermirco.com.tw"

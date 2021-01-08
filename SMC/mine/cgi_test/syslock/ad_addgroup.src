@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_ad_group&groupname=aaaccc&groupidx=0&groupdomain=10.aa&ad_add=&new_privilege=4"

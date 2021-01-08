@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_session&session_timeout=30"

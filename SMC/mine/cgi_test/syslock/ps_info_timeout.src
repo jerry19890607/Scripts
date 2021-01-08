@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_bbp_timeout&bbp_timout_val=10&bbp_timout_en=1"

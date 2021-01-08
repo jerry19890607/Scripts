@@ -1,0 +1,3 @@
+#!/bin/bash
+CGI_NAME=ipmi.cgi
+QSTRING="op=BIOS_UNLOCK.XML&r=(0,0)"

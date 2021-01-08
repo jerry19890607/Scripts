@@ -1,0 +1,3 @@
+#!/bin/bash
+CGI_NAME=ipmi.cgi
+QSTRING="op=COMPONENT_UPDATE_MISC.XML&r=(0,1)"

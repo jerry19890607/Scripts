@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_bbp_discharge&bbp_slot_id=0&bbp_auto_enable=1&bbp_manual_engage=1&bbp_remain_days=3"

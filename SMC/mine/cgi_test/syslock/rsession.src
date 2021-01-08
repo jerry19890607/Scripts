@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_rsession&remote_session=1"

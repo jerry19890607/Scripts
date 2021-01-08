@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_alert&ip=10.138.160.7&severity=&mail=alfiel@supermicro.com.tw&sub=hisub&msg=himsg&index=0&func=m"

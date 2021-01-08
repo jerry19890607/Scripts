@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_nm&policy_id=1&en=1&limit=1&act=1&fun=m"

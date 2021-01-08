@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_date_time&timezone=28800&dst_en=0&ntp=on&ntp_server_pri=tock.stdtime.gov.tw&ntp_server_2nd=tock.stdtime.gov.tw&year=2019&month=12&day=12&hour=10&min=00&sec=00"

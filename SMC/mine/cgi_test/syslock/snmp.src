@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_snmp&en_snmp=on&en_snmpv2=on&rocommunity=public&rwcommunity=private&en_snmpv3=off"

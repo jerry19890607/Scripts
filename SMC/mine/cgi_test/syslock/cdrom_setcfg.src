@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_iso&host=10.138.160.190&path=\abc.iso&user=admin&pwd=admin"

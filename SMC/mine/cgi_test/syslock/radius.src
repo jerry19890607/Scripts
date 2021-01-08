@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_radius&enable=1&ip=10.138.160.99&secret=smcipmi&port=1813"

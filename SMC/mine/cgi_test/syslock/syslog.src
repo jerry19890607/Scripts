@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_syslog&syslogport1=514&syslogip1=10.138.160.49&enable=1"

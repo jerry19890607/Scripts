@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=main_fwupdate&preserve_config=1&preserve_sdr=1&preserve_ssl=1"

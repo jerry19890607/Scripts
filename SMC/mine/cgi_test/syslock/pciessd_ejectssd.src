@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=serv_ejectssd&aoc_no=0&slot_no=0&nvme_no=0"

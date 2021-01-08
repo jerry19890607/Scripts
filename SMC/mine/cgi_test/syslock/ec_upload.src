@@ -1,0 +1,3 @@
+#!/bin/bash
+CGI_NAME=ipmi.cgi
+QSTRING="op=LOCK_COMPONENT_UPDATE.XML&r=(0,0)"

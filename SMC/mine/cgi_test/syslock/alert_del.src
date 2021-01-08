@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_alert&index=0"

@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_firstboot&bootoption=0&boottype=0&bootdevice=0"

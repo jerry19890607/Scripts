@@ -1,0 +1,3 @@
+#!/bin/bash
+CGI_NAME=ipmi.cgi
+QSTRING="op=BIOS_OPTION.XML&me_en=1&nve_en=1&smbios_en=1"

@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_fan&FanMode=1&smartcool=0"

@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_ldap&en_ldap=on"

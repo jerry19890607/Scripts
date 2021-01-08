@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_lanbypass&lan_bypass_ctrl=0"

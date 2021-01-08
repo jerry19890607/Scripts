@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_log&enable_ac_power_on_event_log=1&enable_circular_event_buf=1"

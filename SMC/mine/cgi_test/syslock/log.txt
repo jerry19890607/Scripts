@@ -1,0 +1,846 @@
+
+=====0: ./bios_upgrade.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_biosupdate  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:29 GMT
+
+SysLockdown is enabled
+@@@@@0: ./bios_upgrade.src@@@@@
+=====1: ./cdrom_mount.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=mount_iso  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:30 GMT
+
+SysLockdown is enabled
+@@@@@1: ./cdrom_mount.src@@@@@
+=====2: ./ssl_fw_reset.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_bmcreset  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:31 GMT
+
+SysLockdown is enabled
+@@@@@2: ./ssl_fw_reset.src@@@@@
+=====3: ./ip_ctrl_en.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=ip_ctrl&mode=enable&policy=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:31 GMT
+
+SysLockdown is enabled
+@@@@@3: ./ip_ctrl_en.src@@@@@
+=====4: ./alert_clear_all.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=clear_all_pef_fc  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:32 GMT
+
+SysLockdown is enabled
+@@@@@4: ./alert_clear_all.src@@@@@
+=====5: ./ec_upload.src=====
+curl -X POST https://10.138.160.120/cgi/ipmi.cgi -d op=LOCK_COMPONENT_UPDATE.XML&r=(0,0)  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:33 GMT
+
+SysLockdown is enabled
+@@@@@5: ./ec_upload.src@@@@@
+=====6: ./snmp.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_snmp&en_snmp=on&en_snmpv2=on&rocommunity=public&rwcommunity=private&en_snmpv3=off  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:34 GMT
+
+SysLockdown is enabled
+@@@@@6: ./snmp.src@@@@@
+=====7: ./bios_set_opts.src=====
+curl -X POST https://10.138.160.120/cgi/ipmi.cgi -d op=BIOS_OPTION.XML&me_en=1&nve_en=1&smbios_en=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:35 GMT
+
+SysLockdown is enabled
+@@@@@7: ./bios_set_opts.src@@@@@
+=====8: ./radius.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_radius&enable=1&ip=10.138.160.99&secret=smcipmi&port=1813  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:36 GMT
+
+SysLockdown is enabled
+@@@@@8: ./radius.src@@@@@
+=====9: ./hdd_power.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=hddpwr_control&hdd=0&action=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:37 GMT
+
+SysLockdown is enabled
+@@@@@9: ./hdd_power.src@@@@@
+=====10: ./cdrom_umount.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=umount_iso  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:37 GMT
+
+SysLockdown is enabled
+@@@@@10: ./cdrom_umount.src@@@@@
+=====11: ./network.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_lan&en_dhcp=on  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:39 GMT
+
+SysLockdown is enabled
+@@@@@11: ./network.src@@@@@
+=====12: ./ip_ctrl_del.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=ip_ctrl&mode=delete&ruleno=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:39 GMT
+
+SysLockdown is enabled
+@@@@@12: ./ip_ctrl_del.src@@@@@
+=====13: ./ssl_upload.src=====
+curl -X POST https://10.138.160.120/cgi/upload_ssl.cgi -F cert_file=@./ssl_cert/web.cert -F key_file=@./ssl_cert/web.pem -H Expect: --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:40 GMT
+
+SysLockdown is enabled
+@@@@@13: ./ssl_upload.src@@@@@
+=====14: ./bmc_preupload.src=====
+curl -X POST https://10.138.160.120/cgi/ipmi.cgi -d op=LOCK_UPLOAD_FW.XML&r=(0,0)  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:41 GMT
+
+SysLockdown is enabled
+@@@@@14: ./bmc_preupload.src@@@@@
+=====15: ./component_unlock.src=====
+curl -X POST https://10.138.160.120/cgi/ipmi.cgi -d op=UNLOCK_COMPONENT_UPDATE.XML&r=(1,0)  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:42 GMT
+
+SysLockdown is enabled
+@@@@@15: ./component_unlock.src@@@@@
+=====16: ./ad_modgroup.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_ad_group&groupname=aaaa&groupidx=1&groupdomain=ccccc&new_privilege=4  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:43 GMT
+
+SysLockdown is enabled
+@@@@@16: ./ad_modgroup.src@@@@@
+=====17: ./modify_alert.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_alert&ip=192.168.0.0&severity=00&mail=aaa@supermicro.com.tw&sub=test1&msg=test2&index=1&fun=m  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:44 GMT
+
+SysLockdown is enabled
+@@@@@17: ./modify_alert.src@@@@@
+=====18: ./factorydef.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_factorydefault  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:45 GMT
+
+SysLockdown is enabled
+@@@@@18: ./factorydef.src@@@@@
+=====19: ./user_adv.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_user_adv&BAD_PWD_THR=&ATT_COUNT_RESET=&USER_LOCKOUT_INT=1&PWD_COMPLEX_EN=1&ACCOUNT_LOCK_EN=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:02:45 GMT
+
+SysLockdown is enabled
+@@@@@19: ./user_adv.src@@@@@
+=====20: ./bmc_upload.src=====
+curl -X POST https://10.138.160.120/cgi/oem_firmware_upload.cgi -F fw_image=@./fw/bmc.bin -H Expect: --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:03 GMT
+
+SysLockdown is enabled
+@@@@@20: ./bmc_upload.src@@@@@
+=====21: ./datetime.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_date_time&timezone=28800&dst_en=0&ntp=on&ntp_server_pri=tock.stdtime.gov.tw&ntp_server_2nd=tock.stdtime.gov.tw&year=2019&month=12&day=12&hour=10&min=00&sec=00  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:05 GMT
+
+SysLockdown is enabled
+@@@@@21: ./datetime.src@@@@@
+=====22: ./alert_test.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=send_test_alert&index=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:05 GMT
+
+SysLockdown is enabled
+@@@@@22: ./alert_test.src@@@@@
+=====23: ./rakp.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=misc_rakp&rakp_setting=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:06 GMT
+
+SysLockdown is enabled
+@@@@@23: ./rakp.src@@@@@
+=====24: ./cdrom_setcfg.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_iso&host=10.138.160.190&path=\abc.iso&user=admin&pwd=admin  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:07 GMT
+
+SysLockdown is enabled
+@@@@@24: ./cdrom_setcfg.src@@@@@
+=====25: ./mouse.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_mouse&mouse_mode=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:08 GMT
+
+SysLockdown is enabled
+@@@@@25: ./mouse.src@@@@@
+=====26: ./component_update_misc.src=====
+curl -X POST https://10.138.160.120/cgi/ipmi.cgi -d op=COMPONENT_UPDATE_MISC.XML&r=(0,1)  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:09 GMT
+
+SysLockdown is enabled
+@@@@@26: ./component_update_misc.src@@@@@
+=====27: ./ldap.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_ldap&en_ldap=on  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:10 GMT
+
+SysLockdown is enabled
+@@@@@27: ./ldap.src@@@@@
+=====28: ./twin_pro_update.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_componentupdate&driver_name=AtmelMCU  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:11 GMT
+
+SysLockdown is enabled
+@@@@@28: ./twin_pro_update.src@@@@@
+=====29: ./resetkvm.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_resetkvm  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:11 GMT
+
+SysLockdown is enabled
+@@@@@29: ./resetkvm.src@@@@@
+=====30: ./rsession.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_rsession&remote_session=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:12 GMT
+
+SysLockdown is enabled
+@@@@@30: ./rsession.src@@@@@
+=====31: ./pciessd_ejectssd.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=serv_ejectssd&aoc_no=0&slot_no=0&nvme_no=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:13 GMT
+
+SysLockdown is enabled
+@@@@@31: ./pciessd_ejectssd.src@@@@@
+=====32: ./smtp.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_smtp&auth_en=on&smtpSSL_en=off&smtpaddr=10.138.160.49&smtpport=587&user=test123&pwd=test456&sender=test@supermirco.com.tw  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:14 GMT
+
+SysLockdown is enabled
+@@@@@32: ./smtp.src@@@@@
+=====33: ./firstboot.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_firstboot&bootoption=0&boottype=0&bootdevice=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:15 GMT
+
+SysLockdown is enabled
+@@@@@33: ./firstboot.src@@@@@
+=====34: ./ad_addgroup.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_ad_group&groupname=aaaccc&groupidx=0&groupdomain=10.aa&ad_add=&new_privilege=4  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:16 GMT
+
+SysLockdown is enabled
+@@@@@34: ./ad_addgroup.src@@@@@
+=====35: ./ec_update.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_componentupdate&driver_name=NuvotonEC  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:17 GMT
+
+SysLockdown is enabled
+@@@@@35: ./ec_update.src@@@@@
+=====36: ./lanbypass.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_lanbypass&lan_bypass_ctrl=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:17 GMT
+
+SysLockdown is enabled
+@@@@@36: ./lanbypass.src@@@@@
+=====37: ./bios_upload.src=====
+curl -X POST https://10.138.160.120/cgi/bios_upload.cgi -F bios_rom=@./fw/bios.bin -H Expect: --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:35 GMT
+
+SysLockdown is enabled
+@@@@@37: ./bios_upload.src@@@@@
+=====38: ./bios_preupload.src=====
+curl -X POST https://10.138.160.120/cgi/ipmi.cgi -d op=BIOS_UPLOAD.XML&r=(0,0)  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:37 GMT
+
+SysLockdown is enabled
+@@@@@38: ./bios_preupload.src@@@@@
+=====39: ./evt_clear.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=serv_event_clearacknowledgements  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:37 GMT
+
+SysLockdown is enabled
+@@@@@39: ./evt_clear.src@@@@@
+=====40: ./port.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_port&HTTP_PORT=1&HTTPS_PORT=2&IKVM_PORT=3&VM_PORT=4&SSH_PORT=5&WSMAN_PORT=6&SNMP_PORT=7&HTTP_SERVICE=8&HTTPS_SERVICE=9&IKVM_SERVICE=10&VM_SERVICE=11&SSH_SERVICE=12&SNMP_SERVICE=13&WSMAN_SERVICE=14&SSL_REDIRECT=15  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:38 GMT
+
+SysLockdown is enabled
+@@@@@40: ./port.src@@@@@
+=====41: ./floppy_mount.src=====
+curl -X POST https://10.138.160.120/cgi/uimapin.cgi -F NAME=@./floppy/IMA_DOS50.img -H Expect: --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:40 GMT
+
+SysLockdown is enabled
+@@@@@41: ./floppy_mount.src@@@@@
+=====42: ./fan.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_fan&FanMode=1&smartcool=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:41 GMT
+
+SysLockdown is enabled
+@@@@@42: ./fan.src@@@@@
+=====43: ./evt_advance.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_log&enable_ac_power_on_event_log=1&enable_circular_event_buf=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:42 GMT
+
+SysLockdown is enabled
+@@@@@43: ./evt_advance.src@@@@@
+=====44: ./bios_boot_option.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_biosdualblock&&boot_block=2  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:43 GMT
+
+SysLockdown is enabled
+@@@@@44: ./bios_boot_option.src@@@@@
+=====45: ./ipctrl_chg.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=ip_ctrl&mode=&&ruleno=&ipinfo=&policy=  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:44 GMT
+
+SysLockdown is enabled
+@@@@@45: ./ipctrl_chg.src@@@@@
+=====46: ./ad_del.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_ad_group&groupidx=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:45 GMT
+
+SysLockdown is enabled
+@@@@@46: ./ad_del.src@@@@@
+=====47: ./nm_policy.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_nm&policy_id=1&en=1&limit=1&act=1&fun=m  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:45 GMT
+
+SysLockdown is enabled
+@@@@@47: ./nm_policy.src@@@@@
+=====48: ./nmi.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=misc_nmi  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:46 GMT
+
+SysLockdown is enabled
+@@@@@48: ./nmi.src@@@@@
+=====49: ./user_del.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_user&username=&original_username=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:47 GMT
+
+SysLockdown is enabled
+@@@@@49: ./user_del.src@@@@@
+=====50: ./floppy_umount.src=====
+curl -X POST https://10.138.160.120/cgi/uimapout.cgi -d ""  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:48 GMT
+
+SysLockdown is enabled
+@@@@@50: ./floppy_umount.src@@@@@
+=====51: ./bios_unlock.src=====
+curl -X POST https://10.138.160.120/cgi/ipmi.cgi -d op=BIOS_UNLOCK.XML&r=(0,0)  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:49 GMT
+
+SysLockdown is enabled
+@@@@@51: ./bios_unlock.src@@@@@
+=====52: ./bmc_upgrade.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_fwupdate&preserve_config=1&preserve_sdr=1&preserve_ssl=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:50 GMT
+
+SysLockdown is enabled
+@@@@@52: ./bmc_upgrade.src@@@@@
+=====53: ./cpld_update.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_componentupdate&driver_nameLatticeCPLD  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:51 GMT
+
+SysLockdown is enabled
+@@@@@53: ./cpld_update.src@@@@@
+=====54: ./websession.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_session&session_timeout=30  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:51 GMT
+
+SysLockdown is enabled
+@@@@@54: ./websession.src@@@@@
+=====55: ./alert_modify.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_alert&ip=10.138.160.7&severity=&mail=alfiel@supermicro.com.tw&sub=hisub&msg=himsg&index=0&func=m  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:52 GMT
+
+SysLockdown is enabled
+@@@@@55: ./alert_modify.src@@@@@
+=====56: ./user_add.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_user&username=aaaaaaaa&original_username=1&password=aaaaaaaa&new_privilege=4  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:53 GMT
+
+SysLockdown is enabled
+@@@@@56: ./user_add.src@@@@@
+=====57: ./bmcreset.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=main_bmcreset  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:54 GMT
+
+SysLockdown is enabled
+@@@@@57: ./bmcreset.src@@@@@
+=====58: ./ip_ctrl_disable.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=ip_ctrl&mode=disable&policy=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:55 GMT
+
+SysLockdown is enabled
+@@@@@58: ./ip_ctrl_disable.src@@@@@
+=====59: ./atom_hdd.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_atomhdd&atom_hdd_ctrl=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:56 GMT
+
+SysLockdown is enabled
+@@@@@59: ./atom_hdd.src@@@@@
+=====60: ./syslog.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_syslog&syslogport1=514&syslogip1=10.138.160.49&enable=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:57 GMT
+
+SysLockdown is enabled
+@@@@@60: ./syslog.src@@@@@
+=====61: ./user_mod.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_user&username=bbbbbbbb&original_username=1&password=bbbbbbbb&new_privilege=4  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:57 GMT
+
+SysLockdown is enabled
+@@@@@61: ./user_mod.src@@@@@
+=====62: ./cfg_nm.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_nm&policy_id=0&fun=2  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:58 GMT
+
+SysLockdown is enabled
+@@@@@62: ./cfg_nm.src@@@@@
+=====63: ./ps_info_timeout.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_bbp_timeout&bbp_timout_val=10&bbp_timout_en=1  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:03:59 GMT
+
+SysLockdown is enabled
+@@@@@63: ./ps_info_timeout.src@@@@@
+=====64: ./alert_del.src=====
+curl -X POST https://10.138.160.120/cgi/op.cgi -d op=config_alert&index=0  --cookie SID=wsznpelbxwdsimc -i -k 
+HTTP/1.1 405 Method Not Allowed
+Strict-Transport-Security: max-age=31536000; includeSubdomains
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Content-Type: text/plain
+Content-Length: 24
+Date: Mon, 23 Sep 2019 09:04:00 GMT
+
+SysLockdown is enabled
+@@@@@64: ./alert_del.src@@@@@

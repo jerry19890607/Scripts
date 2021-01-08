@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=config_nm&policy_id=0&fun=2"

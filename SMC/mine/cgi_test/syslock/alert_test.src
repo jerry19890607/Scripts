@@ -1,0 +1,2 @@
+#!/bin/bash
+QSTRING="op=send_test_alert&index=0"

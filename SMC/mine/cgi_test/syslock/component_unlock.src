@@ -1,0 +1,4 @@
+#!/bin/bash
+CGI_NAME=ipmi.cgi
+QSTRING="op=UNLOCK_COMPONENT_UPDATE.XML&r=(1,0)"
+

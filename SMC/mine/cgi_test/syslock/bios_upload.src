@@ -1,0 +1,5 @@
+#!/bin/bash
+CGI_NAME=bios_upload.cgi
+QSTRING=""
+EXPECT_HEADER="-H Expect:"
+UPLOAD_FILE="-F bios_rom=@./fw/bios.bin"
