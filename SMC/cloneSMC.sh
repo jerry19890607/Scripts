@@ -32,7 +32,7 @@ fi
 
 if [ -n "$BRANCH" ]; then switchBrnch; fi
 
-if [ "$CODEBASE" != "x12" ]
+if [ "$CODEBASE" != "x12" ]; then
     echo ""
     echo " [Jerry] Clone noVNC start"
     $COMMAND $GIT_REPOSITORY/noVNC.git && echo " [Jerry] Clone \"noVNC\" OK"  || echo " [Jerry] Clone \"noVNC\" FAIL!!!"
@@ -76,4 +76,3 @@ if [ "$CODEBASE" != "x12" ]
         echo " [Jerry] Ignore \"hii\""
     fi
 fi
-

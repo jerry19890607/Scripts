@@ -18,6 +18,13 @@ else
     exit
 fi
 
+if [ ! -z "$(git branch | grep "\* master")" ]; then
+    :
+else
+    echo "Not under Master! Exit..."
+    exit
+fi
+
 COMMAND="sshpass -p smcipmi0716 git pull"
 REBASE="git rebase"
 
