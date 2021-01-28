@@ -1,0 +1,13 @@
+diff --git a/OpenSRC/APP/SNMP/Makefile b/OpenSRC/APP/SNMP/Makefile
+index 48a8d2c..8957a38 100755
+--- a/OpenSRC/APP/SNMP/Makefile
++++ b/OpenSRC/APP/SNMP/Makefile
+@@ -48,7 +48,7 @@ all:
+ 	patch -p1 < ../patch/$(SNMP_PKG_NAME)/0002-Remove-libpci.patch; \
+ 	./configure $(SNMP_CFG) $(SNMP_CFG_HOST) $(SNMP_CFG_FEATURE) ; \
+ 	patch -p1 < ../patch/$(SNMP_PKG_NAME)/0001-memory-leak.patch; \
+-	make -j $(core); \
++	make; \
+ 	make install; fi;
+ 	$(Q)$(call BUILD_PACKAGE_BANNER,"Building SNMP END")
+ 

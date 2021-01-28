@@ -1,0 +1,35 @@
+diff --git a/OpenSRC/APP/SMASH/Makefile b/OpenSRC/APP/SMASH/Makefile
+index 9b91312..0d2d848 100755
+--- a/OpenSRC/APP/SMASH/Makefile
++++ b/OpenSRC/APP/SMASH/Makefile
+@@ -49,7 +49,7 @@ build_dropbear:
+ 		patch -p0 < $$i; \
+ 	done;
+ 	$(Q)cd $(DBSRCDIR); ./configure $(DROPBEAR_ARM_CONF);
+-	$(Q)cd $(DBSRCDIR);make -j $(core) && make install;
++	$(Q)cd $(DBSRCDIR);make && make install;
+ 	$(Q)cd $(DBDIR)/bin/;rm -rf dbclient  dropbearconvert; 
+ 	$(Q)cd $(DBDIR);rm -rf share; 
+ 	$(Q)$(STRIP) --strip-unneeded $(DBDIR)/sbin/dropbear; 
+@@ -58,7 +58,7 @@ build_dropbear:
+ 	
+ build_tree_utils:
+ 	$(Q)tar -zxf tree-1.5.2.2.tar.gz
+-	$(Q)cd ${TREE_UTIL_SRC_PATH};make -j $(core) CC=${CC} prefix=${TREE_UTIL_SRC_PATH}/bin XOBJS=strverscmp.o
++	$(Q)cd ${TREE_UTIL_SRC_PATH};make  CC=${CC} prefix=${TREE_UTIL_SRC_PATH}/bin XOBJS=strverscmp.o
+ 	$(Q)cp -f ${TREE_UTIL_SRC_PATH}/tree $(SMASHDST)
+ 	$(Q)$(STRIP) --strip-unneeded $(SMASHDST)/tree;	
+ 
+diff --git a/OpenSRC/APP/SNMP/Makefile b/OpenSRC/APP/SNMP/Makefile
+index e262aee..e20c618 100755
+--- a/OpenSRC/APP/SNMP/Makefile
++++ b/OpenSRC/APP/SNMP/Makefile
+@@ -51,7 +51,7 @@ all:
+ 	./configure $(SNMP_CFG) $(SNMP_CFG_HOST) $(SNMP_CFG_FEATURE) ; \
+ 	patch -p1 < ../patch/$(SNMP_PKG_NAME)/0001-memory-leak.patch; \
+ 	patch -p0 < ../patch/snmptrap.c.patch; \
+-	make -j $(core); \
++	make; \
+ 	make install; fi;
+ 
+ install:
