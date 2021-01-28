@@ -35,7 +35,7 @@ else
 fi
 
 # Mkdir the folder
-if [ -d $codebase_root/$folder_name ]; then
+if [ ! -d $codebase_root/$folder_name ]; then
     echo "Create floder $codebase_root/$folder_name"
     mkdir -p $codebase_root/$folder_name
     if [ $? -ne 0 ]; then
