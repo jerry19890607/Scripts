@@ -5,7 +5,7 @@ echo "Start AST2600 x12 build..."
 PRODUC_KEY=0
 
 export SMCIUSR=tonyhuang
-export SMCIPWD=tH09212020
+export SMCIPWD=Th20201215
 
 if [ $PRODUC_KEY -ne 1 ]; then
     echo 'Debug key build'
