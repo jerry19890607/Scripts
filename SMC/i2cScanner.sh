@@ -36,7 +36,7 @@ do
         else
                 BITADD=$((ADDRESS*2))
                 printf "%X" $ADDRESS
-                printf 'ipmitool -H "%S" -U $USER -P $PWD raw 0x6 0x52 $BUS $ADDRESS 1 0x0' $IP $USER $PWD $BUS $ADDRESS
+                #printf 'ipmitool -H $IP -U $USER -P $PWD raw 0x6 0x52 $BUS $ADDRESS 1 0x0' $IP $USER $PWD $BUS $ADDRESS
                 echo ''
         fi
         ADDRESS=$(( ADDRESS+2 ))

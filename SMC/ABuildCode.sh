@@ -1,25 +1,32 @@
 #!/bin/sh
 
+#   Author: JerryShih
+#   Mail: JerryShih@supermicro.com
+#   Usage:
+#       . Symbolic to forAutoBuild_{codebase}
+#       . mkdir /home/jerry/ssd/codebase
+
+
 codebase=$1
 key=$2
+
 build_date="$(date +%Y%m%d)"
 codebase_root=/home/jerry/ssd/codebase
 folder_name="autobuild_$build_date"
-codebase_name=$codebase"_autobuild_"$build_date
 copy_codebase_cmd="cpyCodebase.sh $codebase"
 build_script_file=/home/jerry/codebase/Pure/forAutoBuild
 build_script="aa_$codebase.sh"
 build_patch=$codebase"_build.patch"
 
 usage () {
-    echo -e "autoBuildSMC.sh usage:"
-    echo -e "   $0 [x11|x12] [d|p]"
     echo ""
+    echo -e "ABuildCode.sh usage:"
+    echo -e "   ABuildCode.sh [x11|x12] [d|p]"
 }
 
 if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
-    usage
     echo "Input parameters ERROR!"
+    usage
     exit
 fi
 
@@ -31,6 +38,7 @@ if [ $(uname -i) == "x86_64" ]; then
         exit
     fi
     build_machine=2600
+    codebase_name=$codebase"_autobuild_"$build_date"_"$key
 elif [ $(uname -i) == "i686" ]; then
     echo "AST2500 build code server"
     if [ $codebase != "x12" ] && [ $codebase != "x11" ]; then
@@ -39,6 +47,7 @@ elif [ $(uname -i) == "i686" ]; then
         exit
     fi
     build_machine=2500
+    codebase_name=$codebase"_autobuild_"$build_date
 else
     echo "Get build code server env ERROR!!"
     exit
@@ -66,7 +75,12 @@ if [ $? -ne 0 ]; then
     echo "Copy pure codebase to $codebase_root/$folder_name ERROR!!"
     exit
 fi
+
 mv $codebase $codebase_name
+if [ $? -ne 0 ]; then
+    echo "Rename to $codebase_name ERROR!!"
+    exit
+fi
 
 
 # Pull latest src code
@@ -97,9 +111,13 @@ fi
 
 sh $build_script
 if [ $? -ne 0 ]; then
+    echo ""
     echo "Build ERROR!!"
+    echo ""
 else
+    echo ""
     echo "Build success!!"
+    echo ""
 fi
 
 <<'###BLOCK-COMMENT'
