@@ -13,7 +13,7 @@ usage () {
     echo -e "              \e[33mKey words\e[0m            \e[33mPurpose\e[0m                        \e[33mResponse\e[0m                                           \e[33mParameters\e[0m"
     echo -e "       \e[36mSensor\e[0m"
     echo -e "              [SENSOR_DISABLE]     - Enable sensor reading        -                                                  - 0x30 0x70 0xdf"
-    echo -e "              [SENSOR_ENABLE]      - Disable sensor reading       -                                                  - 0x30 0x70 0x3a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"
+    echo -e "              [SENSOR_ENABLE]      - Disable sensor reading       -                                                  - 0x30 0x70 0xdf 0x01"
     echo -e "              [SENSOR_FLAG]        - Check BMC Sensor Flags       - (at_b_smbus_access_granted)(at_b_BMCSensorStart) - 0x30 0x70 0x3f"
     echo -e "              [SENSOR_LIST]        - Standard sensor list         -                                                  - sensor"
     echo -e "       \e[36mFan\e[0m"
@@ -76,7 +76,9 @@ help)
 
 #Sensor
 SENSOR_ENABLE)
-    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0x3a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0xdf 0x01
+
+    #ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0x3a 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ;;
 SENSOR_DISABLE)
     ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0xdf
@@ -193,7 +195,59 @@ FRU_DEFAULT)
 ;;
 
 #Others
+NOTE)
+echo -e "
+\e[33mRead Memory temp (Read DIMMA H1(0x3c))\e[0m
+    // Switch i2c 2 Mux to E8
+    0x6 0x52 0x5 0XE2 0x0 0xe8
+
+    // Switch channel to ch2
+    0x6 0x52 0xb 0xe8 0x00 0x02
+
+    // SSL Read DIMMA H1(0x3c) tmp (30 34 ~ 38 3c ...)
+    0x6 0x52 0xb 0x3c 0x02
+    0\e[2m4 0\e[0m8  [(0100 0000)16 -> (64)10  H1 DIMM temp 64 degree]
+    0\e[2m1 c\e[0mb  [(0100 1100)16 -> (24)10  H1 DIMM temp 24 degree]
+
+\e[33mRead M2 temp\e[0m
+    // Switch system mux to address:E4
+    0x6 0x52 0x5 0XE4 0X01
+
+    0x6 0x52 0x5 0xd4 0x01
+
+    //write M2 A I2C2 ch2 (0x100)
+    0x6 0x52 0x5 0XE2 0X00 0x4
+
+\e[33mRead 10g LAN temp (i2c 8 address:3E)\e[0m
+    0x06 0x52 0xf 0x3e 0x1 0x1
+
+\e[33mRead Gen2 BP VMMe device\e[0m
+    // Mux to i2c 6 channel 3 (JNVME0)
+    0x06 0x52 0x0D 0xe0 0x0 0x4
+    // Mux to i2c 6 channel 1 (JNVME1)
+    0x06 0x52 0x0D 0xe0 0x0 0x1
+
+    // Read NVMe Presence info. of NVMe[7:0], '1' present, '0' not present
+    0x06 0x52 0x0D 0x66 0x1 0x10
+
+    // Read NVMe Safe to remove info. of NVMe[7:0], '1' safe to remove
+    0x06 0x52 0x0D 0x66 0x1 0x18
+
+    // IPMI send eject/insert command to CPLD
+    0x06 0x52 0x05 0x66 0x00 0x30+slot 0x05
+    0x30 NVME_REG_LOCATE + slot
+    0x05 NVME_LOCATE_BUTTON
+
+    Delay 0.5s
+
+    0x06 0x52 0x05 0x66 0x00 0x30+slot 0x00
+    0x30 NVME_REG_LOCATE + slot
+    0x05 NVME_LOCATE_STOP
+"
+;;
+
 *)
     ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw $ALL_ARGU
 ;;
+
 esac
