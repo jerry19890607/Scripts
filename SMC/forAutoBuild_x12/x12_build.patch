@@ -1,0 +1,13 @@
+diff --git a/Utils/AOCTask.c b/Utils/AOCTask.c
+index cdf04f7..ac149eb 100755
+--- a/Utils/AOCTask.c
++++ b/Utils/AOCTask.c
+@@ -104,7 +104,7 @@ int main ()
+         return STATUS_FAIL;
+     }
+ 
+-    //enablesmash();    // For debug FW using, it will enable without 0xf6 0xf9 command
++    enablesmash();    // For debug FW using, it will enable without 0xf6 0xf9 command
+ 
+     while (1) {
+         //b_i2c_access = PltPreAccessI2C (dw_dummy);
