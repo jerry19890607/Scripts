@@ -91,14 +91,14 @@ GitPullToLatest.sh
 # Copy build script and start build
 cp $build_script_file/$build_script $codebase_root/$folder_name/$codebase_name/
 
-if [ $build_machine -eq 2500 ]; then
-    cp $build_script_file/$build_patch $codebase_root/$folder_name/$codebase_name/
-    git apply $build_patch
-    if [ $? -ne 0 ]; then
-        echo "Git apply $build_patch ERROR!!"
-        exit
-    fi
-else
+cp $build_script_file/$build_patch $codebase_root/$folder_name/$codebase_name/
+git apply $build_patch
+if [ $? -ne 0 ]; then
+    echo "Git apply $build_patch ERROR!!"
+    exit
+fi
+
+if [ $build_machine -eq 2600 ]; then
     if [ $key == "d" ]; then
         sed -i 's/\(PRODUC_KEY=\).*/\10/' $build_script
     elif [ $key == "p" ]; then
