@@ -66,13 +66,14 @@ if [ "$IP" == "help" ] || [ -z $IP ]; then
     exit
 fi
 
-echo [$IP] [$COMMAND] [$ALL_ARGU]
 
 case $COMMAND in
 help)
     usage
     exit
 ;;
+
+echo "ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw"
 
 #Sensor
 SENSOR_ENABLE)

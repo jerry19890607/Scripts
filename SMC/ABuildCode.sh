@@ -11,6 +11,8 @@ codebase=$1
 key=$2
 
 build_date="$(date +%Y%m%d)"
+build_month="$(date +%m)"
+build_day="$(date +%d)"
 codebase_root=/home/jerry/ssd/codebase
 folder_name="autobuild_$build_date"
 copy_codebase_cmd="cpyCodebase.sh $codebase"
@@ -98,6 +100,14 @@ if [ $? -ne 0 ]; then
     exit
 fi
 
+# Change build version to 1.[Month].[Day]
+sed -i "s/ver=1.0.0/ver=1.$build_month.$build_day/g" $build_script
+if [ $? -ne 0 ]; then
+    echo "Change build version ERROR!!"
+    exit
+fi
+
+# Change build argument according debug or production key
 if [ $build_machine -eq 2600 ]; then
     if [ $key == "d" ]; then
         sed -i 's/\(PRODUC_KEY=\).*/\10/' $build_script
@@ -108,6 +118,7 @@ if [ $build_machine -eq 2600 ]; then
         exit
     fi
 fi
+
 
 sh $build_script
 if [ $? -ne 0 ]; then
