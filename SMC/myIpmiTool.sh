@@ -6,7 +6,6 @@ COMMAND=$1
 ALL_ARGU=$@
 
 usage () {
-    echo -e ""
     echo -e "ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus"
     echo -e "myipmi usage: ./myipmi.sh [ip] [Raw Commands]"
     echo -e "Raw Commands:"
