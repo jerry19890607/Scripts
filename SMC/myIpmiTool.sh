@@ -7,8 +7,8 @@ ALL_ARGU=$@
 
 usage () {
     echo -e ""
+    echo -e "ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus"
     echo -e "myipmi usage: ./myipmi.sh [ip] [Raw Commands]"
-    echo -e ""
     echo -e "Raw Commands:"
     echo -e "              \e[33mKey words\e[0m            \e[33mPurpose\e[0m                        \e[33mResponse\e[0m                                           \e[33mParameters\e[0m"
     echo -e "       \e[36mSensor\e[0m"
@@ -73,7 +73,10 @@ help)
     exit
 ;;
 
-echo "ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw"
+h)
+    usage
+    exit
+;;
 
 #Sensor
 SENSOR_ENABLE)
