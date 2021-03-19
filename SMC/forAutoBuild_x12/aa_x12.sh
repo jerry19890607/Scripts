@@ -1,6 +1,8 @@
 #!/bin/sh
 
-echo "Start AST2600 x12 build..."
+echo ""
+echo  -e "\e[38;5;120mStart AST2600 x12 build...\e[0m"
+echo ""
 
 PRODUC_KEY=0
 
@@ -8,13 +10,15 @@ export SMCIUSR=tonyhuang
 export SMCIPWD=tH20210311
 
 if [ $PRODUC_KEY -ne 1 ]; then
-    echo 'Debug key build'
+    echo  -e "\e[38;5;120mDebug key build\e[0m"
+    echo ""
     make sx12_rot_ast26_d core=32 ver=1.0.0
     make sx12_rot_ast26_d signfile=./images/AST2600_all.bin
 fi
 
 if [ $PRODUC_KEY -eq 1 ]; then
-    echo 'Product key build'
+    echo  -e "\e[38;5;120mProduct key build\e[0m"
+    echo ""
     make sx12_rot_ast26_p core=32 ver=1.0.0
     make sx12_rot_ast26_p signfile=./images/AST2600_all.bin
 fi
