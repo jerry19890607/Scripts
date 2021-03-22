@@ -25,9 +25,35 @@ usage () {
     echo -e ""
 }
 
-# FIXME: Check ip format
+function valid_ip()
+{
+    echo "valid_ip function"
+    local  ip=$1
+    local  stat=1
+
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        stat=$?
+    fi
+    return $stat
+}
+
 if [ -z $IP ]; then
     echo -e "\e[7;49;31mERROR: No IP address!!\e[0m"
+    echo ""
+    usage
+    exit
+fi
+
+# Verify IP format
+valid_ip $IP
+if [[ $? -eq 1 ]]; then
+    echo -e "\e[7;49;31mERROR: Invalid IP address!!\e[0m"
     echo ""
     usage
     exit
@@ -133,10 +159,10 @@ if [ -z $STATUS ]; then
     exit
 fi
 
-# Check response status and show
+# Show response header
 if [ $STATUS -ge 200 ] || [ $STATUS -le 299 ]; then
     setCurlCommand
-    echo $SERVER
+    #echo $SERVER
     echo $CT
     echo -e "\e[7;49;32mRespons: $STATUS\e[0m"
 else
