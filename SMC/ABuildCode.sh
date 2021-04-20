@@ -9,6 +9,7 @@
 
 codebase=$1
 key=$2
+BRANCH=$3
 
 build_date="$(date +%Y%m%d)"
 build_month="$(date +%m)"
@@ -23,10 +24,10 @@ build_patch=$codebase"_build.patch"
 usage () {
     echo ""
     echo -e "ABuildCode.sh usage:"
-    echo -e "   ABuildCode.sh [x11|x12] [d|p]"
+    echo -e "   ABuildCode.sh [x11|x12] [d|p] [Branch]"
 }
 
-if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
+if [ "$#" -ne 1 ] && [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
     echo "Input parameters ERROR!"
     usage
     exit
@@ -85,8 +86,15 @@ if [ $? -ne 0 ]; then
 fi
 
 
-# Pull latest src code
 cd $codebase_root/$folder_name/$codebase_name
+
+#Switch branch if user set $3 parameters
+if [ ! -z $BRANCH ]; then
+    echo "Switch branch to $BRANCH"
+    git co $BRANCH
+fi
+
+# Pull latest src code
 git clean -xdf
 GitPullToLatest.sh
 
