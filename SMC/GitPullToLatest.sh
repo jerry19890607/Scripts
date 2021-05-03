@@ -18,12 +18,14 @@ else
     exit
 fi
 
+<<'###BLOCK-COMMENT'
 if [ ! -z "$(git branch | grep "\* master")" ]; then
     :
 else
     echo "Not under Master! Exit..."
     exit
 fi
+###BLOCK-COMMENT
 
 COMMAND="sshpass -p smcipmi0716 git pull"
 REBASE="git rebase"

@@ -8,4 +8,6 @@ https://$IP/redfish/v1/UpdateService/upload \
 -H 'cache-control: no-cache' \
 -H 'content-type: multipart/form-data' \
 -F UpdateFile=@//$IMAGE \
--F 'UpdateParameters={"Targets":["/redfish/v1/Managers/1"],"@Redfish.OperationApplyTime":" Immediate ","Oem":{"Supermicro": {"BMC": {"PreserveCfg": true,"PreserveSdr": true,"PreserveSsl": true,"BackupBMC": false}}}}'
+-F 'UpdateParameters={"Targets":["/redfish/v1/Managers/1"],"@Redfish.OperationApplyTime":" Immediate ","Oem":{"Supermicro": {"BMC": {"PreserveCfg": false,"PreserveSdr": true,"PreserveSsl": false,"BackupBMC": false}}}}'
+
+echo ""
