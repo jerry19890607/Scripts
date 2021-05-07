@@ -1,5 +1,9 @@
+#!/bin/sh
+
 IP=$1
-IMAGE=$2
+IMAGE=$(cd "$(dirname "$2")"; pwd)/$(basename "$2")
+
+echo $IMAGE
 
 curl \
 -k -X POST \
