@@ -14,6 +14,7 @@ usage () {
     echo -e "              [SENSOR_DISABLE]     - Enable sensor reading        -                                                  - 0x30 0x70 0xdf"
     echo -e "              [SENSOR_ENABLE]      - Disable sensor reading       -                                                  - 0x30 0x70 0xdf 0x01"
     echo -e "              [SENSOR_FLAG]        - Check BMC Sensor Flags       - (at_b_smbus_access_granted)(at_b_BMCSensorStart) - 0x30 0x70 0x3f"
+    echo -e "              [SERVICE_FLAG]       - Sensor and redfish Flags     - (at_b_RedfishEnable)(at_b_SensorScanningEnable)  - 0x30 0x68 0xf9"
     echo -e "              [SENSOR_LIST]        - Standard sensor list         -                                                  - sensor"
     echo -e "       \e[36mFan\e[0m"
     echo -e "              [FAN_DEBUG]          - Enable Fan Control Debug     -                                                  - 0x30 0x70 0xfa 0x1"
@@ -88,6 +89,9 @@ SENSOR_DISABLE)
 ;;
 SENSOR_FLAG)
     ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x70 0x3f
+;;
+SERVICE_FLAG)
+    ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus raw 0x30 0x68 0xf9
 ;;
 SENSOR_LIST)
     ipmitool -H $IP -U ADMIN -P ADMIN -I lanplus sensor
