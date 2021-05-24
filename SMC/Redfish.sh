@@ -10,7 +10,7 @@ OPTION=$2
 
 usage () {
     echo -e "Usage:"
-    echo -e " curlRedfish.sh IP_ADDR [Options]"
+    echo -e " Redfish.sh IP_ADDR [Options]"
     echo -e ""
     echo -e "Options:"
     echo -e "-m"
