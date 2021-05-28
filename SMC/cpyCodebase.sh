@@ -17,7 +17,7 @@ if [ -z "$1" ]; then
     exit
 fi
 
-if [ "$CODEBASE" != "x11" ] && [ "$CODEBASE" != "x12" ]; then
+if [ "$CODEBASE" != "x11" ] && [ "$CODEBASE" != "x12" ] && [ "$CODEBASE" != "x10" ]; then
     echo "Please input leagal codebase (x11 or x12)"
     echo ""
     exit
