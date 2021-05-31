@@ -33,6 +33,11 @@ if [ "$#" -ne 1 ] && [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
     exit
 fi
 
+#Default branch is MASTER if user doesn't assigned
+if [ -z $BRANCH ]; then
+    BRANCH="master"
+fi
+
 if [ $(uname -i) == "x86_64" ]; then
     echo "AST2600 build code server"
     if [ $codebase != "x12" ]; then
@@ -41,7 +46,7 @@ if [ $(uname -i) == "x86_64" ]; then
         exit
     fi
     build_machine=2600
-    codebase_name=$codebase"_autobuild_"$build_date"_"$key
+    codebase_name=$codebase"_autobuild_"$build_date"_"$key"_"$BRANCH
 elif [ $(uname -i) == "i686" ]; then
     echo "AST2500 build code server"
     if [ $codebase != "x12" ] && [ $codebase != "x11" ]; then
@@ -50,7 +55,7 @@ elif [ $(uname -i) == "i686" ]; then
         exit
     fi
     build_machine=2500
-    codebase_name=$codebase"_autobuild_"$build_date
+    codebase_name=$codebase"_autobuild_"$build_date"_"$BRANCH
 else
     echo "Get build code server env ERROR!!"
     exit
@@ -88,10 +93,11 @@ fi
 
 cd $codebase_root/$folder_name/$codebase_name
 
-#Switch branch if user set $3 parameters
-if [ ! -z $BRANCH ]; then
-    echo "Switch branch to $BRANCH"
-    git co $BRANCH
+#Check out to branch
+git co $BRANCH
+if [ $? -ne 0 ]; then
+    echo "Checkout $BRANCH ERROR!!"
+    exit
 fi
 
 # Pull latest src code
@@ -128,7 +134,7 @@ if [ $build_machine -eq 2600 ]; then
 fi
 
 
-sh $build_script
+#sh $build_script
 if [ $? -ne 0 ]; then
     echo ""
     echo "Build ERROR!!"

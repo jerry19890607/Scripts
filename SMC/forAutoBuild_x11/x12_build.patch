@@ -1,21 +1,21 @@
 diff --git a/OpenSRC/APP/SNMP/Makefile b/OpenSRC/APP/SNMP/Makefile
-index 48a8d2c..8957a38 100755
+index 5ecad4c..8120f8b 100755
 --- a/OpenSRC/APP/SNMP/Makefile
 +++ b/OpenSRC/APP/SNMP/Makefile
-@@ -48,7 +48,7 @@ all:
- 	patch -p1 < ../patch/$(SNMP_PKG_NAME)/0002-Remove-libpci.patch; \
+@@ -47,7 +47,7 @@ all:
+ 	cd $(SNMP_SRCDIR); \
+ 	patch -p1 < ../patch/$(SNMP_PKG_NAME)/0001-Remove-libpci.patch; \
  	./configure $(SNMP_CFG) $(SNMP_CFG_HOST) $(SNMP_CFG_FEATURE) ; \
- 	patch -p1 < ../patch/$(SNMP_PKG_NAME)/0001-memory-leak.patch; \
 -	make -j $(core); \
 +	make; \
  	make install; fi;
  	$(Q)$(call BUILD_PACKAGE_BANNER,"Building SNMP END")
-
+ 
 diff --git a/Utils/AOCTask.c b/Utils/AOCTask.c
-index cdf04f7..ac149eb 100755
+index c623624..8fbb5d7 100644
 --- a/Utils/AOCTask.c
 +++ b/Utils/AOCTask.c
-@@ -104,7 +104,7 @@ int main ()
+@@ -106,7 +106,7 @@ int main ()
          return STATUS_FAIL;
      }
  
