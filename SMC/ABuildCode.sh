@@ -15,7 +15,7 @@ build_date="$(date +%Y%m%d)"
 build_month="$(date +%m)"
 build_day="$(date +%d)"
 codebase_root=/home/jerry/ssd/codebase
-folder_name="autobuild_$build_date"
+folder_name="AB_$build_date"
 copy_codebase_cmd="cpyCodebase.sh $codebase"
 build_script_file=/home/jerry/codebase/Pure/forAutoBuild
 build_script="aa_$codebase.sh"
@@ -46,7 +46,7 @@ if [ $(uname -i) == "x86_64" ]; then
         exit
     fi
     build_machine=2600
-    codebase_name=$codebase"_autobuild_"$build_date"_"$key"_"$BRANCH
+    codebase_name=$codebase"_"$build_date"_"$key"_"$BRANCH
 elif [ $(uname -i) == "i686" ]; then
     echo "AST2500 build code server"
     if [ $codebase != "x12" ] && [ $codebase != "x11" ]; then
@@ -55,7 +55,7 @@ elif [ $(uname -i) == "i686" ]; then
         exit
     fi
     build_machine=2500
-    codebase_name=$codebase"_autobuild_"$build_date"_"$BRANCH
+    codebase_name=$codebase"_"$build_date"_"$BRANCH
 else
     echo "Get build code server env ERROR!!"
     exit
@@ -134,7 +134,7 @@ if [ $build_machine -eq 2600 ]; then
 fi
 
 
-#sh $build_script
+sh $build_script
 if [ $? -ne 0 ]; then
     echo ""
     echo "Build ERROR!!"
