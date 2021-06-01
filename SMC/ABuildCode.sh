@@ -11,7 +11,7 @@ codebase=$1
 key=$2
 BRANCH=$3
 
-build_date="$(date +%Y%m%d)"
+build_date="$(date +%m%d)"
 build_month="$(date +%m)"
 build_day="$(date +%d)"
 codebase_root=/home/jerry/ssd/codebase
