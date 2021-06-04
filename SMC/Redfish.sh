@@ -22,6 +22,9 @@ usage () {
     echo -e "-p "
     echo -e "   Ex: Systems/1"
     echo -e "   Defautl: /redfish/v1/"
+    echo -e "-d "
+    echo -e "   Ex: {"a" : true}"
+    echo -e ""
     echo -e ""
 }
 
@@ -101,6 +104,16 @@ setArgument () {
             exit
         fi
     ;;
+    -d)
+        if [ -z $DATA ]; then
+            eval DATA=$OPTION
+            #echo "DATA: $DATA"
+        else
+            echo "ERROR: Dupicate $COMMAND!!"
+            usage
+            exit
+        fi
+    ;;
     *)
         echo "ERROR: Wrong command!!"
         usage
@@ -110,8 +123,8 @@ setArgument () {
 }
 
 setCurlCommand () {
-    #echo "$CURL -k -X $METHOD -H "Content-Type: application/json" -u $AUTH https://$IP/redfish/v1/$URL | $PY -m json.tool"
-    $CURL -k -X $METHOD -H "Content-Type: application/json" -u $AUTH https://$IP/redfish/v1/$URL | $PY -m json.tool
+    echo "$CURL -k -X $METHOD -H "Content-Type: application/json" -u $AUTH -d "Content-Type: application/json" -u $AUTH -d "\'$DATA\'" https://$IP/redfish/v1/$URL"
+    $CURL -k -X $METHOD -H "Content-Type: application/json" -u $AUTH -d "Content-Type: application/json" -u $AUTH -d $DATA https://$IP/redfish/v1/$URL | $PY -m json.tool
 }
 
 while [ $ARGUNUM -ge 2 ]
