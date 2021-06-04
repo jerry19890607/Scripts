@@ -16,7 +16,7 @@ cacheclean.sh &&
 make sh12_rot_ast25_std_p ver=1.0.0 core=8 &&
 make sh12_rot_ast25_std_p signfile=./images/AST2500_all.bin
 
-isbmc2k4k signtmp/signed_AST2600_4675.bin
+isbmc2k4k signtmp/signed_*.bin
 
 #Sign cpld firmware
 #make signcpld file=<SOMEWHERE>/my.jed

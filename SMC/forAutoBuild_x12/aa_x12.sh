@@ -23,7 +23,7 @@ if [ $PRODUC_KEY -eq 1 ]; then
     make sx12_rot_ast26_p signfile=./images/AST2600_all.bin
 fi
 
-isbmc2k4k signtmp/signed_AST2600_4675.bin
+isbmc2k4k signtmp/signed_*.bin
 
 #Sign cpld firmware
 #make signcpld file=<SOMEWHERE>/my.jed

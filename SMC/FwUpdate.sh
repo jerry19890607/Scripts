@@ -88,7 +88,7 @@ if [ $TYPE == "bios" ]; then
     -F UpdateFile=@//$FW_IMAGE \
     -F "UpdateParameters={
             \"Targets\":[\"/redfish/v1/Systems/1/Bios\"],
-            \"@Redfish.OperationApplyTime\":\"Immediate\",
+            \"@Redfish.OperationApplyTime\":\"$APPLYTIME\",
             \"Oem\":{\"Supermicro\": {\"BIOS\": {\"PreserveME\": $PRESERVE_ME,\"PreserveNVRAM\": $PRESERVE_NVRAM,\"PreserveSMBIOS\": $PRESERVE_SMBIOS,\"BackupBIOS\": $BACKUP_BIOS}}}
         }"
 
