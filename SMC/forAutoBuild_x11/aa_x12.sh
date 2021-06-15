@@ -4,8 +4,8 @@ echo ""
 echo  -e "\e[38;5;120mStart AST2500 x12 build...\e[0m"
 echo ""
 
-export SMCIUSR=tonyhuang
-export SMCIPWD=tH20210311
+export SMCIUSR=austinl
+export SMCIPWD=@Super99
 
 cacheclean.sh &&
 # old target

@@ -6,8 +6,8 @@ echo ""
 
 PRODUC_KEY=0
 
-export SMCIUSR=tonyhuang
-export SMCIPWD=tH20210311
+export SMCIUSR=austinl
+export SMCIPWD=@Super99
 
 if [ $PRODUC_KEY -ne 1 ]; then
     echo  -e "\e[38;5;120mDebug key build\e[0m"
