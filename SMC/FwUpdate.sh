@@ -13,6 +13,7 @@ cred="$( echo -n $NAME:$PASSWORD | base64 )"
 
 # OnStartUpdateRequest or Immediate
 APPLYTIME=Immediate
+#APPLYTIME=OnStartUpdateRequest
 
 # -- BMC Parameters --
 PRESERVE_CFG=false
@@ -71,7 +72,8 @@ if [ $TYPE == "bmc" ]; then
             \"Targets\":[\"/redfish/v1/Managers/1\"],
             \"@Redfish.OperationApplyTime\":\"$APPLYTIME\",
             \"Oem\":{\"Supermicro\": {\"BMC\": {\"PreserveCfg\": $PRESERVE_CFG,\"PreserveSdr\": $PRESERVE_SDR,\"PreserveSsl\": $PRESERVE_SSL,\"BackupBMC\": $BACKUP_BMC}}}
-       }"
+       }" \
+    | $PY -m json.tool
 
     echo ""
     exit;
@@ -90,7 +92,8 @@ if [ $TYPE == "bios" ]; then
             \"Targets\":[\"/redfish/v1/Systems/1/Bios\"],
             \"@Redfish.OperationApplyTime\":\"$APPLYTIME\",
             \"Oem\":{\"Supermicro\": {\"BIOS\": {\"PreserveME\": $PRESERVE_ME,\"PreserveNVRAM\": $PRESERVE_NVRAM,\"PreserveSMBIOS\": $PRESERVE_SMBIOS,\"BackupBIOS\": $BACKUP_BIOS}}}
-        }"
+        }" \
+    | $PY -m json.tool
 
     echo ""
     exit;
@@ -108,7 +111,8 @@ if [ $TYPE == "cpld" ]; then
     -F 'UpdateParameters={
             "Targets":["/redfish/v1/UpdateService/FirmwareInventory/CPLD_Motherboard"],
             "@Redfish.OperationApplyTime":"Immediate"
-        }'
+        }' \
+    | $PY -m json.tool
 
     echo ""
     exit;
